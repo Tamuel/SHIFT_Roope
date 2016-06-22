@@ -48,6 +48,8 @@
      <Compile Include="Assets\Interface\Collision.cs" />
      <Compile Include="Assets\Interface\Move.cs" />
      <Compile Include="Assets\Interface\Wind.cs" />
+     <Compile Include="Assets\Object\Folder for Object.cs" />
+     <Compile Include="Assets\Script\Folder for Script.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
