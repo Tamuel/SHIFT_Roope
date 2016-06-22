@@ -48,8 +48,18 @@
      <Compile Include="Assets\Interface\Collision.cs" />
      <Compile Include="Assets\Interface\Move.cs" />
      <Compile Include="Assets\Interface\Wind.cs" />
+     <Compile Include="Assets\Object\Arrow.cs" />
      <Compile Include="Assets\Object\Folder for Object.cs" />
+     <Compile Include="Assets\Object\HPRegain.cs" />
+     <Compile Include="Assets\Object\Item.cs" />
+     <Compile Include="Assets\Object\Object.cs" />
+     <Compile Include="Assets\Object\Obstacle.cs" />
+     <Compile Include="Assets\Object\RObject.cs" />
+     <Compile Include="Assets\Object\RopeRegain.cs" />
+     <Compile Include="Assets\Object\ScaleChange.cs" />
+     <Compile Include="Assets\Object\Wall.cs" />
      <Compile Include="Assets\Script\Folder for Script.cs" />
+     <Compile Include="Assets\Script\GameManager.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
