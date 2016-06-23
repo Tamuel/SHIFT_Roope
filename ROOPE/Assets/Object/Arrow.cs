@@ -14,6 +14,10 @@ public class Arrow : Obstacle {
 			Destroy (gameObject);
 			collideWithCharacter ();
 		}
+
+		if (other.tag == "Barrier") {
+			Destroy (gameObject);
+		}
 	}
 
 	public override void collideWithCharacter()
