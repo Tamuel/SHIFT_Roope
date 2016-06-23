@@ -94,10 +94,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 254297541}
   - 212: {fileID: 254297540}
-  - 61: {fileID: 254297542}
-  - 61: {fileID: 254297545}
-  - 61: {fileID: 254297544}
-  - 61: {fileID: 254297543}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -148,62 +144,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!61 &254297542
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 254297539}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: -9}
-  serializedVersion: 2
-  m_Size: {x: 28.8, y: 1.8}
---- !u!61 &254297543
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 254297539}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 14.7, y: 0}
-  serializedVersion: 2
-  m_Size: {x: 2.1, y: 23.4}
---- !u!61 &254297544
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 254297539}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: -14.7, y: 0}
-  serializedVersion: 2
-  m_Size: {x: 2.1, y: 23.4}
---- !u!61 &254297545
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 254297539}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 9.86}
-  serializedVersion: 2
-  m_Size: {x: 28.8, y: 1.8}
 --- !u!1 &369041062
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,6 +215,7 @@ GameObject:
   - 92: {fileID: 664361333}
   - 124: {fileID: 664361332}
   - 81: {fileID: 664361331}
+  - 114: {fileID: 664361336}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -350,6 +291,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!114 &664361336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 664361330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fa8f3b1683143d44808d9840a9e8ddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1067976566
 Prefab:
   m_ObjectHideFlags: 0
@@ -393,6 +345,56 @@ Prefab:
       propertyPath: m_ConnectedAnchor.y
       value: 0.06
       objectReference: {fileID: 0}
+    - target: {fileID: 153990, guid: cc03337e5a0f64017b1d3b7ba868166a, type: 2}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cc03337e5a0f64017b1d3b7ba868166a, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1403613660
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1403613662}
+  - 114: {fileID: 1403613661}
+  m_Layer: 0
+  m_Name: Arrow Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1403613661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1403613660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acaf25f7256bf0342b774b2d6198d851, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrow: {fileID: 144262, guid: 2a08c0872ec9c28479cc89da0a6aa544, type: 2}
+  range: {x: 9, y: 2, z: 0}
+  arrowCount: 5
+  startWait: 2
+  spawnWait: 1
+  endWait: 0
+--- !u!4 &1403613662
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1403613660}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
