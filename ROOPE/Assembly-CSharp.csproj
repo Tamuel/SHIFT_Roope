@@ -58,6 +58,7 @@
      <Compile Include="Assets\Object\RopeRegain.cs" />
      <Compile Include="Assets\Object\ScaleChange.cs" />
      <Compile Include="Assets\Object\Wall.cs" />
+     <Compile Include="Assets\Script\CameraController.cs" />
      <Compile Include="Assets\Script\Folder for Script.cs" />
      <Compile Include="Assets\Script\GameManager.cs" />
  <Reference Include="UnityEngine.UI">

@@ -3,7 +3,7 @@ using System.Collections;
 using System.IO;
 
 public class GameManager : MonoBehaviour {
-	private const string FILE_PATH = Application.persistentDataPath + "/" + "map.dat";
+	private string FILE_PATH = Application.persistentDataPath + "/" + "map.dat";
 	private Hashtable MapObjects;
 
 	private float hitPoint = 3.0f;
@@ -18,15 +18,24 @@ public class GameManager : MonoBehaviour {
 		readMapFromFile ();
 	}
 
+	// Use this for initialization
+	void Start () {
+
+	}
+
+	// Update is called once per frame
+	void Update () {
+
+	}
+
 
 	void WriteFile()
 	{
-		StreamWriter fileWriter = new StreamWriter ();
-		fileWriter = File.CreateText (FILE_PATH);
+		StreamWriter fileWriter = new StreamWriter (FILE_PATH);
 
 		// write file
 		fileWriter.WriteLine ("Hello world");
-
+		fileWriter.Flush ();
 		fileWriter.Close ();
 	}
 
@@ -44,16 +53,6 @@ public class GameManager : MonoBehaviour {
 		fileReader.Close ();
 	}
 
-	// Use this for initialization
-	void Start () {
-
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
 	public void nextStage() {
 		stage++;
 	}
@@ -62,7 +61,7 @@ public class GameManager : MonoBehaviour {
 		return hitPoint;
 	}
 
-	public void setHP(int hitPoint) {
+	public void setHP(float hitPoint) {
 		this.hitPoint = hitPoint;
 	}
 
