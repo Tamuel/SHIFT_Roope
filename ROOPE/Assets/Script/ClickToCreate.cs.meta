@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7f7887594595a404da09d06e2baeffa2
+timeCreated: 1466674080
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - ClickPointObject: {fileID: 131382, guid: b2e1e287a846f634482006a9590df9b9, type: 2}
+  - ClickPoint: {fileID: 431096, guid: 9080856f9079812439fc3be9819ee6b1, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

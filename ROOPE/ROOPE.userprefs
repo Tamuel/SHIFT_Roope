@@ -1,15 +1,16 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\CameraController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/ClickToCreate.cs">
     <Files>
-      <File FileName="Assets\Script\GameManager.cs" Line="8" Column="2" />
-      <File FileName="Assets\Interface\Collision.cs" Line="1" Column="1" />
-      <File FileName="Assets\Object\Folder for Object.cs" Line="1" Column="1" />
-      <File FileName="Assets\Script\Folder for Script.cs" Line="1" Column="1" />
-      <File FileName="Assets\Script\CameraController.cs" Line="18" Column="2" />
-      <File FileName="Assets\Object\Arrow.cs" Line="14" Column="25" />
-      <File FileName="Assets\Object\RObject.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/ClickToCreate.cs" Line="1" Column="1" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="ROOPE" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
