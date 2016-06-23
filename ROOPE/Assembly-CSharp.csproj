@@ -49,6 +49,7 @@
      <Compile Include="Assets\Interface\Move.cs" />
      <Compile Include="Assets\Interface\Wind.cs" />
      <Compile Include="Assets\Object\Arrow.cs" />
+     <Compile Include="Assets\Object\ArrowController.cs" />
      <Compile Include="Assets\Object\Folder for Object.cs" />
      <Compile Include="Assets\Object\HPRegain.cs" />
      <Compile Include="Assets\Object\Item.cs" />
