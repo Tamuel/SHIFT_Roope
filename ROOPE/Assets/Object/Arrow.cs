@@ -23,6 +23,7 @@ public class Arrow : Obstacle {
 	public override void collideWithCharacter()
 	{
 		FindObjectOfType<GameManager> ().addHP (-1);
+		Debug.Log ("HP : " + FindObjectOfType<GameManager> ().getHP ());
 	}
 
 }

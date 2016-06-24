@@ -9,6 +9,7 @@ public class RopeRegain : Item
 		if (other.tag == "Player") {
 
 			collideWithCharacter ();
+			Destroy (gameObject);
 		}
 	}
 
