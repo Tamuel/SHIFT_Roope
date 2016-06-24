@@ -1,35 +1,35 @@
 # =============== #
 # Unity generated #
 # =============== #
-[Tt]emp/
-[Oo]bj/
-[Bb]uild
-/[Ll]ibrary/
-sysinfo.txt
-*.stackdump
+ROOPE/[Tt]emp/
+ROOPE/[Oo]bj/
+ROOPE/[Bb]uild
+ROOPE/[Ll]ibrary/
+ROOPE/sysinfo.txt
+ROOPE/*.stackdump
  
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
-[Ee]xported[Oo]bj/
-.vs/
-/*.userprefs
-/*.csproj
-/*.pidb
-/*.suo
-/*.sln*
-/*.user
-/*.unityproj
-/*.booproj
+ROOPE/[Ee]xported[Oo]bj/
+ROOPE/.vs/
+ROOPE/*.userprefs
+ROOPE/*.csproj
+ROOPE/*.pidb
+ROOPE/*.suo
+ROOPE/*.sln*
+ROOPE/*.user
+ROOPE/*.unityproj
+ROOPE/*.booproj
  
 # ============ #
 # OS generated #
 # ============ #
-.DS_Store*
-._*
-.Spotlight-V100
-.Trashes
-Icon?
-ehthumbs.db
-[Tt]humbs.db
-[Dd]esktop.ini
+ROOPE/.DS_Store*
+ROOPE/._*
+ROOPE/.Spotlight-V100
+ROOPE/.Trashes
+ROOPE/Icon?
+ROOPE/ehthumbs.db
+ROOPE/[Tt]humbs.db
+ROOPE/[Dd]esktop.ini
