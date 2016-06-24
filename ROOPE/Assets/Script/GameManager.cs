@@ -65,6 +65,10 @@ public class GameManager : MonoBehaviour {
 		this.hitPoint = hitPoint;
 	}
 
+	public void addHP(float hp) {
+		setHP (getHP () + hp);
+	}
+
 	public int getScore() {
 		return score;
 	}
