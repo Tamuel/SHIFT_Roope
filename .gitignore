@@ -1,10 +1,10 @@
 # =============== #
 # Unity generated #
 # =============== #
-ROOPE/[Tt]emp/
-ROOPE/[Oo]bj/
-ROOPE/[Bb]uild
-ROOPE/[Ll]ibrary/
+ROOPE/Temp/
+ROOPE/obj/
+ROOPE/Build/
+ROOPE/Library/
 ROOPE/sysinfo.txt
 ROOPE/*.stackdump
  
@@ -31,5 +31,5 @@ ROOPE/.Spotlight-V100
 ROOPE/.Trashes
 ROOPE/Icon?
 ROOPE/ehthumbs.db
-ROOPE/[Tt]humbs.db
-ROOPE/[Dd]esktop.ini
+ROOPE/Thumbs.db
+ROOPE/Desktop.ini
