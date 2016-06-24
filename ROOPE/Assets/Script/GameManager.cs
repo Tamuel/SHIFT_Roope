@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour {
 	private string FILE_PATH = Application.persistentDataPath + "/" + "map.dat";
 	private Hashtable MapObjects;
 
-	public TextMesh infoTextMesh;
+	public GameObject infoTextMesh;
 
 	private float hitPoint;
 	private int score;
@@ -32,8 +32,8 @@ public class GameManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (infoTextMesh != null) {
-			infoTextMesh.text = ToString();
+		if (infoTextMesh.GetComponent<TextMesh>() != null) {
+			infoTextMesh.GetComponent<TextMesh>() = ToString();
 		}
 	}
 
