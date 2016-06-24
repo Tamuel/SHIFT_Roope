@@ -374,6 +374,10 @@ Prefab:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11496616, guid: cc03337e5a0f64017b1d3b7ba868166a, type: 2}
+      propertyPath: touchPoint
+      value: 
+      objectReference: {fileID: 131382, guid: b2e1e287a846f634482006a9590df9b9, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cc03337e5a0f64017b1d3b7ba868166a, type: 2}
   m_IsPrefabParent: 0

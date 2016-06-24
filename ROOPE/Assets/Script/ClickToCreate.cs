@@ -3,21 +3,21 @@ using System.Collections;
 
 public class ClickToCreate : MonoBehaviour {
 
-	HingeJoint2D hinge;
+	HingeJoint2D hingeJoint2D;
 	LineRenderer lineRenderer;
 
-	public GameObject clickPointObject;
+	public GameObject touchPoint;
 	public GameObject player;
-	private Transform clickPoint;
-	private GameObject instantiatedObj;
+	private Transform touchPointTransform;
+	private GameObject instantiatedObject;
 
-	float playerAndClickPointX;
-	float playerAndClickPointY;
+	float relativeVectorFromTouchPointToPlayerX;
+	float relativeVectorFromTouchPointToPlayerY;
 
 
 
 	void Start() {
-		hinge = GetComponent<HingeJoint2D> ();
+		hingeJoint2D = GetComponent<HingeJoint2D> ();
 		lineRenderer = GetComponent<LineRenderer> ();
 	}
 
@@ -25,22 +25,23 @@ public class ClickToCreate : MonoBehaviour {
 		if (Input.GetMouseButtonDown (0)) {
 			
 			Debug.Log ("" + Input.mousePosition.ToString ());
+
 			GameObject temp = new GameObject ();
-			clickPoint = temp.transform;
+			touchPointTransform = temp.transform;
 			Destroy (temp);
 			Vector3 pos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 			pos.z = 0;
-			clickPoint.position = pos;
-			Debug.Log ("" + clickPoint.position.ToString ()); 
-			clickPoint.rotation = new Quaternion (0, 0, 0, 0);
-			instantiatedObj = (GameObject) Instantiate (clickPointObject, clickPoint.position, clickPoint.rotation);
-			hinge.connectedBody = instantiatedObj.GetComponent<Rigidbody2D>();
+			touchPointTransform.position = pos;
+			Debug.Log ("" + touchPointTransform.position.ToString ()); 
+			touchPointTransform.rotation = new Quaternion (0, 0, 0, 0);
+			instantiatedObject = (GameObject) Instantiate (touchPoint, touchPointTransform.position, touchPointTransform.rotation);
+			hingeJoint2D.connectedBody = instantiatedObject.GetComponent<Rigidbody2D>();
 
-			playerAndClickPointX = player.transform.position.x - clickPoint.position.x;
-			playerAndClickPointY = player.transform.position.y - clickPoint.position.y;
+			relativeVectorFromTouchPointToPlayerX = player.transform.position.x - touchPointTransform.position.x;
+			relativeVectorFromTouchPointToPlayerY = player.transform.position.y - touchPointTransform.position.y;
 
-			Debug.Log ("Anchor: " + hinge.connectedAnchor.x + " " + hinge.connectedAnchor.y);
-			hinge.connectedAnchor = new Vector2 (playerAndClickPointX, playerAndClickPointY);
+			Debug.Log ("Anchor: " + hingeJoint2D.connectedAnchor.x + " " + hingeJoint2D.connectedAnchor.y);
+			hingeJoint2D.connectedAnchor = new Vector2 (relativeVectorFromTouchPointToPlayerX, relativeVectorFromTouchPointToPlayerY);
 		}
 
 		if (Input.GetMouseButtonUp (0)) {
@@ -48,16 +49,16 @@ public class ClickToCreate : MonoBehaviour {
 				lineRenderer.SetPosition (0, player.transform.position);
 				lineRenderer.SetPosition (1, player.transform.position);
 			}
-			hinge.connectedAnchor = new Vector2 (0f, 0f);
-			Destroy(instantiatedObj);
+			hingeJoint2D.connectedAnchor = new Vector2 (0f, 0f);
+			Destroy(instantiatedObject);
 		}
 
-		if (hinge.connectedAnchor.magnitude >= 0.1) {
-			hinge.connectedAnchor = new Vector2 (hinge.connectedAnchor.x * 0.99f, hinge.connectedAnchor.y * 0.99f);
+		if (hingeJoint2D.connectedAnchor.magnitude >= 0.1) {
+			hingeJoint2D.connectedAnchor = new Vector2 (hingeJoint2D.connectedAnchor.x * 0.99f, hingeJoint2D.connectedAnchor.y * 0.99f);
 			if (lineRenderer != null) {
 				lineRenderer.SetPosition (0, player.transform.position);
-				if (clickPoint != null)
-					lineRenderer.SetPosition (1, clickPoint.position);
+				if (touchPointTransform != null)
+					lineRenderer.SetPosition (1, touchPointTransform.position);
 			}
 		}
 			
