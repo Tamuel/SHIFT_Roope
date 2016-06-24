@@ -22,7 +22,10 @@ public class Arrow : Obstacle {
 
 	public override void collideWithCharacter()
 	{
-
+		GameManager g = new GameManager ();
+		float hp = g.getHP ();
+		g.setHP (--hp);
+		Debug.Log (g.getHP ());
 	}
 
 }

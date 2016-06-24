@@ -110,7 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movable: 1
   ropeAttachable: 0
-  speed: 15
+  speed: 5
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
