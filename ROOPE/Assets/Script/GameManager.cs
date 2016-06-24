@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour {
 	private string FILE_PATH = Application.persistentDataPath + "/" + "map.dat";
 	private Hashtable MapObjects;
 
+	public TextMesh infoTextMesh;
+
 	private float hitPoint = 3.0f;
 	private int score = 0;
 	private int numberOfRope = 20;
@@ -25,7 +27,9 @@ public class GameManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
+		if (infoTextMesh != null) {
+			infoTextMesh.text = ToString();
+		}
 	}
 
 
@@ -89,7 +93,16 @@ public class GameManager : MonoBehaviour {
 		this.numberOfRope = numberOfRope;
 	}
 
+	public void addNumberOfRope(int numberOfRope) {
+		setNumberOfRope(getNumberOfRope() + numberOfRope);
+	}
+
 	public int getStage() {
 		return stage;
+	}
+
+	public override string ToString() {
+		return "STAGE : " + getStage () + "HP : " + getHP () + " " +
+		"SCORE : " + getScore () + "ROPE : " + getNumberOfRope ();
 	}
 }
