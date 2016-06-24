@@ -8,14 +8,19 @@ public class GameManager : MonoBehaviour {
 
 	public TextMesh infoTextMesh;
 
-	private float hitPoint = 3.0f;
-	private int score = 0;
-	private int numberOfRope = 20;
-	private int stage = 1;
+	private float hitPoint;
+	private int score;
+	private int numberOfRope;
+	private int stage;
 
 
 	// Make map objects
 	void Awake() {
+		hitPoint = 3.0f;
+		score = 0;
+		numberOfRope = 0;
+		stage = 1;
+
 		MapObjects = new Hashtable ();
 		readMapFromFile ();
 	}
