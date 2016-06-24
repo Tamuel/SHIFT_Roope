@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.IO;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
-	private string FILE_PATH = Application.persistentDataPath + "/" + "map.dat";
+	private string FILE_PATH;
 	private Hashtable MapObjects;
 
-	public GameObject infoTextMesh;
+	public Text infoText;
 
 	private float hitPoint;
 	private int score;
@@ -16,13 +17,15 @@ public class GameManager : MonoBehaviour {
 
 	// Make map objects
 	void Awake() {
+		FILE_PATH = Application.persistentDataPath + "/" + "map.dat";
 		hitPoint = 3.0f;
 		score = 0;
 		numberOfRope = 0;
 		stage = 1;
 
 		MapObjects = new Hashtable ();
-		readMapFromFile ();
+		//readMapFromFile ();
+
 	}
 
 	// Use this for initialization
@@ -32,9 +35,8 @@ public class GameManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (infoTextMesh.GetComponent<TextMesh>() != null) {
-			infoTextMesh.GetComponent<TextMesh>() = ToString();
-		}
+		infoText.text = ToString();
+		Debug.Log (ToString ());
 	}
 
 
@@ -86,7 +88,7 @@ public class GameManager : MonoBehaviour {
 		this.score = score;
 	}
 
-	public void addScroe(int score) {
+	public void addScore(int score) {
 		setScore (getScore () + score);
 	}
 
@@ -107,7 +109,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public override string ToString() {
-		return "STAGE : " + getStage () + "HP : " + getHP () + " " +
-		"SCORE : " + getScore () + "ROPE : " + getNumberOfRope ();
+		return "STAGE : " + getStage () + "  HP : " + getHP () +
+		"  SCORE : " + getScore () + "  ROPE : " + getNumberOfRope ();
 	}
 }
