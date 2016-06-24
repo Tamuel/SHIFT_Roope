@@ -7,9 +7,9 @@ public interface Collision {
     void collideWithCharacter();
 
 	// Action when collide with rope head
-	RopeCollisionType collideWithRopeHead(Rope rope);
+	RopeCollisionType collideWithRopeHead();//Rope rope);
 
 	// Action when collide with rope line
-	RopeCollisionType collideWithRopeLine(Line line);
+	RopeCollisionType collideWithRopeLine();//Line line);
 
 }

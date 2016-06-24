@@ -13,4 +13,17 @@ public class ScaleChange : Item
 			other.transform.localScale *= scaleChange;
 		}
 	}
+
+	public override void collideWithCharacter()
+	{
+
+	}
+
+	public override RopeCollisionType collideWithRopeHead () {
+		return RopeCollisionType.CAN_NOT_ATTACH_AND_THROUGH;
+	}
+
+	public override RopeCollisionType collideWithRopeLine () {
+		return RopeCollisionType.CAN_NOT_ATTACH_AND_THROUGH;
+	}
 }

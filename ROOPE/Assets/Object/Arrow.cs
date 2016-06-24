@@ -20,10 +20,16 @@ public class Arrow : Obstacle {
 		}
 	}
 
-	public override void collideWithCharacter()
-	{
+	public override void collideWithCharacter() {
 		FindObjectOfType<GameManager> ().addHP (-1);
 		Debug.Log ("HP : " + FindObjectOfType<GameManager> ().getHP ());
 	}
 
+	public override RopeCollisionType collideWithRopeHead () {
+		return RopeCollisionType.CAN_NOT_ATTACH_AND_CUT;
+	}
+
+	public override RopeCollisionType collideWithRopeLine () {
+		return RopeCollisionType.CAN_NOT_ATTACH_AND_CUT;
+	}
 }

@@ -18,16 +18,18 @@ public class Wall : Obstacle {
 		FindObjectOfType<GameManager> ().addHP (-1);
 	}
 
-	public override RopeCollisionType collideWithRopeHead(Rope rope) {
+	public override RopeCollisionType collideWithRopeHead(){//Rope rope) {
 		if (isRopeAttachable ())
 			return RopeCollisionType.CAN_ATTACH;
-
-		if (!isRopeAttachable ())
+		else
 			return RopeCollisionType.CAN_NOT_ATTACH_AND_CUT;
 	}
 
 
-	public override RopeCollisionType collideWithRopeLine(Line line) {
-
+	public override RopeCollisionType collideWithRopeLine (){//Line line) {
+		if (isRopeAttachable ())
+			return RopeCollisionType.CAN_ATTACH;
+		else
+			return RopeCollisionType.CAN_NOT_ATTACH_AND_CUT;
 	}
 }

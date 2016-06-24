@@ -18,4 +18,12 @@ public class ScoreItem : Item {
 	{
 		FindObjectOfType<GameManager> ().addScore (score);
 	}
+
+	public override RopeCollisionType collideWithRopeHead () {
+		return RopeCollisionType.CAN_NOT_ATTACH_AND_THROUGH;
+	}
+
+	public override RopeCollisionType collideWithRopeLine () {
+		return RopeCollisionType.CAN_NOT_ATTACH_AND_THROUGH;
+	}
 }

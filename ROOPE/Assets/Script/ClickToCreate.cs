@@ -66,4 +66,23 @@ public class ClickToCreate : MonoBehaviour {
 
 
 	}
+
+
+	void OnTriggerEnter2D (Collider2D other)
+	{
+		switch (((RObject)other).collideWithRopeHead) {
+		case RopeCollisionType.CAN_ATTACH:
+
+			break;
+
+		case RopeCollisionType.CAN_NOT_ATTACH_AND_CUT:
+
+			break;
+
+		case RopeCollisionType.CAN_NOT_ATTACH_AND_THROUGH:
+
+			break;
+
+		}
+	}
 }

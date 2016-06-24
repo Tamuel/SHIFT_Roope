@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Item : RObject, Collision, Move {
+public abstract class Item : RObject {
 
     public float speed;
     private Rigidbody2D rb;
 
-    public void move(float delta_x, float delta_y)
+    public override void move(float delta_x, float delta_y)
     {
         if (movable == true)
         {
@@ -14,10 +14,4 @@ public class Item : RObject, Collision, Move {
             rb.velocity = new Vector2(delta_x, delta_y) * speed;
         }
     }
-
-	public virtual void collideWithCharacter ()
-	{
-		
-	}
-
 }

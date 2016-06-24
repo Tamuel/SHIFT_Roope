@@ -1,18 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Obstacle : RObject, Collision, Move {
+public abstract class Obstacle : RObject {
 
     public float speed;
     private Rigidbody2D rb;
 
-
-    public virtual void collideWithCharacter ()
-	{
-
-	}
-		
-    public void move (float delta_x, float delta_y)
+    public override void move (float delta_x, float delta_y)
     {
         if (movable == true)
         {
