@@ -15,11 +15,13 @@ public class Wall : Obstacle {
 
 	}
 
+	// HP -1
 	public override void collideWithCharacter ()
 	{
 		FindObjectOfType<GameManager> ().addHP (-1);
 	}
 
+	// if canDrop is true in Rope, Wall falls
 	public void dropWall() 
 	{
 		GetComponent<Rigidbody2D> ().isKinematic = false;
