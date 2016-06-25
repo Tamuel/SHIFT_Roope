@@ -70,19 +70,20 @@ public class ClickToCreate : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D other)
 	{
-		switch (((RObject)other).collideWithRopeHead) {
-		case RopeCollisionType.CAN_ATTACH:
+		if(other.GetComponent<RObject>() != null)
+			switch (other.GetComponent<RObject>().collideWithRopeHead()) {
+			case RopeCollisionType.CAN_ATTACH:
 
-			break;
+				break;
 
-		case RopeCollisionType.CAN_NOT_ATTACH_AND_CUT:
+			case RopeCollisionType.CAN_NOT_ATTACH_AND_CUT:
 
-			break;
+				break;
 
-		case RopeCollisionType.CAN_NOT_ATTACH_AND_THROUGH:
+			case RopeCollisionType.CAN_NOT_ATTACH_AND_THROUGH:
 
-			break;
+				break;
 
-		}
+			}
 	}
 }
