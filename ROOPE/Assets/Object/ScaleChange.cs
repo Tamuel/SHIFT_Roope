@@ -7,7 +7,8 @@ public class ScaleChange : Item
 	public float scaleChangeSpeed;
 	public float maintainTime;
 
-	private Vector3 presentScale;
+	private Vector3 initialScale;
+	private Vector3 targetScale;
 	private bool triggerOn;
 
 	void Start ()
@@ -21,17 +22,30 @@ public class ScaleChange : Item
 			triggerOn = true;
 			collideWithCharacter ();
 			StartCoroutine (ScaleChanger (other));
-			//StartCoroutine (ScaleChanger ());
 		}
 	}
 
 	IEnumerator ScaleChanger (Collider2D other)
 	{
-		GetComponent<MeshRenderer> ().enabled = false;
-		presentScale = other.transform.localScale;
-		other.transform.localScale = new Vector3 (presentScale.x + scaleChange, presentScale.y + scaleChange, presentScale.z + scaleChange);		yield return new WaitForSeconds (maintainTime);
-		presentScale = other.transform.localScale;
-		other.transform.localScale = new Vector3 (presentScale.x - scaleChange, presentScale.y - scaleChange, presentScale.z - scaleChange);
+		float t = 0;
+		float totalTime = 1;
+		GetComponent<SpriteRenderer> ().enabled = false;
+		initialScale = other.transform.localScale;
+		targetScale = other.transform.localScale + new Vector3 (scaleChange, scaleChange, scaleChange);
+		do {
+			other.transform.localScale = Vector3.Lerp (initialScale, targetScale, t / totalTime); 
+			yield return null;
+			t += Time.deltaTime;
+		} while (t < totalTime);
+
+		yield return new WaitForSeconds (maintainTime);
+
+		t = 0;
+		do {
+			other.transform.localScale = Vector3.Lerp (targetScale, initialScale, t / totalTime); 
+			yield return null;
+			t += Time.deltaTime;
+		} while (t < totalTime);
 
 		Destroy (gameObject);
 	}
