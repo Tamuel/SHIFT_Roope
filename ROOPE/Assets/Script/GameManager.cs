@@ -4,9 +4,6 @@ using System.IO;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
-	private string FILE_PATH;
-	private Hashtable MapObjects;
-
 	public Text infoText;
 
 	private float hitPoint;
@@ -17,15 +14,10 @@ public class GameManager : MonoBehaviour {
 
 	// Make map objects
 	void Awake() {
-		FILE_PATH = Application.persistentDataPath + "/" + "map.dat";
 		hitPoint = 3.0f;
 		score = 0;
 		numberOfRope = 0;
 		stage = 1;
-
-		MapObjects = new Hashtable ();
-		//readMapFromFile ();
-
 	}
 
 	// Use this for initialization
@@ -36,31 +28,6 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		infoText.text = ToString();
-	}
-
-
-	void WriteFile()
-	{
-		StreamWriter fileWriter = new StreamWriter (FILE_PATH);
-
-		// write file
-		fileWriter.WriteLine ("Hello world");
-		fileWriter.Flush ();
-		fileWriter.Close ();
-	}
-
-
-	void readMapFromFile()
-	{
-		StreamReader fileReader = new StreamReader (FILE_PATH);
-
-		// read file
-		while(!fileReader.EndOfStream)
-		{
-			string line = fileReader.ReadLine ();
-		}
-
-		fileReader.Close ();
 	}
 
 	public void nextStage() {

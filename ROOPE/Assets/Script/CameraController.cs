@@ -16,6 +16,7 @@ public class CameraController : MonoBehaviour {
 		);
 	}
 
+	// Update Camera position when character move forward then before
 	void FixedUpdate() {
 		if(prevPosition.x < player.transform.position.x + centerOffset)
 			prevPosition = new Vector3(
@@ -27,7 +28,6 @@ public class CameraController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
 		transform.position = prevPosition;
 	}
 }

@@ -5,6 +5,7 @@ public class Player : MonoBehaviour {
 
 	HingeJoint2D hingeJoint2D;
 	LineRenderer lineRenderer;
+	Rigidbody2D rigidBody2D;
 
 	public GameObject rope;
 
@@ -21,15 +22,19 @@ public class Player : MonoBehaviour {
 
 	private bool ropeIsLaunched = false;
 
+	private float shortestLength;
+	private float curLength;
+
 
 
 	void Start() {
 		hingeJoint2D = GetComponent<HingeJoint2D> ();
 		lineRenderer = GetComponent<LineRenderer> ();
+		rigidBody2D = GetComponent<Rigidbody2D> ();
 
 		rope1Prefab = Instantiate (rope);
 		rope1Prefab.transform.parent = transform;
-		rope1Prefab.transform.localScale = new Vector3 (2, 2, 2);
+		rope1Prefab.transform.localScale = new Vector3 (4, 4, 4);
 		rope1Prefab.GetComponent<Rope> ().setPlayer(this);
 
 		Debug.Log (
@@ -40,13 +45,43 @@ public class Player : MonoBehaviour {
 
 		rope2Prefab = Instantiate (rope);
 		rope2Prefab.transform.parent = transform;
-		rope2Prefab.transform.localScale = new Vector3 (2, 2, 2);
+		rope2Prefab.transform.localScale = new Vector3 (4, 4, 4);
 		rope2Prefab.GetComponent<Rope> ().setPlayer(this);
 
 		Debug.Log (rope2Prefab.transform.position.ToString ());
 	}
 
+	void FixedUpdate() {
+		curLength = (instantiatedObject.transform.position - transform.position).magnitude;
+		if (curLength >= shortestLength)
+			rigidBody2D.AddForce (
+				(instantiatedObject.transform.position - transform.position).normalized *
+				rigidBody2D.mass * Mathf.Pow (rigidBody2D.velocity.magnitude, 2) /
+				(instantiatedObject.transform.position - transform.position).magnitude
+			);
+		else
+			shortestLength = curLength;
+	}
+
 	void Update () {
+
+		if (ropeIsLaunched) {
+			hingeJoint2D.connectedBody = rigidBody2D;
+			hingeJoint2D.connectedAnchor = new Vector2 (0f, 0f);
+			Vector2 force;
+			if(curLength > 2)
+				force = new Vector2(
+					instantiatedObject.transform.position.x - transform.position.x,
+					instantiatedObject.transform.position.y - transform.position.y
+				).normalized * 18 * rigidBody2D.mass;
+			else
+				force = new Vector2(
+					instantiatedObject.transform.position.x - transform.position.x,
+					instantiatedObject.transform.position.y - transform.position.y
+				).normalized * 11;
+			rigidBody2D.AddForce (force);
+		}
+
 		if (Input.GetMouseButtonDown (0) && !ropeIsLaunched) {
 			ropeIsLaunched = true;
 
@@ -58,9 +93,7 @@ public class Player : MonoBehaviour {
 			pos.z = 0;
 			touchPointTransform.position = pos;
 
-
 			touchPointTransform.rotation = new Quaternion (0, 0, 0, 0);
-
 
 			instantiatedObject = (GameObject) Instantiate (touchPoint, touchPointTransform.position, touchPointTransform.rotation);
 			hingeJoint2D.connectedBody = instantiatedObject.GetComponent<Rigidbody2D>();
@@ -75,10 +108,10 @@ public class Player : MonoBehaviour {
 
 			Debug.Log ("Anchor: " + hingeJoint2D.connectedAnchor.x + " " + hingeJoint2D.connectedAnchor.y);
 			hingeJoint2D.connectedAnchor = new Vector2 (relativeVectorFromTouchPointToPlayerX, relativeVectorFromTouchPointToPlayerY);
-
+			shortestLength = hingeJoint2D.connectedAnchor.magnitude;
 		}
 
-		if (Input.GetMouseButtonUp (0)) {
+		if (Input.GetMouseButtonUp (0) && ropeIsLaunched) {
 			ropeIsLaunched = false;
 			rope1Prefab.GetComponent<Rope> ().stopRope ();
 
@@ -90,14 +123,16 @@ public class Player : MonoBehaviour {
 			Destroy(instantiatedObject);
 		}
 
-		if (hingeJoint2D.connectedAnchor.magnitude >= 0.1) {
-			hingeJoint2D.connectedAnchor = new Vector2 (hingeJoint2D.connectedAnchor.x * 0.99f, hingeJoint2D.connectedAnchor.y * 0.99f);
-			if (lineRenderer != null) {
-				lineRenderer.SetPosition (0, player.transform.position);
-				if (touchPointTransform != null)
-					lineRenderer.SetPosition (1, touchPointTransform.position);
-			}
-		}
+
+//		if (hingeJoint2D.connectedAnchor.magnitude >= 0.1) {
+//			hingeJoint2D.connectedAnchor = new Vector2 (hingeJoint2D.connectedAnchor.x * 0.97f, hingeJoint2D.connectedAnchor.y * 0.97f);
+//			flySpeed += -hingeJoint2D.connectedAnchor / 50;
+//			if (lineRenderer != null) {
+//				lineRenderer.SetPosition (0, player.transform.position);
+//				if (touchPointTransform != null)
+//					lineRenderer.SetPosition (1, touchPointTransform.position);
+//			}
+//		}
 	}
 
 

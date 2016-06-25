@@ -13,7 +13,7 @@ public class Rope : MonoBehaviour {
 	private Vector2 moveVector;
 
 
-	void Start () {
+	void Awake () {
 		enabled = false;
 		ropeLaunched = false;
 		speed = 100;
@@ -22,7 +22,7 @@ public class Rope : MonoBehaviour {
 
 
 	void Update () {
-		
+		Debug.Log ("Start");
 		if (ropeLaunched == true) {
 			GetComponent<Rigidbody2D> ().velocity = moveVector; 
 		}
@@ -55,7 +55,7 @@ public class Rope : MonoBehaviour {
 			enabled = false;
 			transform.position = player.transform.position;
 			transform.parent = player.transform;
-			transform.localScale = new Vector3 (2, 2, 2);
+			transform.localScale = new Vector3 (4, 4, 4);
 		}
 	}
 		
