@@ -25,11 +25,11 @@ public class Arrow : Obstacle {
 		Debug.Log ("HP : " + FindObjectOfType<GameManager> ().getHP ());
 	}
 
-	public override RopeCollisionType collideWithRopeHead () {
+	public override RopeCollisionType collideWithRopeHead (Rope rope) {
 		return RopeCollisionType.CAN_NOT_ATTACH_AND_CUT;
 	}
 
-	public override RopeCollisionType collideWithRopeLine () {
+	public override RopeCollisionType collideWithRopeLine (RopeLine line) {
 		return RopeCollisionType.CAN_NOT_ATTACH_AND_CUT;
 	}
 }

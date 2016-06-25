@@ -391,6 +391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fa8f3b1683143d44808d9840a9e8ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 743458715}
 --- !u!1001 &743458708
 Prefab:
   m_ObjectHideFlags: 0
@@ -491,6 +492,12 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 2.5
+--- !u!114 &743458715 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11452916, guid: c8ecd646553404141be5f5a5a6c4ea51,
+    type: 2}
+  m_PrefabInternal: {fileID: 743458708}
+  m_Script: {fileID: 11500000, guid: 7f7887594595a404da09d06e2baeffa2, type: 3}
 --- !u!1 &1259855007
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,11 +588,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrow: {fileID: 144262, guid: 2a08c0872ec9c28479cc89da0a6aa544, type: 2}
-  range: {x: 9, y: 2, z: 0}
+  range: {x: 9, y: 2.5, z: 0}
   arrowCount: 5
-  startWait: 2
+  startWait: 4
   spawnWait: 1
-  endWait: 0
+  endWait: 1
 --- !u!4 &1403613662
 Transform:
   m_ObjectHideFlags: 0
@@ -639,7 +646,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
 --- !u!1001 &1505474629
 Prefab:
   m_ObjectHideFlags: 0

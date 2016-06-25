@@ -18,11 +18,11 @@ public class RopeRegain : Item
 		FindObjectOfType<GameManager> ().addNumberOfRope (gainNumberOfRope);
     }
 
-	public override RopeCollisionType collideWithRopeHead () {
+	public override RopeCollisionType collideWithRopeHead (Rope rope) {
 		return RopeCollisionType.CAN_NOT_ATTACH_AND_THROUGH;
 	}
 
-	public override RopeCollisionType collideWithRopeLine () {
+	public override RopeCollisionType collideWithRopeLine (RopeLine line) {
 		return RopeCollisionType.CAN_NOT_ATTACH_AND_THROUGH;
 	}
 }

@@ -73,7 +73,7 @@ public class Player : MonoBehaviour {
 	void OnTriggerEnter2D (Collider2D other)
 	{
 		if(other.GetComponent<RObject>() != null)
-			switch (other.GetComponent<RObject>().collideWithRopeHead()) {
+			switch (other.GetComponent<RObject>().collideWithRopeHead(null)) {
 			case RopeCollisionType.CAN_ATTACH:
 
 				break;

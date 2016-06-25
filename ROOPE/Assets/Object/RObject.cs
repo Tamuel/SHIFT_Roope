@@ -22,6 +22,6 @@ public abstract class RObject : MonoBehaviour, Move, Collision {
 
 	public abstract void move (float delta_x, float delta_y);
 	public abstract void collideWithCharacter ();
-	public abstract RopeCollisionType collideWithRopeHead ();
-	public abstract RopeCollisionType collideWithRopeLine ();
+	public abstract RopeCollisionType collideWithRopeHead (Rope rope);
+	public abstract RopeCollisionType collideWithRopeLine (RopeLine line);
 }

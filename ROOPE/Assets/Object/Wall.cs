@@ -18,7 +18,7 @@ public class Wall : Obstacle {
 		FindObjectOfType<GameManager> ().addHP (-1);
 	}
 
-	public override RopeCollisionType collideWithRopeHead(){//Rope rope) {
+	public override RopeCollisionType collideWithRopeHead(Rope rope){//Rope rope) {
 		if (isRopeAttachable ())
 			return RopeCollisionType.CAN_ATTACH;
 		else
@@ -26,7 +26,7 @@ public class Wall : Obstacle {
 	}
 
 
-	public override RopeCollisionType collideWithRopeLine (){//Line line) {
+	public override RopeCollisionType collideWithRopeLine (RopeLine line){//Line line) {
 		if (isRopeAttachable ())
 			return RopeCollisionType.CAN_ATTACH;
 		else
