@@ -316,7 +316,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 494258, guid: c8ecd646553404141be5f5a5a6c4ea51, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 151540, guid: c8ecd646553404141be5f5a5a6c4ea51, type: 2}
       propertyPath: m_Name
@@ -536,7 +536,7 @@ MonoBehaviour:
   range: {x: 9, y: 2.5, z: 0}
   arrowCount: 5
   startWait: 4
-  spawnWait: 1
+  shootWait: 1
   endWait: 1
 --- !u!4 &1403613662
 Transform:

@@ -12,6 +12,7 @@ public class HPRegain : Item
 		}
 	}
 
+	// HP +1
     public override void collideWithCharacter()
     {
 		FindObjectOfType<GameManager> ().addHP (1);

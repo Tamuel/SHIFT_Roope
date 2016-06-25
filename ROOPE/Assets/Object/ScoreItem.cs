@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ScoreItem : Item {
 
-	public int score;
+	public int score; 
 
 	void OnTriggerEnter2D (Collider2D other)
 	{
@@ -14,6 +14,7 @@ public class ScoreItem : Item {
 		}
 	}
 
+	// Score +score
 	public override void collideWithCharacter()
 	{
 		FindObjectOfType<GameManager> ().addScore (score);

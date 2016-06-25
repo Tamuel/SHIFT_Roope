@@ -20,6 +20,7 @@ public class Arrow : Obstacle {
 		}
 	}
 
+	// HP -1
 	public override void collideWithCharacter() {
 		FindObjectOfType<GameManager> ().addHP (-1);
 		Debug.Log ("HP : " + FindObjectOfType<GameManager> ().getHP ());

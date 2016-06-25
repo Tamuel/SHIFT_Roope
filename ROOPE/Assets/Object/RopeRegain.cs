@@ -13,6 +13,7 @@ public class RopeRegain : Item
 		}
 	}
 
+	// number of Rope +gainNumberOfRope
     public override void collideWithCharacter()
     {
 		FindObjectOfType<GameManager> ().addNumberOfRope (gainNumberOfRope);

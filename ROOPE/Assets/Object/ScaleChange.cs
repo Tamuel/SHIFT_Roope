@@ -8,8 +8,8 @@ public class ScaleChange : Item
 	public float maintainTime;
 
 	private Vector3 initialScale;
-	private Vector3 targetScale;
-	private bool triggerOn;
+	private Vector3 targetScale; 
+	private bool triggerOn; 
 
 	void Start ()
 	{
@@ -27,9 +27,10 @@ public class ScaleChange : Item
 
 	IEnumerator ScaleChanger (Collider2D other)
 	{
-		float t = 0;
+		float t = 0; // initialize time
 
 		GetComponent<SpriteRenderer> ().enabled = false;
+
 		initialScale = other.transform.localScale;
 		targetScale = other.transform.localScale + new Vector3 (scaleChangeSize, scaleChangeSize, scaleChangeSize);
 
@@ -42,8 +43,9 @@ public class ScaleChange : Item
 
 		yield return new WaitForSeconds (maintainTime);
 
+		t = 0; // initialize time
+
 		// change player's scale smaller
-		t = 0;
 		do {
 			other.transform.localScale = Vector3.Lerp (targetScale, initialScale, t / scaleChangeTime); 
 			yield return null;

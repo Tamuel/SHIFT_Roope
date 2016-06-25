@@ -14,7 +14,7 @@ GameObject:
   - 212: {fileID: 21239772}
   - 58: {fileID: 5895346}
   m_Layer: 0
-  m_Name: Scale Changer
+  m_Name: Scale Change
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
