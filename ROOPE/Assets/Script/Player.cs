@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class ClickToCreate : MonoBehaviour {
+public class Player : MonoBehaviour {
 
 	HingeJoint2D hingeJoint2D;
 	LineRenderer lineRenderer;
