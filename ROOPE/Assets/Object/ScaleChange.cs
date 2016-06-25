@@ -3,8 +3,8 @@ using System.Collections;
 
 public class ScaleChange : Item
 {
-	public float scaleChange;
-	public float scaleChangeSpeed;
+	public float scaleChangeSize;
+	public float scaleChangeTime;
 	public float maintainTime;
 
 	private Vector3 initialScale;
@@ -28,24 +28,27 @@ public class ScaleChange : Item
 	IEnumerator ScaleChanger (Collider2D other)
 	{
 		float t = 0;
-		float totalTime = 1;
+
 		GetComponent<SpriteRenderer> ().enabled = false;
 		initialScale = other.transform.localScale;
-		targetScale = other.transform.localScale + new Vector3 (scaleChange, scaleChange, scaleChange);
+		targetScale = other.transform.localScale + new Vector3 (scaleChangeSize, scaleChangeSize, scaleChangeSize);
+
+		// change player's scale larger
 		do {
-			other.transform.localScale = Vector3.Lerp (initialScale, targetScale, t / totalTime); 
+			other.transform.localScale = Vector3.Lerp (initialScale, targetScale, t / scaleChangeTime); 
 			yield return null;
 			t += Time.deltaTime;
-		} while (t < totalTime);
+		} while (t < scaleChangeTime);
 
 		yield return new WaitForSeconds (maintainTime);
 
+		// change player's scale smaller
 		t = 0;
 		do {
-			other.transform.localScale = Vector3.Lerp (targetScale, initialScale, t / totalTime); 
+			other.transform.localScale = Vector3.Lerp (targetScale, initialScale, t / scaleChangeTime); 
 			yield return null;
 			t += Time.deltaTime;
-		} while (t < totalTime);
+		} while (t < scaleChangeTime);
 
 		Destroy (gameObject);
 	}
