@@ -432,6 +432,34 @@ Prefab:
       propertyPath: rope
       value: 
       objectReference: {fileID: 141736, guid: 569e622b81e354112817c9765a1b156e, type: 2}
+    - target: {fileID: 5030532, guid: c8ecd646553404141be5f5a5a6c4ea51, type: 2}
+      propertyPath: m_LinearDrag
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5030532, guid: c8ecd646553404141be5f5a5a6c4ea51, type: 2}
+      propertyPath: m_Mass
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5030532, guid: c8ecd646553404141be5f5a5a6c4ea51, type: 2}
+      propertyPath: m_AngularDrag
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 23362638, guid: c8ecd646553404141be5f5a5a6c4ea51, type: 2}
+      propertyPath: m_ConnectedRigidBody
+      value: 
+      objectReference: {fileID: 743458716}
+    - target: {fileID: 23362638, guid: c8ecd646553404141be5f5a5a6c4ea51, type: 2}
+      propertyPath: m_UseLimits
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23362638, guid: c8ecd646553404141be5f5a5a6c4ea51, type: 2}
+      propertyPath: m_BreakTorque
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5030532, guid: c8ecd646553404141be5f5a5a6c4ea51, type: 2}
+      propertyPath: m_GravityScale
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6020990, guid: c8ecd646553404141be5f5a5a6c4ea51, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: c8ecd646553404141be5f5a5a6c4ea51, type: 2}
@@ -460,6 +488,11 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 743458708}
   m_Script: {fileID: 11500000, guid: 7f7887594595a404da09d06e2baeffa2, type: 3}
+--- !u!50 &743458716 stripped
+Rigidbody2D:
+  m_PrefabParentObject: {fileID: 5030532, guid: c8ecd646553404141be5f5a5a6c4ea51,
+    type: 2}
+  m_PrefabInternal: {fileID: 743458708}
 --- !u!1001 &1175250725
 Prefab:
   m_ObjectHideFlags: 0

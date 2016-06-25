@@ -53,11 +53,12 @@ public class Player : MonoBehaviour {
 
 	void FixedUpdate() {
 		curLength = (instantiatedObject.transform.position - transform.position).magnitude;
-		if (curLength >= shortestLength)
+		if (curLength >= shortestLength && curLength > 0.2f)
 			rigidBody2D.AddForce (
-				(instantiatedObject.transform.position - transform.position).normalized *
+				(Vector2)(instantiatedObject.transform.position - transform.position).normalized *
 				rigidBody2D.mass * Mathf.Pow (rigidBody2D.velocity.magnitude, 2) /
 				(instantiatedObject.transform.position - transform.position).magnitude
+				- rigidBody2D.velocity * 5
 			);
 		else
 			shortestLength = curLength;
@@ -68,17 +69,18 @@ public class Player : MonoBehaviour {
 		if (ropeIsLaunched) {
 			hingeJoint2D.connectedBody = rigidBody2D;
 			hingeJoint2D.connectedAnchor = new Vector2 (0f, 0f);
+
 			Vector2 force;
-			if(curLength > 2)
+			if(curLength > 0.2f)
 				force = new Vector2(
 					instantiatedObject.transform.position.x - transform.position.x,
 					instantiatedObject.transform.position.y - transform.position.y
-				).normalized * 18 * rigidBody2D.mass;
+				).normalized * 40 * rigidBody2D.mass - rigidBody2D.velocity * 5;
 			else
 				force = new Vector2(
 					instantiatedObject.transform.position.x - transform.position.x,
 					instantiatedObject.transform.position.y - transform.position.y
-				).normalized * 11;
+				).normalized * 11 - rigidBody2D.velocity * 100;
 			rigidBody2D.AddForce (force);
 		}
 
