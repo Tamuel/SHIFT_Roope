@@ -6,6 +6,8 @@ public class Player : MonoBehaviour {
 	HingeJoint2D hingeJoint2D;
 	LineRenderer lineRenderer;
 
+	public Rope rope1;
+	public Rope rope2;
 	public GameObject touchPoint;
 	public GameObject player;
 	private Transform touchPointTransform;
