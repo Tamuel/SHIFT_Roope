@@ -1,5 +1,5 @@
 ﻿
-public enum WallType {
+public enum RobjectType {
 	BLANK,
 	STANDARD,
 	POINT,

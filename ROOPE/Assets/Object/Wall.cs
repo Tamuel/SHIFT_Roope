@@ -4,7 +4,7 @@ using System.Collections;
 public class Wall : Obstacle {
 
 	public bool canDrop;
-	public Rope rope;
+	private Rope rope;
 
 	void OnTriggerEnter2D (Collider2D other)
 	{
@@ -27,11 +27,11 @@ public class Wall : Obstacle {
 		GetComponent<Rigidbody2D> ().isKinematic = false;
 	}
 
-	public override RopeCollisionType collideWithRopeHead(Rope rope){//Rope rope) {
+	public override RopeCollisionType collideWithRopeHead(Rope rope) {
 		this.rope = rope;
-		if (isRopeAttachable ())
+		if (isRopeAttachable () && !canDrop)
 			return RopeCollisionType.CAN_ATTACH;
-		else if (canDrop) {
+		else if (isRopeAttachable() && canDrop) {
 			dropWall ();
 			return RopeCollisionType.CAN_ATTACH_AND_DROP;
 		} else
@@ -39,7 +39,7 @@ public class Wall : Obstacle {
 	}
 
 
-	public override RopeCollisionType collideWithRopeLine (RopeLine line){//Line line) {
+	public override RopeCollisionType collideWithRopeLine (RopeLine line) {
 		if (isRopeAttachable ())
 			return RopeCollisionType.CAN_ATTACH;
 		else

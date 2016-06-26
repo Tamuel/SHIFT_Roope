@@ -75,6 +75,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ropeLine: {fileID: 11497794, guid: 165cc54e9034e40cdbc891008b13cc45, type: 2}
+  isRopeLaunched: 0
+  isRopeAttached: 0
 --- !u!212 &21283582
 SpriteRenderer:
   m_ObjectHideFlags: 1
