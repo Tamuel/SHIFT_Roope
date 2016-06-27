@@ -14,10 +14,6 @@ public class Arrow : Obstacle {
 			Destroy (gameObject);
 			collideWithCharacter ();
 		}
-
-		if (other.tag == "Barrier") {
-			Destroy (gameObject);
-		}
 	}
 
 	// HP -1

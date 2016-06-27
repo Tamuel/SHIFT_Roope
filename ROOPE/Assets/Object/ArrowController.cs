@@ -30,7 +30,7 @@ public class ArrowController : MonoBehaviour {
 
 			for (int i = 3; i > 0; i--) {
 				ArrowText.transform.position = new Vector3 (
-					Camera.main.gameObject.transform.position.x + 10,
+					Camera.main.gameObject.transform.position.x + 9,
 					y_axis_position,
 					0);
 				ArrowText.text = "" + i;
