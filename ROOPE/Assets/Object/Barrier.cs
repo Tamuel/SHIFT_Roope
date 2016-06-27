@@ -3,8 +3,10 @@ using System.Collections;
 
 public class Barrier : MonoBehaviour {
 
-	void OnTriggerEnter (Collider2D other)
+	void OnTriggerEnter2D (Collider2D other)
 	{
-		Destroy (other.gameObject);
+		if (other.tag != "Player") {
+			Destroy (other.gameObject);
+		}
 	}
 }

@@ -78,8 +78,7 @@ MonoBehaviour:
   ropeAttachable: 1
   ropeCanThrough: 0
   speed: 0
-  canDrop: 1
-  rope: {fileID: 0}
+  canDrop: 0
 --- !u!212 &21203998
 SpriteRenderer:
   m_ObjectHideFlags: 1
