@@ -10,7 +10,7 @@ public class Rope : MonoBehaviour {
 
 	private Player player;
 	private float speed;
-	private Vector3 vec3MousePosition;
+	private Vector3 touchPosition;
 	private Vector2 moveVector;
 
 	private GameObject colideObject;
@@ -73,17 +73,17 @@ public class Rope : MonoBehaviour {
 		}
 	}
 
-	public bool launchRope() {
+	public bool launchRope(Vector3 touchPosition) {
 		if (!isRopeLaunched) {
 			Debug.Log ("Launch Rope!");
 			isRopeLaunched = true;
 			isRopeAttached = false;
 
+			touchPosition = Camera.main.ScreenToWorldPoint (touchPosition);
 			// Shoot rope
-			vec3MousePosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 			moveVector = new Vector2 (
-				vec3MousePosition.x - transform.position.x,
-				vec3MousePosition.y - transform.position.y
+				touchPosition.x - transform.position.x,
+				touchPosition.y - transform.position.y
 			).normalized * 20;
 			transform.parent = null;
 			enabled = true;

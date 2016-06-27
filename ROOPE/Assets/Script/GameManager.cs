@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour {
 	private int numberOfRope;
 	private int stage;
 
+	private MapController mapController;
+
 
 	// Make map objects
 	void Awake() {
@@ -18,6 +20,7 @@ public class GameManager : MonoBehaviour {
 		score = 0;
 		numberOfRope = 0;
 		stage = 1;
+		mapController = GetComponent<MapController>();
 	}
 
 	// Use this for initialization
