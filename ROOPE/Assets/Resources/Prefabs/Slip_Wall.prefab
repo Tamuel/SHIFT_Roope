@@ -76,7 +76,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movable: 0
   ropeAttachable: 0
-  ropeCanThrough: 1
+  ropeCanThrough: 0
   speed: 0
   canDrop: 0
 --- !u!212 &21290960

@@ -11,7 +11,7 @@ public class Rope : MonoBehaviour {
 	private Player player;
 	private LineRenderer lineRenderer;
 
-	private float speed;
+	private float speed = 30;
 	private Vector3 touchPosition;
 	private Vector2 moveVector;
 
@@ -27,7 +27,6 @@ public class Rope : MonoBehaviour {
 		lineRenderer = GetComponent<LineRenderer> ();
 		colideObject = null;
 		collisionType = RopeCollisionType.NONE;
-		speed = 100;
 		Debug.Log ("Rope Start!");
 	}
 
@@ -36,8 +35,9 @@ public class Rope : MonoBehaviour {
 		if (isRopeLaunched) {
 			lineRenderer.SetPosition (0, transform.position); 
 			lineRenderer.SetPosition (1, player.transform.position);
+			// Rope fly
 			if (collisionType == RopeCollisionType.NONE)
-				GetComponent<Rigidbody2D> ().velocity = moveVector; 
+				GetComponent<Rigidbody2D> ().velocity = moveVector;
 		}
 	}
 
@@ -56,11 +56,13 @@ public class Rope : MonoBehaviour {
 
 			case RopeCollisionType.CAN_ATTACH_AND_DROP:
 				colideObject = other.gameObject;
+				transform.parent = other.transform;
 				collisionType = RopeCollisionType.CAN_ATTACH_AND_DROP;
 				break;
 
 			case RopeCollisionType.CAN_NOT_ATTACH_AND_CUT:
 				colideObject = other.gameObject;
+				stopRope ();
 				collisionType = RopeCollisionType.CAN_NOT_ATTACH_AND_CUT;
 				break;
 
@@ -93,7 +95,7 @@ public class Rope : MonoBehaviour {
 			moveVector = new Vector2 (
 				touchPosition.x - transform.position.x,
 				touchPosition.y - transform.position.y
-			).normalized * 20;
+			).normalized * speed;
 			transform.parent = null;
 			enabled = true;
 
@@ -106,18 +108,16 @@ public class Rope : MonoBehaviour {
 	}
 
 	public void stopRope() {
-		if (isRopeLaunched) {
-			isRopeLaunched = false;
-			isRopeAttached = false;
-			colideObject = null;
-			enabled = false;
-			lineRenderer.SetPosition (0, Vector3.zero);
-			lineRenderer.SetPosition (1, Vector3.zero);
-			collisionType = RopeCollisionType.NONE;
-			transform.position = player.transform.position;
-			transform.parent = player.transform;
-			transform.localScale = new Vector3 (4, 4, 4);
-		}
+		isRopeLaunched = false;
+		isRopeAttached = false;
+		colideObject = null;
+		enabled = false;
+		lineRenderer.SetPosition (0, Vector3.zero);
+		lineRenderer.SetPosition (1, Vector3.zero);
+		collisionType = RopeCollisionType.NONE;
+		transform.position = player.transform.position;
+		transform.parent = player.transform;
+		transform.localScale = new Vector3 (4, 4, 4);
 	}
 		
 	public void setPlayer(Player player) {

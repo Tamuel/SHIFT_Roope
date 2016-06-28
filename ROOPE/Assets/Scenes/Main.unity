@@ -616,8 +616,17 @@ Prefab:
       propertyPath: m_Parameters.m_EndColor.rgba
       value: 4278217134
       objectReference: {fileID: 0}
+    - target: {fileID: 5030532, guid: c8ecd646553404141be5f5a5a6c4ea51, type: 2}
+      propertyPath: m_LinearDrag
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 24716860, guid: c8ecd646553404141be5f5a5a6c4ea51, type: 2}
+      propertyPath: m_Force.x
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 12013040, guid: c8ecd646553404141be5f5a5a6c4ea51, type: 2}
+    - {fileID: 24716860, guid: c8ecd646553404141be5f5a5a6c4ea51, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: c8ecd646553404141be5f5a5a6c4ea51, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1726884753

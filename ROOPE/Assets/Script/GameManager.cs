@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		infoText.text = FindObjectOfType<Player> ().GetComponent<Rigidbody2D> ().velocity.magnitude + "";
+		infoText.text = ToString();
 	}
 
 	public void nextStage() {

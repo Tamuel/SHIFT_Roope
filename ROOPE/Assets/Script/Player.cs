@@ -10,7 +10,7 @@ public class Player : MonoBehaviour {
 	public GameObject rope1Prefab;
 	public GameObject rope2Prefab;
 
-	private float maxSpeed = 12;
+	private const float maxSpeed = 10;
 	private float relativeVectorFromTouchPointToPlayerX;
 	private float relativeVectorFromTouchPointToPlayerY;
 
@@ -50,6 +50,11 @@ public class Player : MonoBehaviour {
 
 		if (rope2Prefab.GetComponent<Rope> ().isRopeAttached)
 			getCentripetalAccel (ref curLength [1], ref shortestLength [1], rope2Prefab, this.gameObject);
+
+		if (rope1Prefab.GetComponent<Rope> ().isRopeAttached && rope2Prefab.GetComponent<Rope> ().isRopeAttached)
+			GetComponent<Rigidbody2D> ().gravityScale = 0;
+		else
+			GetComponent<Rigidbody2D> ().gravityScale = 1.5f;
 	}
 		
 	void Update () {
@@ -138,7 +143,7 @@ public class Player : MonoBehaviour {
 			force = new Vector2(
 				centerObj.transform.position.x - circuralObj.transform.position.x,
 				centerObj.transform.position.y - circuralObj.transform.position.y
-			).normalized * 30 * rigidBody2D.mass - rigidBody2D.velocity * 5;
+			).normalized * 40 * rigidBody2D.mass - rigidBody2D.velocity * 5;
 		else
 			force = new Vector2(
 				centerObj.transform.position.x - circuralObj.transform.position.x,
@@ -147,6 +152,7 @@ public class Player : MonoBehaviour {
 		
 		rigidBody2D.AddForce (force);
 
+		// Clamp Speed
 		if (rigidBody2D.velocity.magnitude > maxSpeed) {
 			float bias = maxSpeed / rigidBody2D.velocity.magnitude;
 			rigidBody2D.velocity = new Vector2 (
