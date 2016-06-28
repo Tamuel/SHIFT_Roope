@@ -10,16 +10,13 @@ public class Arrow : Obstacle {
 
 	void OnTriggerEnter2D (Collider2D other)
 	{
-		if (other.tag == "Player") {
-			Destroy (gameObject);
-			collideWithCharacter ();
-		}
 	}
 
 	// HP -1
 	public override void collideWithCharacter() {
 		FindObjectOfType<GameManager> ().addHP (-1);
 		Debug.Log ("HP : " + FindObjectOfType<GameManager> ().getHP ());
+		Destroy (gameObject);
 	}
 
 	public override RopeCollisionType collideWithRopeHead (Rope rope) {

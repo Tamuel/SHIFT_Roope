@@ -9,6 +9,8 @@ public class Rope : MonoBehaviour {
 	public bool isRopeAttached;
 
 	private Player player;
+	private LineRenderer lineRenderer;
+
 	private float speed;
 	private Vector3 touchPosition;
 	private Vector2 moveVector;
@@ -22,6 +24,7 @@ public class Rope : MonoBehaviour {
 		enabled = false;
 		isRopeLaunched = false;
 		isRopeAttached = false;
+		lineRenderer = GetComponent<LineRenderer> ();
 		colideObject = null;
 		collisionType = RopeCollisionType.NONE;
 		speed = 100;
@@ -30,13 +33,16 @@ public class Rope : MonoBehaviour {
 
 
 	void Update () {
-		if (isRopeLaunched == true && collisionType == RopeCollisionType.NONE) {
-			GetComponent<Rigidbody2D> ().velocity = moveVector; 
+		if (isRopeLaunched) {
+			lineRenderer.SetPosition (0, transform.position); 
+			lineRenderer.SetPosition (1, player.transform.position);
+			if (collisionType == RopeCollisionType.NONE)
+				GetComponent<Rigidbody2D> ().velocity = moveVector; 
 		}
 	}
 
 	void OnTriggerEnter2D (Collider2D other) {
-		if (other.GetComponent<RObject> () != null) {
+		if (other.GetComponent<RObject> () != null && isRopeLaunched) {
 			Debug.Log ("Collide with object");
 			RopeCollisionType col = other.GetComponent<RObject> ().collideWithRopeHead (this);
 			Debug.Log (col.ToString());
@@ -64,6 +70,9 @@ public class Rope : MonoBehaviour {
 				break;
 			}
 		}
+
+		if (!isRopeLaunched)
+			collisionType = RopeCollisionType.NONE;
 	}
 
 	void OnTriggerExit2D(Collider2D other) {
@@ -102,6 +111,8 @@ public class Rope : MonoBehaviour {
 			isRopeAttached = false;
 			colideObject = null;
 			enabled = false;
+			lineRenderer.SetPosition (0, Vector3.zero);
+			lineRenderer.SetPosition (1, Vector3.zero);
 			collisionType = RopeCollisionType.NONE;
 			transform.position = player.transform.position;
 			transform.parent = player.transform;
