@@ -5,15 +5,10 @@ public class HPRegain : Item
 {
 	void OnTriggerEnter2D (Collider2D other)
 	{
-		if (other.tag == "Player") {
-		
-			Destroy (gameObject);
-			collideWithCharacter ();
-		}
 	}
 
 	// HP +1
-    public override void collideWithCharacter()
+	public override void collideWithCharacter(Player player)
     {
 		FindObjectOfType<GameManager> ().addHP (1);
     }

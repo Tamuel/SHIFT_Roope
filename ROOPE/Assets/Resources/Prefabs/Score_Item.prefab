@@ -13,7 +13,7 @@ GameObject:
   - 212: {fileID: 21258510}
   - 58: {fileID: 5856942}
   m_Layer: 0
-  m_Name: Score Item
+  m_Name: Score_Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

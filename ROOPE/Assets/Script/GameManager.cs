@@ -30,7 +30,11 @@ public class GameManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		infoText.text = ToString();
+		setText(ToString());
+	}
+
+	public void setText(string str) {
+		infoText.text = str;
 	}
 
 	public void nextStage() {

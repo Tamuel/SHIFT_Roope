@@ -8,11 +8,6 @@ public class Wall : Obstacle {
 
 	void OnTriggerEnter2D (Collider2D other)
 	{
-		if (other.tag == "Player") {
-
-			collideWithCharacter ();
-		}
-
 		if (other.tag == "Arrow") {
 			Destroy (other.gameObject);
 		}
@@ -20,7 +15,7 @@ public class Wall : Obstacle {
 	}
 
 	// HP -1
-	public override void collideWithCharacter ()
+	public override void collideWithCharacter (Player player)
 	{
 		FindObjectOfType<GameManager> ().addHP (-1);
 	}

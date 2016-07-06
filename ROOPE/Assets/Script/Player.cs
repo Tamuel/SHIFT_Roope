@@ -105,7 +105,7 @@ public class Player : MonoBehaviour, Wind {
 
 	void OnTriggerEnter2D (Collider2D other) {
 		if (other.GetComponent<RObject> () != null)
-			other.GetComponent<RObject> ().collideWithCharacter ();
+			other.GetComponent<RObject> ().collideWithCharacter (this);
 	}
 
 	// Wind blow with force

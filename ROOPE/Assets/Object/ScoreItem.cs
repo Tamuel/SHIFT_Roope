@@ -7,17 +7,13 @@ public class ScoreItem : Item {
 
 	void OnTriggerEnter2D (Collider2D other)
 	{
-		if (other.tag == "Player") {
-
-			Destroy (gameObject);
-			collideWithCharacter ();
-		}
 	}
 
 	// Score +score
-	public override void collideWithCharacter()
+	public override void collideWithCharacter(Player player)
 	{
 		FindObjectOfType<GameManager> ().addScore (score);
+		Destroy (gameObject);
 	}
 
 	public override RopeCollisionType collideWithRopeHead (Rope rope) {

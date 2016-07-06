@@ -126,7 +126,7 @@ public class MapController : MonoBehaviour {
 					break;
 
 				case (int)RObjectType.POINT:
-					Instantiate (Resources.Load(path + "Score Item"), position, rotate);
+					Instantiate (Resources.Load(path + "Score_Item"), position, rotate);
 					break;
 
 				case (int)RObjectType.FALLING:
@@ -138,7 +138,7 @@ public class MapController : MonoBehaviour {
 					break;
 
 				case (int)RObjectType.ITEM:
-					Instantiate (Resources.Load(path + "Scale Change"), position, rotate);
+					Instantiate (Resources.Load(path + "Scale_Change"), position, rotate);
 					break;
 
 				case (int)RObjectType.ARROW:

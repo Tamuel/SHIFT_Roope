@@ -10,11 +10,11 @@ GameObject:
   - 4: {fileID: 473698}
   - 50: {fileID: 5003300}
   - 61: {fileID: 6123318}
-  - 114: {fileID: 11476524}
   - 212: {fileID: 21239772}
   - 58: {fileID: 5895346}
+  - 114: {fileID: 11489510}
   m_Layer: 0
-  m_Name: Scale Change
+  m_Name: Scale_Change
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
---- !u!114 &11476524
+--- !u!114 &11489510
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -95,7 +95,7 @@ MonoBehaviour:
   speed: 0
   scaleChangeSize: 0.3
   scaleChangeTime: 0.3
-  maintainTime: 5
+  maintainTime: 2
 --- !u!212 &21239772
 SpriteRenderer:
   m_ObjectHideFlags: 1

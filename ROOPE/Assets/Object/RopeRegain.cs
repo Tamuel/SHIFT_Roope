@@ -6,15 +6,10 @@ public class RopeRegain : Item
 	public int gainNumberOfRope;
 	void OnTriggerEnter2D (Collider2D other)
 	{
-		if (other.tag == "Player") {
-
-			collideWithCharacter ();
-			Destroy (gameObject);
-		}
 	}
 
 	// number of Rope +gainNumberOfRope
-    public override void collideWithCharacter()
+	public override void collideWithCharacter(Player player)
     {
 		FindObjectOfType<GameManager> ().addNumberOfRope (gainNumberOfRope);
     }

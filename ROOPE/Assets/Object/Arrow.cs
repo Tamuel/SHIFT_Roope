@@ -13,7 +13,7 @@ public class Arrow : Obstacle {
 	}
 
 	// HP -1
-	public override void collideWithCharacter() {
+	public override void collideWithCharacter(Player player) {
 		FindObjectOfType<GameManager> ().addHP (-1);
 		Debug.Log ("HP : " + FindObjectOfType<GameManager> ().getHP ());
 		Destroy (gameObject);

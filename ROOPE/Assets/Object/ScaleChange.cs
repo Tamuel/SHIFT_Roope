@@ -18,11 +18,6 @@ public class ScaleChange : Item
 
 	void OnTriggerEnter2D (Collider2D other)
 	{
-		if (other.tag == "Player" && triggerOn == false) {
-			triggerOn = true;
-			collideWithCharacter ();
-			StartCoroutine (ScaleChanger (other));
-		}
 	}
 
 	IEnumerator ScaleChanger (Collider2D other)
@@ -55,8 +50,12 @@ public class ScaleChange : Item
 		Destroy (gameObject);
 	}
 
-	public override void collideWithCharacter()
+	public override void collideWithCharacter(Player player)
 	{
+		if (!triggerOn) {
+			triggerOn = true;
+			StartCoroutine (ScaleChanger (player.GetComponent<Collider2D>()));
+		}
 	}
 
 	public override RopeCollisionType collideWithRopeHead (Rope rope) {
