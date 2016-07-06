@@ -11,15 +11,21 @@ public class GameManager : MonoBehaviour {
 	private int numberOfRope;
 	private int stage;
 
+	private Vector2 windStrength;
+
 	private MapController mapController;
+
+	private Player player;
 
 
 	// Make map objects
 	void Awake() {
+		player = FindObjectOfType<Player> ();
 		hitPoint = 3.0f;
 		score = 0;
 		numberOfRope = 0;
 		stage = 1;
+		windStrength = new Vector2 (0, 0);
 		mapController = GetComponent<MapController>();
 	}
 
@@ -30,7 +36,24 @@ public class GameManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		// Show game information
 		setText(ToString());
+
+		// Potentiate player with wind
+		player.wind (windStrength.x, windStrength.y);
+
+		// If you want to potentiate RObjects with wind, remove this comment(//)
+//		foreach(RObject tempObject in FindObjectsOfType<RObject>()) {
+//			tempObject.wind (windStrength);
+//		}
+	}
+
+	public void setWindStrength(Vector2 windStrength) {
+		this.windStrength = windStrength;
+	}
+
+	public void setWindStrength(float windStrength_x, float windStrength_y) {
+		this.windStrength = new Vector2 (windStrength_x, windStrength_y);
 	}
 
 	public void setText(string str) {
