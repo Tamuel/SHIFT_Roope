@@ -35,6 +35,10 @@ public class Rope : MonoBehaviour {
 		Debug.Log ("Rope Start!");
 	}
 
+    void Start() {
+        Physics.IgnoreCollision(player.GetComponent<Collider>(),GetComponent<Collider>());
+    }
+
 
     void FixedUpdate() {
         if (isRopeAttached)
