@@ -10,14 +10,13 @@ public class Player : MonoBehaviour, Wind {
 	public GameObject rope1Prefab;
 	public GameObject rope2Prefab;
 
-	private const float maxSpeed = 10;
 	private float relativeVectorFromTouchPointToPlayerX;
 	private float relativeVectorFromTouchPointToPlayerY;
 
-	private float[] shortestLength;
+    private const float maxSpeed = 10;
+
+    private float[] shortestLength;
 	private float[] curLength;
-
-
 
 	void Start() {
 		hingeJoint2D = GetComponents<HingeJoint2D> ();
@@ -45,11 +44,6 @@ public class Player : MonoBehaviour, Wind {
 	}
 
 	void FixedUpdate() {
-		if (rope1Prefab.GetComponent<Rope> ().isRopeAttached)
-			getCentripetalAccel (ref curLength [0], ref shortestLength [0], rope1Prefab, this.gameObject);
-
-		if (rope2Prefab.GetComponent<Rope> ().isRopeAttached)
-			getCentripetalAccel (ref curLength [1], ref shortestLength [1], rope2Prefab, this.gameObject);
 
 		if (rope1Prefab.GetComponent<Rope> ().isRopeAttached && rope2Prefab.GetComponent<Rope> ().isRopeAttached)
 			GetComponent<Rigidbody2D> ().gravityScale = 0;
@@ -58,13 +52,6 @@ public class Player : MonoBehaviour, Wind {
 	}
 		
 	void Update () {
-
-		// Pull Rope
-		if (rope1Prefab.GetComponent<Rope> ().isRopeAttached)
-			getToRopeForce (curLength[0], hingeJoint2D [0], rope1Prefab, this.gameObject);
-		if (rope2Prefab.GetComponent<Rope> ().isRopeAttached)
-			getToRopeForce (curLength[1], hingeJoint2D [1], rope2Prefab, this.gameObject);
-
 
 		// Shoot Rope
 		if (Input.touchCount >= 1) {
@@ -114,52 +101,6 @@ public class Player : MonoBehaviour, Wind {
 			relativeVectorFromTouchPointToPlayerY
 		);
 		shortestLength = hinge.connectedAnchor.magnitude;
-	}
-
-	// Get centripetal force
-	private void getCentripetalAccel(ref float curLength, ref float shortestLength, GameObject centerObj, GameObject circuralObj) {
-		curLength = (centerObj.transform.position - circuralObj.transform.position).magnitude;
-		Rigidbody2D tempBody = circuralObj.GetComponent<Rigidbody2D> ();
-		if (curLength >= shortestLength && curLength > 0.2f)
-			tempBody.AddForce (
-				(Vector2)(centerObj.transform.position - circuralObj.transform.position).normalized *
-				tempBody.mass * Mathf.Pow (tempBody.velocity.magnitude, 2) /
-				(centerObj.transform.position - circuralObj.transform.position).magnitude
-				- tempBody.velocity * 5
-			);
-		else
-			shortestLength = curLength;
-	}
-
-	// Get rope attraction force
-	private void getToRopeForce(float curLength, HingeJoint2D hingeJoint2D, GameObject centerObj, GameObject circuralObj) {
-		Rigidbody2D rigidBody2D = circuralObj.GetComponent<Rigidbody2D> ();
-
-		hingeJoint2D.connectedBody = rigidBody2D;
-		hingeJoint2D.connectedAnchor = new Vector2 (0f, 0f);
-
-		Vector2 force;
-		if(curLength > 0.3f)
-			force = new Vector2(
-				centerObj.transform.position.x - circuralObj.transform.position.x,
-				centerObj.transform.position.y - circuralObj.transform.position.y
-			).normalized * 40 * rigidBody2D.mass - rigidBody2D.velocity * 5;
-		else
-			force = new Vector2(
-				centerObj.transform.position.x - circuralObj.transform.position.x,
-				centerObj.transform.position.y - circuralObj.transform.position.y
-			).normalized * 11 - rigidBody2D.velocity * 100;
-		
-		rigidBody2D.AddForce (force);
-
-		// Clamp Speed
-		if (rigidBody2D.velocity.magnitude > maxSpeed) {
-			float bias = maxSpeed / rigidBody2D.velocity.magnitude;
-			rigidBody2D.velocity = new Vector2 (
-				rigidBody2D.velocity.x * bias,
-				rigidBody2D.velocity.y * bias
-			);
-		}
 	}
 
 	void OnTriggerEnter2D (Collider2D other) {
