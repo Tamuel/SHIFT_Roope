@@ -354,6 +354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1111223357}
+  speed: 0.05
 --- !u!114 &1111223357 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11452916, guid: c8ecd646553404141be5f5a5a6c4ea51,
