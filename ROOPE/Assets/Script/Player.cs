@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour, Wind {
 
 	HingeJoint2D[] hingeJoint2D;
 
@@ -165,5 +165,20 @@ public class Player : MonoBehaviour {
 	void OnTriggerEnter2D (Collider2D other) {
 		if (other.GetComponent<RObject> () != null)
 			other.GetComponent<RObject> ().collideWithCharacter ();
+	}
+
+	// Wind blow with force
+	public void wind(float force_x, float force_y) {
+		Rigidbody2D rigidBody2D = GetComponent<Rigidbody2D> ();
+		rigidBody2D.AddForce (new Vector2 (force_x, force_y));
+
+		// Clamp Speed
+		if (rigidBody2D.velocity.magnitude > maxSpeed) {
+			float bias = maxSpeed / rigidBody2D.velocity.magnitude;
+			rigidBody2D.velocity = new Vector2 (
+				rigidBody2D.velocity.x * bias,
+				rigidBody2D.velocity.y * bias
+			);
+		}
 	}
 }

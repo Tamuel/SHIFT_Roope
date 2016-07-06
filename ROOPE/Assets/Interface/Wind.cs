@@ -3,6 +3,6 @@ using System.Collections;
 
 public interface Wind {
 
-	// Wind blow with velocity
-	void wind(float velocity_x, float velocity_y);
+	// Wind blow with force
+	void wind(float force_x, float force_y);
 }
