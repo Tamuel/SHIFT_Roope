@@ -17,7 +17,12 @@ public class Rope : MonoBehaviour {
 
 	private GameObject colideObject;
 
-	private RopeCollisionType collisionType;
+    private const float maxSpeed = 10;
+
+    private RopeCollisionType collisionType;
+
+    private float curLength;
+    private float shortestLength;
 
 
 	void Awake () {
@@ -31,8 +36,21 @@ public class Rope : MonoBehaviour {
 	}
 
 
-	void Update () {
-		if (isRopeLaunched) {
+    void FixedUpdate() {
+        if (isRopeAttached)
+            giveCentripetalAccelToPlayer(ref curLength, ref shortestLength, this.gameObject, player.gameObject);
+
+    }
+
+
+        void Update () {
+
+        if (isRopeAttached)
+            getToRopeForce(curLength, player.GetComponent<HingeJoint2D>(), this.gameObject, player.gameObject);
+
+
+
+        if (isRopeLaunched) {
 			lineRenderer.SetPosition (0, transform.position); 
 			lineRenderer.SetPosition (1, player.transform.position);
 			// Rope fly
@@ -123,5 +141,54 @@ public class Rope : MonoBehaviour {
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
+
+    // Give centripetal force to player
+    private void giveCentripetalAccelToPlayer(ref float curLength, ref float shortestLength, GameObject centerObj, GameObject circuralObj)
+    {
+        curLength = (centerObj.transform.position - circuralObj.transform.position).magnitude;
+        Rigidbody2D tempBody = circuralObj.GetComponent<Rigidbody2D>();
+        if (curLength >= shortestLength && curLength > 0.2f)
+            tempBody.AddForce(
+                (Vector2)(centerObj.transform.position - circuralObj.transform.position).normalized *
+                tempBody.mass * Mathf.Pow(tempBody.velocity.magnitude, 2) /
+                (centerObj.transform.position - circuralObj.transform.position).magnitude
+                - tempBody.velocity * 5
+            );
+        else
+            shortestLength = curLength;
+    }
+
+    // Get rope attraction force
+    private void getToRopeForce(float curLength, HingeJoint2D hingeJoint2D, GameObject centerObj, GameObject circuralObj)
+    {
+        Rigidbody2D rigidBody2D = circuralObj.GetComponent<Rigidbody2D>();
+
+        hingeJoint2D.connectedBody = rigidBody2D;
+        hingeJoint2D.connectedAnchor = new Vector2(0f, 0f);
+
+        Vector2 force;
+        if (curLength > 0.3f)
+            force = new Vector2(
+                centerObj.transform.position.x - circuralObj.transform.position.x,
+                centerObj.transform.position.y - circuralObj.transform.position.y
+            ).normalized * 40 * rigidBody2D.mass - rigidBody2D.velocity * 5;
+        else
+            force = new Vector2(
+                centerObj.transform.position.x - circuralObj.transform.position.x,
+                centerObj.transform.position.y - circuralObj.transform.position.y
+            ).normalized * 11 - rigidBody2D.velocity * 100;
+
+        rigidBody2D.AddForce(force);
+
+        // Clamp Speed
+        if (rigidBody2D.velocity.magnitude > maxSpeed)
+        {
+            float bias = maxSpeed / rigidBody2D.velocity.magnitude;
+            rigidBody2D.velocity = new Vector2(
+                rigidBody2D.velocity.x * bias,
+                rigidBody2D.velocity.y * bias
+            );
+        }
+    }
 
 }
