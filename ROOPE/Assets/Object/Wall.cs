@@ -13,6 +13,10 @@ public class Wall : Obstacle {
 			collideWithCharacter ();
 		}
 
+		if (other.tag == "Arrow") {
+			Destroy (other.gameObject);
+		}
+
 	}
 
 	// HP -1

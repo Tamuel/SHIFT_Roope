@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Barrier
   - Rope
+  - Arrow
   layers:
   - Default
   - TransparentFX
