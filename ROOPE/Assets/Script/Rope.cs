@@ -79,7 +79,7 @@ public class Rope : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter2D (Collider2D other) {
+	void OnCollisionEnter2D (Collider2D other) {
 		if (other.GetComponent<RObject> () != null && isRopeLaunched) {
 			Debug.Log ("Collide with object");
 			RopeCollisionType col = other.GetComponent<RObject> ().collideWithRopeHead (this);
