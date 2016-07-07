@@ -8,9 +8,6 @@ public class Rope : MonoBehaviour {
 	public bool isRopeLaunched;
 	public bool isRopeAttached;
 
-    public GameObject playerObject;
-    public GameObject ropePrefab;
-
 	private Player player;
 	private LineRenderer lineRenderer;
 
@@ -35,11 +32,12 @@ public class Rope : MonoBehaviour {
 		lineRenderer = GetComponent<LineRenderer> ();
 		colideObject = null;
 		collisionType = RopeCollisionType.NONE;
+        GetComponent<CircleCollider2D>().isTrigger = true;
 		Debug.Log ("Rope Start!");
 	}
 
     void Start() {
-        Physics.IgnoreCollision(playerObject.GetComponent<Collider>(),ropePrefab.GetComponent<Collider>());
+        Physics2D.IgnoreCollision(player.GetComponent<CircleCollider2D>(),GetComponent<CircleCollider2D>());
     }
 
 
