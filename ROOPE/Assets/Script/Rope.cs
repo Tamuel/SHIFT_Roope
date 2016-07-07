@@ -8,6 +8,9 @@ public class Rope : MonoBehaviour {
 	public bool isRopeLaunched;
 	public bool isRopeAttached;
 
+    public GameObject playerObject;
+    public GameObject ropePrefab;
+
 	private Player player;
 	private LineRenderer lineRenderer;
 
@@ -36,7 +39,7 @@ public class Rope : MonoBehaviour {
 	}
 
     void Start() {
-        Physics.IgnoreCollision(player.GetComponent<Collider>(),GetComponent<Collider>());
+        Physics.IgnoreCollision(playerObject.GetComponent<Collider>(),ropePrefab.GetComponent<Collider>());
     }
 
 
