@@ -30,7 +30,6 @@ public class Rope : MonoBehaviour {
 		isRopeLaunched = false;
 		isRopeAttached = false;
 		lineRenderer = GetComponent<LineRenderer> ();
-        GetComponent<CircleCollider2D>().isTrigger = true;
 		colideObject = null;
 		collisionType = RopeCollisionType.NONE;
 		Debug.Log ("Rope Start!");
