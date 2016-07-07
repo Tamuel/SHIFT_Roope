@@ -79,10 +79,10 @@ public class Rope : MonoBehaviour {
 		}
 	}
 
-	void OnCollisionEnter2D (Collider2D other) {
-		if (other.GetComponent<RObject> () != null && isRopeLaunched) {
+	void OnCollisionEnter2D (Collision2D other) {
+		if (other.collider.GetComponent<RObject> () != null && isRopeLaunched) {
 			Debug.Log ("Collide with object");
-			RopeCollisionType col = other.GetComponent<RObject> ().collideWithRopeHead (this);
+			RopeCollisionType col = other.collider.GetComponent<RObject> ().collideWithRopeHead (this);
 			Debug.Log (col.ToString());
 			switch (col) {
 			case RopeCollisionType.CAN_ATTACH:
@@ -116,7 +116,7 @@ public class Rope : MonoBehaviour {
 			collisionType = RopeCollisionType.NONE;
 	}
 
-	void OnTriggerExit2D(Collider2D other) {
+	void OnCollisionExit2D(Collision2D other) {
 		if (other.gameObject.Equals (colideObject)) {
 			Debug.Log ("Trigger Exit");
 			collisionType = RopeCollisionType.NONE;
