@@ -30,18 +30,28 @@ public class Rope : MonoBehaviour {
 		isRopeLaunched = false;
 		isRopeAttached = false;
 		lineRenderer = GetComponent<LineRenderer> ();
+        GetComponent<CircleCollider2D>().isTrigger = true;
 		colideObject = null;
 		collisionType = RopeCollisionType.NONE;
-        GetComponent<CircleCollider2D>().isTrigger = true;
 		Debug.Log ("Rope Start!");
 	}
 
     void Start() {
-        Physics2D.IgnoreCollision(player.GetComponent<CircleCollider2D>(),GetComponent<CircleCollider2D>());
     }
 
 
     void FixedUpdate() {
+
+        if(isRopeLaunched == false) {
+            GetComponent<CircleCollider2D>().isTrigger = false;
+        }
+
+        else {
+            GetComponent<CircleCollider2D>().isTrigger = false;
+        }
+
+        Physics2D.IgnoreCollision(player.GetComponent<CircleCollider2D>(), GetComponent<CircleCollider2D>());
+
         if (isRopeAttached)
             giveCentripetalAccelToPlayer(ref curLength, ref shortestLength, this.gameObject, player.gameObject);
 
