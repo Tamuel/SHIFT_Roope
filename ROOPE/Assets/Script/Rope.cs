@@ -35,21 +35,7 @@ public class Rope : MonoBehaviour {
 		Debug.Log ("Rope Start!");
 	}
 
-    void Start() {
-    }
-
-
     void FixedUpdate() {
-
-        if(isRopeLaunched == false) {
-            GetComponent<CircleCollider2D>().isTrigger = false;
-        }
-
-        else {
-            GetComponent<CircleCollider2D>().isTrigger = false;
-        }
-
-        Physics2D.IgnoreCollision(player.GetComponent<CircleCollider2D>(), GetComponent<CircleCollider2D>());
 
         if (isRopeAttached)
             giveCentripetalAccelToPlayer(ref curLength, ref shortestLength, this.gameObject, player.gameObject);
