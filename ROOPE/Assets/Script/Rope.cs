@@ -43,16 +43,11 @@ public class Rope : MonoBehaviour {
     }
 
 
-	void Update () {
+        void Update () {
 
-		if (isRopeAttached) {
-			if(collisionType == RopeCollisionType.CAN_ATTACH)
-				getRopePullForce (curLength, player.GetComponent<HingeJoint2D> (), this.gameObject, player.gameObject, 40);
-			if (collisionType == RopeCollisionType.CAN_ATTACH_AND_DROP) {
-				getRopePullForce (curLength, player.GetComponent<HingeJoint2D> (), colideObject, player.gameObject, 20);
-				getRopePullForce (curLength, null, player.gameObject, colideObject, 20);
-			}
-		}
+        if (isRopeAttached)
+            getToRopeForce(curLength, player.GetComponent<HingeJoint2D>(), this.gameObject, player.gameObject);
+
 
 
         if (isRopeLaunched) {
@@ -80,7 +75,6 @@ public class Rope : MonoBehaviour {
 			case RopeCollisionType.CAN_ATTACH_AND_DROP:
 				colideObject = other.gameObject;
 				transform.parent = other.transform;
-				isRopeAttached = true;
 				collisionType = RopeCollisionType.CAN_ATTACH_AND_DROP;
 				break;
 
@@ -165,20 +159,19 @@ public class Rope : MonoBehaviour {
     }
 
     // Get rope attraction force
-	private void getRopePullForce(float curLength, HingeJoint2D hingeJoint2D, GameObject centerObj, GameObject circuralObj, float strength)
+    private void getToRopeForce(float curLength, HingeJoint2D hingeJoint2D, GameObject centerObj, GameObject circuralObj)
     {
         Rigidbody2D rigidBody2D = circuralObj.GetComponent<Rigidbody2D>();
-		if (hingeJoint2D != null) {
-			hingeJoint2D.connectedBody = rigidBody2D;
-			hingeJoint2D.connectedAnchor = new Vector2 (0f, 0f);
-		}
+
+        hingeJoint2D.connectedBody = rigidBody2D;
+        hingeJoint2D.connectedAnchor = new Vector2(0f, 0f);
 
         Vector2 force;
         if (curLength > 0.3f)
             force = new Vector2(
                 centerObj.transform.position.x - circuralObj.transform.position.x,
                 centerObj.transform.position.y - circuralObj.transform.position.y
-			).normalized * strength * rigidBody2D.mass - rigidBody2D.velocity * 5;
+            ).normalized * 40 * rigidBody2D.mass - rigidBody2D.velocity * 5;
         else
             force = new Vector2(
                 centerObj.transform.position.x - circuralObj.transform.position.x,
