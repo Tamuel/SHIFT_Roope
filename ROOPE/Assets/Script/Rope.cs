@@ -10,6 +10,7 @@ public class Rope : MonoBehaviour
 
     private Player player;
     private LineRenderer lineRenderer;
+    private CircleCollider2D circleCollider;
 
     private float speed = 30;
     private Vector3 touchPosition;
@@ -31,18 +32,13 @@ public class Rope : MonoBehaviour
         isRopeLaunched = false;
         isRopeAttached = false;
         lineRenderer = GetComponent<LineRenderer>();
+        circleCollider = GetComponent<CircleCollider2D>();
         colideObject = null;
         collisionType = RopeCollisionType.NONE;
         GetComponent<CircleCollider2D>().isTrigger = true;
         Debug.Log("Rope Start!");
     }
-
-    void Start()
-    {
-        Physics2D.IgnoreCollision(player.transform.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-    }
-
-
+    
     void FixedUpdate()
     {
         if (isRopeAttached)
@@ -135,8 +131,8 @@ public class Rope : MonoBehaviour
 
             touchPosition = Camera.main.ScreenToWorldPoint(touchPosition);
             // Shoot rope
-                transform.position = new Vector2(10f + player.transform.position.x, player.transform.position.y);
-                GetComponent<CircleCollider2D>().isTrigger = false;
+                transform.position = new Vector2(0.6f + player.transform.position.x, player.transform.position.y);
+                circleCollider.isTrigger = false;
                 moveVector = new Vector2(
                 touchPosition.x - transform.position.x,
                 touchPosition.y - transform.position.y
@@ -158,7 +154,7 @@ public class Rope : MonoBehaviour
     {
         isRopeLaunched = false;
         isRopeAttached = false;
-        GetComponent<CircleCollider2D>().isTrigger = true;
+        circleCollider.isTrigger = true;
         colideObject = null;
         enabled = false;
         lineRenderer.SetPosition(0, Vector3.zero);
