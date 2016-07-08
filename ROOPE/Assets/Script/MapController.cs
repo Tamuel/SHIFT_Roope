@@ -142,8 +142,21 @@ public class MapController : MonoBehaviour {
 					break;
 
 				case (int)RObjectType.ARROW:
+					position.y = 0;
+					Instantiate (Resources.Load(path + "ArrowCollider"), position, rotate);
 					break;
 
+				case (int)RObjectType.WIND_0:
+					FindObjectOfType<GameManager> ().setWindStrength (0, 0);
+					break;
+
+				case (int)RObjectType.WIND_UP:
+					FindObjectOfType<GameManager> ().setWindStrength (0, 100);
+					break;
+
+				case (int)RObjectType.WIND_DONW:
+					FindObjectOfType<GameManager> ().setWindStrength (0, -50);
+					break;
 				}
 			}
 		}
