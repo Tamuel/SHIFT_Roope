@@ -142,8 +142,8 @@ public class MapController : MonoBehaviour {
 					break;
 
 				case (int)RObjectType.ARROW:
-					position.y = 0;
-					Instantiate (Resources.Load(path + "ArrowCollider"), position, rotate);
+					//position.y = 0;
+					//Instantiate (Resources.Load(path + "ArrowCollider"), position, rotate);
 					break;
 
 				case (int)RObjectType.WIND_0:
