@@ -102,7 +102,7 @@ public class Rope : MonoBehaviour {
 	}
 
 	void OnCollisionExit2D(Collision2D other) {
-		if (other.gameObject.Equals (colideObject)) {
+		if (other.collider.gameObject.Equals (colideObject)) {
 			Debug.Log ("Trigger Exit");
 			collisionType = RopeCollisionType.NONE;
 		}
