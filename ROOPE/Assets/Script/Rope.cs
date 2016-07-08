@@ -71,27 +71,27 @@ public class Rope : MonoBehaviour {
 			Debug.Log (col.ToString());
 			switch (col) {
 			case RopeCollisionType.CAN_ATTACH:
-				colideObject = other.gameObject;
+				colideObject = other.collider.gameObject;
 				GetComponent<Rigidbody2D> ().velocity = new Vector2 (0, 0);
 				isRopeAttached = true;
 				collisionType = RopeCollisionType.CAN_ATTACH;
 				break;
 
 			case RopeCollisionType.CAN_ATTACH_AND_DROP:
-				colideObject = other.gameObject;
-				transform.parent = other.transform;
+				colideObject = other.collider.gameObject;
+				transform.parent = other.collider.transform;
 				isRopeAttached = true;
 				collisionType = RopeCollisionType.CAN_ATTACH_AND_DROP;
 				break;
 
 			case RopeCollisionType.CAN_NOT_ATTACH_AND_CUT:
-				colideObject = other.gameObject;
+				colideObject = other.collider.gameObject;
 				stopRope ();
 				collisionType = RopeCollisionType.CAN_NOT_ATTACH_AND_CUT;
 				break;
 
 			case RopeCollisionType.CAN_NOT_ATTACH_AND_THROUGH:
-				colideObject = other.gameObject;
+				colideObject = other.collider.gameObject;
 				collisionType = RopeCollisionType.CAN_NOT_ATTACH_AND_THROUGH;
 				break;
 			}
