@@ -6,9 +6,14 @@ public class MapController : MonoBehaviour {
 	private string MapPath;
 	private Hashtable MapObjects;
 	private int stage = 1;
+	private Player player;
+	int map_position = 0;
+	int pattern_num=0;
+
 
 	// Use this for initialization
 	void Start () {
+		player = FindObjectOfType<Player> ();
 		MapPath = "Maps/";
 		Debug.Log (MapPath);
 		MapObjects = new Hashtable ();
@@ -17,7 +22,11 @@ public class MapController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		map_position = (int)player.transform.position.x;
+		if (map_position % 30 == 0) {
+			pattern_num = (map_position / 30);
+			Map_Create (pattern_num + 2);
+		}
 	}
 
 	void WriteFile()
@@ -89,15 +98,15 @@ public class MapController : MonoBehaviour {
 		};
 
 		for (pattern = 0; pattern < TILE.Length; pattern++) {
-//			if (pattern % 15 == 0 && pattern != 0)
-//				stage++;
-//			if (stage == 1)
-//				random_pattern = Random.Range (0, 16);
-//			else if (stage == 2)
-//				random_pattern = Random.Range (17, 33);
-//			else
-//				random_pattern = Random.Range (33, 49);
-			TextAsset map = Resources.Load (MapPath + TILE[pattern]) as TextAsset;
+			if (pattern % 25 == 0 && pattern != 0)
+				stage++;
+			if (stage == 1)
+				random_pattern = Random.Range (0, 16);
+			else if (stage == 2)
+				random_pattern = Random.Range (17, 33);
+			else
+				random_pattern = Random.Range (33, 49);
+			TextAsset map = Resources.Load (MapPath + TILE[random_pattern]) as TextAsset;
 			StreamReader fileReader = new StreamReader (new MemoryStream(map.bytes)); 
 			height = 0;
 			// read file
@@ -111,39 +120,58 @@ public class MapController : MonoBehaviour {
 			MapTerm (pattern);
 			fileReader.Close ();
 		}
+		Map_Create (1);
+		Map_Create (2);
+	}
 
+	void MapTerm(int pattern) // making safe zone
+	{
+		int height = 0;
+		TextAsset map = Resources.Load<TextAsset> (MapPath + "map_TERM");
+		StreamReader mapTerm = new StreamReader (new MemoryStream(map.bytes));
+		while (!mapTerm.EndOfStream) {
+			string line = mapTerm.ReadLine ();
+			for (int i = 0; i < 5; i++) {
+				MapObjects.Add (((pattern + 1) * 30 - 5 + i) + "," + height, int.Parse (line.ToCharArray () [i] + ""));
+			}
+			height++;
+		}
+	}
+
+	void Map_Create(int pattern)
+	{
 		string path = "Prefabs/";
 		Quaternion rotate = new Quaternion ();
 		for (int j = 0; j < 10; j++) {
-			for (int i = 0; i < 30 * TILE.Length; i++) {
+			for (int i = 30*(pattern-1); i < 30 * pattern; i++) {
 				Vector3 position = new Vector3 (i, -j + 4.5f, 0);
 				switch ((int)MapObjects [i + "," + j]) {
 				case (int)RObjectType.BLANK:
 					break;
 
 				case (int)RObjectType.STANDARD:
-					Instantiate (Resources.Load(path + "Wall"), position, rotate);
+					Instantiate (Resources.Load (path + "Wall"), position, rotate);
 					break;
 
 				case (int)RObjectType.POINT:
-					Instantiate (Resources.Load(path + "Score_Item"), position, rotate);
+					Instantiate (Resources.Load (path + "Score_Item"), position, rotate);
 					break;
 
 				case (int)RObjectType.FALLING:
-					Instantiate (Resources.Load(path + "Drop_Wall"), position, rotate);
+					Instantiate (Resources.Load (path + "Drop_Wall"), position, rotate);
 					break;
 
 				case (int)RObjectType.SLIP:
-					Instantiate (Resources.Load(path + "Slip_Wall"), position, rotate);
+					Instantiate (Resources.Load (path + "Slip_Wall"), position, rotate);
 					break;
 
 				case (int)RObjectType.ITEM:
-					Instantiate (Resources.Load(path + "Scale_Change"), position, rotate);
+					Instantiate (Resources.Load (path + "Scale_Change"), position, rotate);
 					break;
 
 				case (int)RObjectType.ARROW:
-					//position.y = 0;
-					//Instantiate (Resources.Load(path + "ArrowCollider"), position, rotate);
+					position.y = 0;
+					Instantiate (Resources.Load(path + "ArrowCollider"), position, rotate);
 					break;
 
 				case (int)RObjectType.WIND_0:
@@ -159,21 +187,6 @@ public class MapController : MonoBehaviour {
 					break;
 				}
 			}
-		}
-
-	}
-
-	void MapTerm(int pattern) // making safe zone
-	{
-		int height = 0;
-		TextAsset map = Resources.Load<TextAsset> (MapPath + "map_TERM");
-		StreamReader mapTerm = new StreamReader (new MemoryStream(map.bytes));
-		while (!mapTerm.EndOfStream) {
-			string line = mapTerm.ReadLine ();
-			for (int i = 0; i < 5; i++) {
-				MapObjects.Add (((pattern + 1) * 30 - 5 + i) + "," + height, int.Parse (line.ToCharArray () [i] + ""));
-			}
-			height++;
 		}
 	}
 }
