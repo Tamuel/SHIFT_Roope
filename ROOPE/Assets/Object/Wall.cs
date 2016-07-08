@@ -22,6 +22,12 @@ public class Wall : Obstacle {
 
 	}
 
+    void OnTriggerStay2D(Collider2D other)
+    { 
+        if ((other.transform.position - transform.position).magnitude < 0.001)
+            movable = false;
+    }
+
     public void moveWall (float direction)
     {
         // left
