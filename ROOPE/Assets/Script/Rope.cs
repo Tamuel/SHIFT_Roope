@@ -3,8 +3,7 @@ using System.Collections;
 
 public class Rope : MonoBehaviour
 {
-
-    Transform target;
+    
     public RopeLine ropeLine;
     public bool isRopeLaunched;
     public bool isRopeAttached;
@@ -34,7 +33,7 @@ public class Rope : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
         colideObject = null;
         collisionType = RopeCollisionType.NONE;
-        GetComponent<CircleCollider2D>().isTrigger = false;
+        GetComponent<CircleCollider2D>().isTrigger = true;
         Debug.Log("Rope Start!");
     }
 
@@ -69,7 +68,6 @@ public class Rope : MonoBehaviour
 
         if (isRopeLaunched)
         {
-            transform.position = new Vector2(player.);
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, player.transform.position);
             // Rope fly
@@ -137,7 +135,9 @@ public class Rope : MonoBehaviour
 
             touchPosition = Camera.main.ScreenToWorldPoint(touchPosition);
             // Shoot rope
-            moveVector = new Vector2(
+                transform.position = new Vector2(10f + player.transform.position.x, player.transform.position.y);
+                GetComponent<CircleCollider2D>().isTrigger = false;
+                moveVector = new Vector2(
                 touchPosition.x - transform.position.x,
                 touchPosition.y - transform.position.y
             ).normalized * speed;
@@ -158,6 +158,7 @@ public class Rope : MonoBehaviour
     {
         isRopeLaunched = false;
         isRopeAttached = false;
+        GetComponent<CircleCollider2D>().isTrigger = true;
         colideObject = null;
         enabled = false;
         lineRenderer.SetPosition(0, Vector3.zero);
