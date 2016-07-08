@@ -7,9 +7,7 @@ public class MapController : MonoBehaviour {
 	private Hashtable MapObjects;
 	private int stage = 1;
 	private Player player;
-	int map_position = 0;
 	int pattern_num=0;
-
 
 	// Use this for initialization
 	void Start () {
@@ -18,15 +16,18 @@ public class MapController : MonoBehaviour {
 		Debug.Log (MapPath);
 		MapObjects = new Hashtable ();
 		readMapFromFile ();
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		map_position = (int)player.transform.position.x;
-		if (map_position % 30 == 0) {
-			pattern_num = (map_position / 30);
+		float map_position = player.transform.position.x;
+
+		if (map_position >= 30*(pattern_num+1)) {
+			pattern_num++;
 			Map_Create (pattern_num + 2);
 		}
+
 	}
 
 	void WriteFile()
