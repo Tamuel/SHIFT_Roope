@@ -14,8 +14,10 @@ public class Rope : MonoBehaviour {
 	private float speed = 30;
 	private Vector3 touchPosition;
 	private Vector2 moveVector;
+    private Vector2 setVector = new Vector2(10f , 0f);
 
-	private GameObject colideObject;
+    private GameObject colideObject;
+    private GameObject positionSetting;
 
     private const float maxSpeed = 10;
 
@@ -32,8 +34,10 @@ public class Rope : MonoBehaviour {
 		lineRenderer = GetComponent<LineRenderer> ();
 		colideObject = null;
 		collisionType = RopeCollisionType.NONE;
+        GetComponent<CircleCollider2D>().isTrigger = true;
 		Debug.Log ("Rope Start!");
 	}
+    
 
     void FixedUpdate() {
 
@@ -56,6 +60,8 @@ public class Rope : MonoBehaviour {
 
 
         if (isRopeLaunched) {
+
+            transform.position = new Vector2(10f + player.transform.position.x, player.transform.position.y);
 			lineRenderer.SetPosition (0, transform.position); 
 			lineRenderer.SetPosition (1, player.transform.position);
 			// Rope fly
