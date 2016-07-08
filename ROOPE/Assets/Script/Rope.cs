@@ -131,7 +131,9 @@ public class Rope : MonoBehaviour
 
             touchPosition = Camera.main.ScreenToWorldPoint(touchPosition);
             // Shoot rope
-                transform.position = new Vector2(0.6f + player.transform.position.x, player.transform.position.y);
+                transform.position = new Vector2(
+                     touchPosition.x - player.transform.position.x,
+                     touchPosition.y - player.transform.position.y).normalized*52/100f;
                 circleCollider.isTrigger = false;
                 moveVector = new Vector2(
                 touchPosition.x - transform.position.x,
