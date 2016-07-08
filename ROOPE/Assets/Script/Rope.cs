@@ -129,17 +129,21 @@ public class Rope : MonoBehaviour
             isRopeLaunched = true;
             isRopeAttached = false;
 
+
             touchPosition = Camera.main.ScreenToWorldPoint(touchPosition);
             // Shoot rope
-                transform.position = new Vector2(
-                     touchPosition.x - player.transform.position.x,
-                     touchPosition.y - player.transform.position.y).normalized*52/100f;
-                circleCollider.isTrigger = false;
+
+          
                 moveVector = new Vector2(
                 touchPosition.x - transform.position.x,
                 touchPosition.y - transform.position.y
             ).normalized * speed;
+
             transform.parent = null;
+              transform.position = new Vector2(player.transform.position.x, player.transform.position.y) + new Vector2(touchPosition.x - player.transform.position.x,
+            touchPosition.y - player.transform.position.y).normalized*52/100f;
+
+                circleCollider.isTrigger = false;
             enabled = true;
 
             return true;
