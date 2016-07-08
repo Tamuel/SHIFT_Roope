@@ -15,6 +15,9 @@ public class Arrow : Obstacle {
 	// HP -1
 	public override void collideWithCharacter(Player player) {
 		FindObjectOfType<GameManager> ().addHP (-1);
+		player.rope1Prefab.GetComponent<Rope> ().stopRope ();
+		player.rope2Prefab.GetComponent<Rope> ().stopRope ();
+		player.GetComponent<Rigidbody2D> ().AddForce (new Vector2(-2000, 700));
 		Debug.Log ("HP : " + FindObjectOfType<GameManager> ().getHP ());
 		Destroy (gameObject);
 	}
