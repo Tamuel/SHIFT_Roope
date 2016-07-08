@@ -34,12 +34,13 @@ public class Rope : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
         colideObject = null;
         collisionType = RopeCollisionType.NONE;
+        GetComponent<CircleCollider2D>().isTrigger = false;
         Debug.Log("Rope Start!");
     }
 
     void Start()
     {
-        Physics.IgnoreCollision(player.GetComponent<Collider>(), GetComponent<Collider>());
+        Physics2D.IgnoreCollision(player.transform.GetComponent<Collider2D>(), GetComponent<Collider2D>());
     }
 
 
@@ -68,6 +69,7 @@ public class Rope : MonoBehaviour
 
         if (isRopeLaunched)
         {
+            transform.position = new Vector2(player.);
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, player.transform.position);
             // Rope fly
