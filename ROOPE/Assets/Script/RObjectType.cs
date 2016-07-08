@@ -7,6 +7,6 @@
 	ITEM = 5,
 	ARROW = 6,
 	WIND_UP = 7,
-	WIND_DONW = 8,
+	WIND_DOWN = 8,
 	WIND_0 = 9
 }

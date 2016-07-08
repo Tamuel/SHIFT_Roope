@@ -176,15 +176,18 @@ public class MapController : MonoBehaviour {
 					break;
 
 				case (int)RObjectType.WIND_0:
-					FindObjectOfType<GameManager> ().setWindStrength (0, 0);
-					break;
-
 				case (int)RObjectType.WIND_UP:
-					FindObjectOfType<GameManager> ().setWindStrength (0, 100);
-					break;
-
-				case (int)RObjectType.WIND_DONW:
-					FindObjectOfType<GameManager> ().setWindStrength (0, -50);
+				case (int)RObjectType.WIND_DOWN:
+					position.y = 0;
+					WindControl a = Instantiate (Resources.Load (path + "WindCollider"), position, rotate);
+					if ((int)MapObjects [i + "," + j] == (int)RObjectType.WIND_UP) {
+						a.x_Strength = 0;
+						a.y_Strength = 100;
+					}
+					else if ((int)MapObjects [i + "," + j] == (int)RObjectType.WIND_DOWN) {
+						a.x_Strength = 0;
+						a.y_Strength = -100;
+					}	
 					break;
 				}
 			}
