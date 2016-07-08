@@ -4,7 +4,15 @@ using System.Collections;
 public class Wall : Obstacle {
 
 	public bool canDrop;
+    public float direction;
+
 	private Rope rope;
+    private Rigidbody2D rb;
+
+    void Start ()
+    {
+        moveWall(direction);
+    }
 
 	void OnTriggerEnter2D (Collider2D other)
 	{
@@ -14,8 +22,30 @@ public class Wall : Obstacle {
 
 	}
 
-	// HP -1
-	public override void collideWithCharacter (Player player)
+    void OnTriggerStay2D(Collider2D other)
+    { 
+        if ((other.transform.position - transform.position).magnitude < 0.001)
+            movable = false;
+    }
+
+    public void moveWall (float direction)
+    {
+        // left
+        if (direction == 0f)
+            move(-1, 0);
+        // up
+        else if (direction == 1f)
+            move(0, 1);
+        // right
+        else if (direction == 2f)
+            move(1, 0);
+        // down
+        else if (direction == 3f)
+            move(0, -1);
+    }
+
+    // HP -1
+    public override void collideWithCharacter (Player player)
 	{
 		FindObjectOfType<GameManager> ().addHP (-1);
 	}
