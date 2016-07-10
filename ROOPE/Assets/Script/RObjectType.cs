@@ -8,5 +8,10 @@
 	ARROW = 6,
 	WIND_UP = 7,
 	WIND_DOWN = 8,
-	WIND_0 = 9
+	WIND_0 = 9,
+	STOP = 10,
+	MOVE_UP = 11,
+	MOVE_RIGHT = 12,
+	MOVE_DOWN = 13,
+	MOVE_LEFT = 14
 }

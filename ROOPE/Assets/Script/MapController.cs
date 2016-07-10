@@ -23,7 +23,7 @@ public class MapController : MonoBehaviour {
 	void Update () {
 		float map_position = player.transform.position.x;
 
-		if (map_position >= 30*(pattern_num+1)) {
+		if (map_position >= 50*(pattern_num+1)) {
 			pattern_num++;
 			Map_Create (pattern_num + 2);
 		}
@@ -95,56 +95,62 @@ public class MapController : MonoBehaviour {
 			"map_14C",
 			"map_15C",
 			"map_16C",
-			"map_7C"
+			"map_7C",
+			"map_A",
+			"map_B",
+			"map_C",
+			"map_D"
 		};
 
 		for (pattern = 0; pattern < TILE.Length; pattern++) {
-			if (pattern % 25 == 0 && pattern != 0)
-				stage++;
-			if (stage == 1)
-				random_pattern = Random.Range (0, 16);
-			else if (stage == 2)
-				random_pattern = Random.Range (17, 33);
-			else
-				random_pattern = Random.Range (33, 49);
+//			if (pattern % 25 == 0 && pattern != 0)
+//				stage++;
+//			if (stage == 1)
+//				random_pattern = Random.Range (0, 16);
+//			else if (stage == 2)
+//				random_pattern = Random.Range (17, 33);
+//			else
+//				random_pattern = Random.Range (33, 49);
+			random_pattern = Random.Range (50,53);
 			TextAsset map = Resources.Load (MapPath + TILE[random_pattern]) as TextAsset;
 			StreamReader fileReader = new StreamReader (new MemoryStream(map.bytes)); 
 			height = 0;
 			// read file
 			while (!fileReader.EndOfStream) {
 				string line = fileReader.ReadLine ();
-				for (int i = 0; i < 25; i++) {
-					MapObjects.Add ((pattern * 30 + i) + "," + height, int.Parse (line.ToCharArray () [i] + ""));
+				string[] temp = line.Split(' ');
+				for (int i = 0; i < 50; i++) {
+						MapObjects.Add ((pattern * 50 + i) + "," + height, int.Parse (temp[i] + ""));
 				}
 				height++;
 			}
-			MapTerm (pattern);
+			//MapTerm (pattern);
 			fileReader.Close ();
 		}
 		Map_Create (1);
 		Map_Create (2);
 	}
 
-	void MapTerm(int pattern) // making safe zone
-	{
-		int height = 0;
-		TextAsset map = Resources.Load<TextAsset> (MapPath + "map_TERM");
-		StreamReader mapTerm = new StreamReader (new MemoryStream(map.bytes));
-		while (!mapTerm.EndOfStream) {
-			string line = mapTerm.ReadLine ();
-			for (int i = 0; i < 5; i++) {
-				MapObjects.Add (((pattern + 1) * 30 - 5 + i) + "," + height, int.Parse (line.ToCharArray () [i] + ""));
-			}
-			height++;
-		}
-	}
+//	void MapTerm(int pattern) // making safe zone
+//	{
+//		int height = 0;
+//		TextAsset map = Resources.Load<TextAsset> (MapPath + "map_TERM");
+//		StreamReader mapTerm = new StreamReader (new MemoryStream(map.bytes));
+//		while (!mapTerm.EndOfStream) {
+//			string line = mapTerm.ReadLine ();
+//			for (int i = 0; i < 5; i++) {
+//				MapObjects.Add (((pattern + 1) * 30 - 5 + i) + "," + height, int.Parse (line.ToCharArray () [i] + ""));
+//			}
+//			height++;
+//		}
+//	}
 
 	void Map_Create(int pattern)
 	{
 		string path = "Prefabs/";
 		Quaternion rotate = new Quaternion ();
-		for (int j = 0; j < 10; j++) {
-			for (int i = 30*(pattern-1); i < 30 * pattern; i++) {
+		for (int j = 0; j < 11; j++) {
+			for (int i = 50*(pattern-1); i < 50 * pattern; i++) {
 				Vector3 position = new Vector3 (i, -j + 4.5f, 0);
 				switch ((int)MapObjects [i + "," + j]) {
 				case (int)RObjectType.BLANK:
@@ -179,15 +185,39 @@ public class MapController : MonoBehaviour {
 				case (int)RObjectType.WIND_UP:
 				case (int)RObjectType.WIND_DOWN:
 					position.y = 0;
-					WindControl a = Instantiate (Resources.Load (path + "WindCollider"), position, rotate);
+					WindControl a = (WindControl) Instantiate (Resources.Load (path + "WindCollider"), position, rotate);
 					if ((int)MapObjects [i + "," + j] == (int)RObjectType.WIND_UP) {
 						a.x_Strength = 0;
-						a.y_Strength = 100;
+						a.y_Strength = 66;
 					}
 					else if ((int)MapObjects [i + "," + j] == (int)RObjectType.WIND_DOWN) {
 						a.x_Strength = 0;
-						a.y_Strength = -100;
+						a.y_Strength = -33;
 					}	
+					break;
+				case (int)RObjectType.STOP:
+					Instantiate (Resources.Load (path + "WallStopper"), position, rotate);
+					break;
+
+				case (int)RObjectType.MOVE_UP:
+				case (int)RObjectType.MOVE_RIGHT:
+				case (int)RObjectType.MOVE_DOWN:
+				case (int)RObjectType.MOVE_LEFT:
+					Wall move = ((GameObject)Instantiate (Resources.Load (path + "Wall"), position, rotate)).GetComponent<Wall> ();
+					move.movable = true;
+					if ((int)MapObjects [i + "," + j] == (int)RObjectType.MOVE_UP) {
+						move.direction = 1f;
+						move.speed = 1.5f;
+					} else if ((int)MapObjects [i + "," + j] == (int)RObjectType.MOVE_RIGHT) {
+						move.direction = 2f;
+						move.speed = 1.5f;
+					} else if ((int)MapObjects [i + "," + j] == (int)RObjectType.MOVE_DOWN) {
+						move.direction = 3f;
+						move.speed = 1.5f;
+					} else if ((int)MapObjects [i + "," + j] == (int)RObjectType.MOVE_LEFT) {
+						move.direction = 0f;
+						move.speed = 1.5f;
+					}
 					break;
 				}
 			}
