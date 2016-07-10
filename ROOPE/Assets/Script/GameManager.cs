@@ -5,8 +5,11 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 	public Text infoText;
+    public Text gameOverText;
+    public Button restartButton;
+    public Button mainButton;
 
-	private float hitPoint;
+    private float hitPoint;
 	private int score;
 	private int numberOfRope;
 	private int stage;
@@ -31,8 +34,10 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+        gameOverText.text = "";
+        restartButton.gameObject.SetActive(false);
+        mainButton.gameObject.SetActive(false);
+    }
 
 	// Update is called once per frame
 	void Update () {
@@ -108,4 +113,11 @@ public class GameManager : MonoBehaviour {
 		return "STAGE : " + getStage () + "  HP : " + getHP () +
 		"  SCORE : " + getScore () + "  ROPE : " + getNumberOfRope ();
 	}
+
+    public void gameOverFunction ()
+    {
+        gameOverText.text = "Game Over";
+        restartButton.gameObject.SetActive(true);
+        mainButton.gameObject.SetActive(true);
+    }
 }
