@@ -16,20 +16,15 @@ public class Player : MonoBehaviour, Wind
 
     private const float maxSpeed = 10;
 
-    private float[] shortestLength;
-    private float[] curLength;
-
     void Start()
     {
         hingeJoint2D = GetComponents<HingeJoint2D>();
 
-        shortestLength = new float[2];
-        curLength = new float[2];
-
         rope1Prefab = Instantiate(rope);
         rope1Prefab.transform.parent = transform;
         rope1Prefab.transform.localScale = new Vector3(4, 4, 4);
-        rope1Prefab.GetComponent<Rope>().setPlayer(this);
+		rope1Prefab.GetComponent<Rope> ().setPlayer(this);
+		rope1Prefab.GetComponent<Rope> ().hingeJoint2D = hingeJoint2D [0];
 
         Debug.Log(
             rope1Prefab.transform.position.ToString() + "\n" +
@@ -40,7 +35,8 @@ public class Player : MonoBehaviour, Wind
         rope2Prefab = Instantiate(rope);
         rope2Prefab.transform.parent = transform;
         rope2Prefab.transform.localScale = new Vector3(4, 4, 4);
-        rope2Prefab.GetComponent<Rope>().setPlayer(this);
+		rope2Prefab.GetComponent<Rope> ().setPlayer(this);
+		rope2Prefab.GetComponent<Rope> ().hingeJoint2D = hingeJoint2D [1];
 
         Debug.Log(rope2Prefab.transform.position.ToString());
     }
@@ -62,17 +58,13 @@ public class Player : MonoBehaviour, Wind
         {
             if (Input.GetTouch(0).phase == TouchPhase.Began)
             {
-                if (!rope1Prefab.GetComponent<Rope>().isRopeLaunched)
-                    shootRope(ref curLength[0], ref shortestLength[0], rope1Prefab, hingeJoint2D[0], Input.GetTouch(0).position);
-                else if (!rope2Prefab.GetComponent<Rope>().isRopeLaunched)
-                    shootRope(ref curLength[1], ref shortestLength[1], rope2Prefab, hingeJoint2D[1], Input.GetTouch(0).position);
+				if (shootRope (rope1Prefab, Input.GetTouch (0).position)) {
+				} else shootRope(rope2Prefab, Input.GetTouch(0).position);
             }
-            else if (Input.GetTouch(1).phase == TouchPhase.Began)
-            {
-                if (!rope1Prefab.GetComponent<Rope>().isRopeLaunched)
-                    shootRope(ref curLength[0], ref shortestLength[0], rope1Prefab, hingeJoint2D[0], Input.GetTouch(1).position);
-                else if (!rope2Prefab.GetComponent<Rope>().isRopeLaunched)
-                    shootRope(ref curLength[1], ref shortestLength[1], rope2Prefab, hingeJoint2D[1], Input.GetTouch(1).position);
+            if (Input.GetTouch(1).phase == TouchPhase.Began)
+			{
+				if (shootRope (rope1Prefab, Input.GetTouch (1).position)) {
+				} else shootRope(rope2Prefab, Input.GetTouch(1).position);
             }
         }
 
@@ -80,38 +72,25 @@ public class Player : MonoBehaviour, Wind
         // Stop Rope
         if (Input.touchCount != 0 && Input.GetTouch(0).phase == TouchPhase.Ended &&
             rope1Prefab.GetComponent<Rope>().isRopeLaunched)
-            stopRope(rope1Prefab, hingeJoint2D[0]);
+            stopRope(rope1Prefab);
         if (Input.touchCount != 0 && Input.GetTouch(1).phase == TouchPhase.Ended &&
             rope2Prefab.GetComponent<Rope>().isRopeLaunched)
-            stopRope(rope2Prefab, hingeJoint2D[1]);
+            stopRope(rope2Prefab);
         if (Input.touchCount == 0)
         {
-            stopRope(rope1Prefab, hingeJoint2D[0]);
-            stopRope(rope2Prefab, hingeJoint2D[1]);
+            stopRope(rope1Prefab);
+            stopRope(rope2Prefab);
         }
     }
 
-    void stopRope(GameObject rope, HingeJoint2D hinge)
+    void stopRope(GameObject rope)
     {
         rope.GetComponent<Rope>().stopRope();
-        hinge.connectedAnchor = new Vector2(0f, 0f);
     }
 
-    void shootRope(ref float curLength, ref float shortestLength, GameObject rope, HingeJoint2D hinge, Vector3 touchPosition)
+    bool shootRope(GameObject rope, Vector3 touchPosition)
     {
-        curLength = 0;
-        shortestLength = 0;
-
-        rope.GetComponent<Rope>().launchRope(touchPosition);
-
-        relativeVectorFromTouchPointToPlayerX = transform.position.x - rope.transform.position.x;
-        relativeVectorFromTouchPointToPlayerY = transform.position.y - rope.transform.position.y;
-
-        hinge.connectedAnchor = new Vector2(
-            relativeVectorFromTouchPointToPlayerX,
-            relativeVectorFromTouchPointToPlayerY
-        );
-        shortestLength = hinge.connectedAnchor.magnitude;
+        return rope.GetComponent<Rope>().launchRope(touchPosition);
     }
 
     void OnTriggerEnter2D(Collider2D other)

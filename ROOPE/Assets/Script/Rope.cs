@@ -3,7 +3,8 @@ using System.Collections;
 
 public class Rope : MonoBehaviour
 {
-    
+
+	public HingeJoint2D hingeJoint2D;
     public RopeLine ropeLine;
     public bool isRopeLaunched;
     public bool isRopeAttached;
@@ -53,30 +54,31 @@ public class Rope : MonoBehaviour
         if (isRopeAttached)
         {
             if (collisionType == RopeCollisionType.CAN_ATTACH)
-                getRopePullForce(curLength, player.GetComponent<HingeJoint2D>(), this.gameObject, player.gameObject, 40);
+				getRopePullForce(curLength, hingeJoint2D, this.gameObject, player.gameObject, 40);
             if (collisionType == RopeCollisionType.CAN_ATTACH_AND_DROP)
             {
-                getRopePullForce(curLength, player.GetComponent<HingeJoint2D>(), colideObject, player.gameObject, 20);
+				getRopePullForce(curLength, hingeJoint2D, colideObject, player.gameObject, 20);
                 getRopePullForce(curLength, null, player.gameObject, colideObject, 20);
             }
         }
 
 
         if (isRopeLaunched)
-        {
+		{
+			// Rope fly
+			if (collisionType == RopeCollisionType.NONE)
+				GetComponent<Rigidbody2D>().velocity = moveVector;
+			
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, player.transform.position);
-            // Rope fly
-            if (collisionType == RopeCollisionType.NONE)
-                GetComponent<Rigidbody2D>().velocity = moveVector;
         }
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.collider.GetComponent<RObject>() != null && isRopeLaunched)
-        {
-            Debug.Log("Collide with object");
+		{
+			moveVector = new Vector2 (0, 0);
             RopeCollisionType col = other.collider.GetComponent<RObject>().collideWithRopeHead(this);
             Debug.Log(col.ToString());
             switch (col)
@@ -127,23 +129,27 @@ public class Rope : MonoBehaviour
         {
             Debug.Log("Launch Rope!");
             isRopeLaunched = true;
-            isRopeAttached = false;
+			isRopeAttached = false;
+			hingeJoint2D.connectedAnchor = new Vector2(
+				player.transform.position.x - transform.position.x,
+				player.transform.position.y - transform.position.y
+			);
+			shortestLength = hingeJoint2D.connectedAnchor.magnitude;
 
 
             touchPosition = Camera.main.ScreenToWorldPoint(touchPosition);
-            // Shoot rope
-
-          
-                moveVector = new Vector2(
+            
+			// Shoot rope
+            moveVector = new Vector2(
                 touchPosition.x - transform.position.x,
                 touchPosition.y - transform.position.y
             ).normalized * speed;
 
             transform.parent = null;
-              transform.position = new Vector2(player.transform.position.x, player.transform.position.y) + new Vector2(touchPosition.x - player.transform.position.x,
+            transform.position = new Vector2(player.transform.position.x, player.transform.position.y) + new Vector2(touchPosition.x - player.transform.position.x,
             touchPosition.y - player.transform.position.y).normalized*52/100f;
 
-                circleCollider.isTrigger = false;
+            circleCollider.isTrigger = false;
             enabled = true;
 
             return true;
@@ -162,7 +168,8 @@ public class Rope : MonoBehaviour
         isRopeAttached = false;
         circleCollider.isTrigger = true;
         colideObject = null;
-        enabled = false;
+		enabled = false;
+		hingeJoint2D.connectedAnchor = new Vector2(0f, 0f);
         lineRenderer.SetPosition(0, Vector3.zero);
         lineRenderer.SetPosition(1, Vector3.zero);
         collisionType = RopeCollisionType.NONE;

@@ -49,7 +49,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &5819202
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -75,6 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee4dda8c7882b48c7bed811691d49072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hingeJoint2D: {fileID: 0}
   ropeLine: {fileID: 11497794, guid: 165cc54e9034e40cdbc891008b13cc45, type: 2}
   isRopeLaunched: 0
   isRopeAttached: 0
