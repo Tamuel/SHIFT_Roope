@@ -5,13 +5,32 @@ public class Wall : Obstacle {
 
 	public bool canDrop;
     public int direction;
+    public float offset = 3f;
 
 	private Rope rope;
     private Rigidbody2D rb;
 
+    private bool isPlayerPass;
+    private Player player;
+
+    void Awake()
+    {
+        player = FindObjectOfType<Player>();
+        isPlayerPass = false;
+    }
+
     void Start ()
     {
-        moveWall(direction);
+    }
+
+    void Update()
+    {
+        if (!isPlayerPass && isMovable())
+            if (player.transform.position.x + offset > transform.position.x)
+            {
+                isPlayerPass = true;
+                moveWall(direction);
+            }
     }
 
 	void OnTriggerEnter2D (Collider2D other)
