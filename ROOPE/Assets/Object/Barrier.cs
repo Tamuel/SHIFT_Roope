@@ -5,7 +5,7 @@ public class Barrier : MonoBehaviour {
     
 	void OnTriggerEnter2D (Collider2D other)
 	{
-		if (other.tag != "Player" && other.tag != "Rope" && other.tag != "ScaleChanger") {
+		if (other.tag != "Player" && other.tag != "Rope" && other.tag != "ScaleChanger" && other.tag != "Barrier") {
 			Destroy (other.gameObject);
 		}
 
