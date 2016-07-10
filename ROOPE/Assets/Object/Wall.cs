@@ -4,7 +4,7 @@ using System.Collections;
 public class Wall : Obstacle {
 
 	public bool canDrop;
-    public float direction;
+    public int direction;
 
 	private Rope rope;
     private Rigidbody2D rb;
@@ -24,16 +24,16 @@ public class Wall : Obstacle {
     public void moveWall (float direction)
     {
         // left
-        if (direction == 0f)
+        if (direction == 0)
             move(-1, 0);
         // up
-        else if (direction == 1f)
+        else if (direction == 1)
             move(0, 1);
         // right
-        else if (direction == 2f)
+        else if (direction == 2)
             move(1, 0);
         // down
-        else if (direction == 3f)
+        else if (direction == 3)
             move(0, -1);
     }
 

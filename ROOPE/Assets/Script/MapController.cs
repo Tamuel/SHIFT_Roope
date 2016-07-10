@@ -206,16 +206,16 @@ public class MapController : MonoBehaviour {
 					Wall move = ((GameObject)Instantiate (Resources.Load (path + "Wall"), position, rotate)).GetComponent<Wall> ();
 					move.movable = true;
 					if ((int)MapObjects [i + "," + j] == (int)RObjectType.MOVE_UP) {
-						move.direction = 1f;
+						move.direction = 1;
 						move.speed = 1.5f;
 					} else if ((int)MapObjects [i + "," + j] == (int)RObjectType.MOVE_RIGHT) {
-						move.direction = 2f;
+						move.direction = 2;
 						move.speed = 1.5f;
 					} else if ((int)MapObjects [i + "," + j] == (int)RObjectType.MOVE_DOWN) {
-						move.direction = 3f;
+						move.direction = 3;
 						move.speed = 1.5f;
 					} else if ((int)MapObjects [i + "," + j] == (int)RObjectType.MOVE_LEFT) {
-						move.direction = 0f;
+						move.direction = 0;
 						move.speed = 1.5f;
 					}
 					break;

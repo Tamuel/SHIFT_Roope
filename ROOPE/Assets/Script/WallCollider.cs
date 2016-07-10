@@ -15,7 +15,8 @@ public class WallCollider : MonoBehaviour {
 
 	void OnTriggerStay2D(Collider2D other) {
 		if (other.GetComponent<Wall> () != null && other.GetComponent<Wall> ().isMovable ()) {
-			other.GetComponent<Wall> ().GetComponent<Rigidbody2D> ().velocity = (transform.position - other.transform.position) * 5;
+			other.GetComponent<Wall> ().GetComponent<Rigidbody2D> ().velocity =
+				(transform.position - other.transform.position) * other.GetComponent<Wall> ().speed;
 
 			if ((other.transform.position - transform.position).magnitude <= 1)
 				other.GetComponent<Wall> ().movable = false;
