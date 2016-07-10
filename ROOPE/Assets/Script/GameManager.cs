@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour {
 	public Text infoText;
     public Text gameOverText;
+    public Text windStrengthText;
     public Button restartButton;
     public Button mainButton;
 
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         gameOverText.text = "";
+        windStrengthText.text = "";
         restartButton.gameObject.SetActive(false);
         mainButton.gameObject.SetActive(false);
     }
@@ -47,10 +49,12 @@ public class GameManager : MonoBehaviour {
 		// Potentiate player with wind
 		player.wind (windStrength.x, windStrength.y);
 
-		// If you want to potentiate RObjects with wind, remove this comment(//)
-//		foreach(RObject tempObject in FindObjectsOfType<RObject>()) {
-//			tempObject.wind (windStrength);
-//		}
+        // If you want to potentiate RObjects with wind, remove this comment(//)
+        //		foreach(RObject tempObject in FindObjectsOfType<RObject>()) {
+        //			tempObject.wind (windStrength);
+        //		}
+
+        showWindStrength ();
 	}
 
 	public void setWindStrength(Vector2 windStrength) {
@@ -119,5 +123,13 @@ public class GameManager : MonoBehaviour {
         gameOverText.text = "Game Over";
         restartButton.gameObject.SetActive(true);
         mainButton.gameObject.SetActive(true);
+    }
+
+    public void showWindStrength ()
+    {
+        if (windStrength == new Vector2(0, 0))
+            windStrengthText.text = "";
+        else
+            windStrengthText.text = "( x : " + windStrength.x + ", y : " + windStrength.y + " )";
     }
 }
