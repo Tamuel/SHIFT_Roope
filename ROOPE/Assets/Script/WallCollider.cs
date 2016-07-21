@@ -18,7 +18,7 @@ public class WallCollider : MonoBehaviour {
 			other.GetComponent<Wall> ().GetComponent<Rigidbody2D> ().velocity =
 				(transform.position - other.transform.position) * other.GetComponent<Wall> ().speed;
 
-			if ((other.transform.position - transform.position).magnitude <= 1)
+			if ((other.transform.position - transform.position).magnitude <= 0.01f)
 				other.GetComponent<Wall> ().movable = false;
 		}
 	}

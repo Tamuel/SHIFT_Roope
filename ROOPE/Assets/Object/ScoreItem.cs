@@ -3,7 +3,30 @@ using System.Collections;
 
 public class ScoreItem : Item {
 
-	public int score; 
+	public int score;
+
+	private bool up;
+	private float range = 0.3f;
+	private float speed;
+	private Vector3 startPosition;
+
+	void Start() {
+		up = true;
+		speed = Random.Range (20, 40);
+		startPosition = transform.position;
+	}
+
+	void Update() {
+		if (up) {
+			transform.position = new Vector3 (transform.position.x, transform.position.y + (startPosition.y + range - transform.position.y) / speed, 0);
+			if (startPosition.y + range - transform.position.y < 0.1f)
+				up = false;
+		} else {
+			transform.position = new Vector3 (transform.position.x, transform.position.y - (transform.position.y - (startPosition.y - range)) / speed, 0);
+			if (transform.position.y - (startPosition.y - range) < 0.1f)
+				up = true;
+		}
+	}
 
 	void OnTriggerEnter2D (Collider2D other)
 	{

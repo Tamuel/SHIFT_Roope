@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 185536}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -62,7 +62,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 5, y: 5}
+  m_Size: {x: 2.5, y: 2.5}
 --- !u!114 &11452128
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -79,6 +79,9 @@ MonoBehaviour:
   ropeCanThrough: 0
   speed: 0
   canDrop: 0
+  direction: 0
+  offset: 3
+  moveSprite: {fileID: 21300000, guid: 86135b3482de10a49bb11d2f5d73ecda, type: 3}
 --- !u!212 &21203998
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -105,7 +108,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 651cbbe0828ffb04c9fe0bd0f7b54ec3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6bd5f06b2f1681244b577db3bcbdf495, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
