@@ -111,7 +111,7 @@ public class MapController : MonoBehaviour {
 //				random_pattern = Random.Range (17, 33);
 //			else
 //				random_pattern = Random.Range (33, 49);
-			random_pattern = Random.Range (50,53);
+			random_pattern = Random.Range (50,54);
 			TextAsset map = Resources.Load (MapPath + TILE[random_pattern]) as TextAsset;
 			StreamReader fileReader = new StreamReader (new MemoryStream(map.bytes)); 
 			height = 0;
@@ -120,7 +120,7 @@ public class MapController : MonoBehaviour {
 				string line = fileReader.ReadLine ();
 				string[] temp = line.Split(' ');
 				for (int i = 0; i < 50; i++) {
-						MapObjects.Add ((pattern * 50 + i) + "," + height, int.Parse (temp[i] + ""));
+					MapObjects.Add ((pattern * 50 + i) + "," + height, int.Parse (temp[i] + ""));
 				}
 				height++;
 			}
@@ -145,14 +145,16 @@ public class MapController : MonoBehaviour {
 //		}
 //	}
 
-	void Map_Create(int pattern)
+	void Map_Create(int map_num)
 	{
 		string path = "Prefabs/";
 		Quaternion rotate = new Quaternion ();
 		for (int j = 0; j < 11; j++) {
-			for (int i = 50*(pattern-1); i < 50 * pattern; i++) {
+			for (int i = (map_num-1) * 50; i < map_num*50 ; i++) {
 				Vector3 position = new Vector3 (i, -j + 4.5f, 0);
-				switch ((int)MapObjects [i + "," + j]) {
+
+				Debug.Log ("Start - i : " + i + " j : " + j + " Value : " + MapObjects [((map_num-1) * 50 + i) + "," + j]);
+				switch ((int)(MapObjects [((map_num-1) * 50 + i) + "," + j])) {
 				case (int)RObjectType.BLANK:
 					break;
 
@@ -184,17 +186,20 @@ public class MapController : MonoBehaviour {
 				case (int)RObjectType.WIND_0:
 				case (int)RObjectType.WIND_UP:
 				case (int)RObjectType.WIND_DOWN:
-					position.y = 0;
-					WindControl a = (WindControl) Instantiate (Resources.Load (path + "WindCollider"), position, rotate);
-					if ((int)MapObjects [i + "," + j] == (int)RObjectType.WIND_UP) {
-						a.x_Strength = 0;
-						a.y_Strength = 66;
+					{
+						position.y = 0;
+						WindControl a = Instantiate (Resources.Load (path + "WindCollider"), position, rotate) as WindControl;
+						if ((int)MapObjects [i + "," + j] == (int)RObjectType.WIND_UP) {
+							a.x_Strength = 0;
+							a.y_Strength = 66;
+						}
+						else if ((int)MapObjects [i + "," + j] == (int)RObjectType.WIND_DOWN) {
+							a.x_Strength = 0;
+							a.y_Strength = -33;
+						}	
 					}
-					else if ((int)MapObjects [i + "," + j] == (int)RObjectType.WIND_DOWN) {
-						a.x_Strength = 0;
-						a.y_Strength = -33;
-					}	
 					break;
+
 				case (int)RObjectType.STOP:
 					Instantiate (Resources.Load (path + "WallStopper"), position, rotate);
 					break;
@@ -220,6 +225,7 @@ public class MapController : MonoBehaviour {
 					}
 					break;
 				}
+				Debug.Log ("Finish - i : " + i + " j : " + j);
 			}
 		}
 	}
