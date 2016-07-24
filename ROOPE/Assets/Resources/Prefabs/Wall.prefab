@@ -80,7 +80,7 @@ MonoBehaviour:
   speed: 0
   canDrop: 0
   direction: 0
-  offset: 3
+  offset: 8
   moveSprite: {fileID: 21300000, guid: 86135b3482de10a49bb11d2f5d73ecda, type: 3}
 --- !u!212 &21203998
 SpriteRenderer:

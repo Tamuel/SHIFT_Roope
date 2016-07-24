@@ -40,9 +40,9 @@ Rigidbody2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 128090}
   m_UseAutoMass: 0
-  m_Mass: 10
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_Mass: 100
+  m_LinearDrag: 3
+  m_AngularDrag: 1
   m_GravityScale: 1
   m_IsKinematic: 1
   m_Interpolate: 0
@@ -81,6 +81,7 @@ MonoBehaviour:
   canDrop: 1
   direction: 0
   offset: 3
+  moveSprite: {fileID: 0}
 --- !u!212 &21293220
 SpriteRenderer:
   m_ObjectHideFlags: 1

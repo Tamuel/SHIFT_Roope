@@ -234,7 +234,7 @@ public class MapController : MonoBehaviour {
 					currentBlock = Instantiate (Resources.Load (path + "Wall"), position, rotate);
 					Wall move = ((GameObject)currentBlock).GetComponent<Wall> ();
 					move.movable = true;
-					move.speed = 1.5f;
+					move.speed = 2f;
 					if ((int)MapObjects [((map_num-1) * 50 + i) + "," + j] == (int)RObjectType.MOVE_UP) {
 						move.direction = 1;
 						move.transform.Rotate (0, 0, 270);

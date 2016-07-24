@@ -5,7 +5,7 @@ public class Wall : Obstacle {
 
 	public bool canDrop;
     public int direction;
-    public float offset = 8f;
+    public float offset = 10f;
 	public Sprite moveSprite;
 
 	private Rope rope;

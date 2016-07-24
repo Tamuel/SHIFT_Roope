@@ -13,8 +13,11 @@ public class CameraController : MonoBehaviour {
 	private float centerOffset = 3;
 	private int distanceScore;
 
+	private GameManager gameManager;
+
 	// Use this for initialization
 	void Start () {
+		gameManager = FindObjectOfType<GameManager> ();
 		prevPosition = new Vector3(
 			player.transform.position.x + centerOffset,
 			this.transform.position.y,
@@ -42,6 +45,10 @@ public class CameraController : MonoBehaviour {
 			prevPosition.x = transform.position.x + speed + 0.08f;
 		}
 
+	}
+
+	// Update is called once per frame
+	void Update () {
 		distance = player.transform.position.x - startPosition.x;
 
 		if (prevPosition.x < player.transform.position.x + centerOffset)
@@ -59,12 +66,9 @@ public class CameraController : MonoBehaviour {
 		if ((int)maxDistance > distanceScore)
 		{
 			distanceScore = (int)maxDistance;
-			FindObjectOfType<GameManager>().addScore(10);
+			gameManager.addScore(10);
 		}
-	}
 
-	// Update is called once per frame
-	void Update () {
 		transform.position = prevPosition;
 	}
 }
