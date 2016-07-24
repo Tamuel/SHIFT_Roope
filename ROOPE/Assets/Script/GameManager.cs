@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour {
 
 	private Player player;
 
+	private bool isGameOver;
+
 
 	// Make map objects
 	void Awake() {
@@ -29,6 +31,7 @@ public class GameManager : MonoBehaviour {
 		score = 0;
 		numberOfRope = 0;
 		stage = 1;
+		isGameOver = false;
 		windStrength = new Vector2 (0, 0);
 		mapController = GetComponent<MapController>();
 	}
@@ -43,18 +46,20 @@ public class GameManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		// Show game information
-		setText(ToString());
+		if (!isGameOver) {
+			// Show game information
+			setText (ToString ());
 
-		// Potentiate player with wind
-		player.wind (windStrength.x, windStrength.y);
+			// Potentiate player with wind
+			player.wind (windStrength.x, windStrength.y);
 
-        // If you want to potentiate RObjects with wind, remove this comment(//)
-        //		foreach(RObject tempObject in FindObjectsOfType<RObject>()) {
-        //			tempObject.wind (windStrength);
-        //		}
+			// If you want to potentiate RObjects with wind, remove this comment(//)
+			//		foreach(RObject tempObject in FindObjectsOfType<RObject>()) {
+			//			tempObject.wind (windStrength);
+			//		}
 
-        showWindStrength ();
+			showWindStrength ();
+		}
 	}
 
 	public void setWindStrength(Vector2 windStrength) {
@@ -120,15 +125,17 @@ public class GameManager : MonoBehaviour {
 
     public void gameOverFunction ()
     {
+		isGameOver = true;
         gameOverText.text = "Game Over";
         restartButton.gameObject.SetActive(true);
         mainButton.gameObject.SetActive(true);
+		Debug.Log ("Game Over!");
     }
 
     public void showWindStrength ()
     {
         if (windStrength == new Vector2(0, 0))
-            windStrengthText.text = "";
+            windStrengthText.text = "0";
         else
             windStrengthText.text = "( x : " + windStrength.x + ", y : " + windStrength.y + " )";
     }

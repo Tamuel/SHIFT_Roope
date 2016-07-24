@@ -9,14 +9,23 @@ public class MapController : MonoBehaviour {
 	private Player player;
 	int pattern_num=0;
 
+	private float cameraWidth;
+	private float cameraHeight;
+
+	private float blockSize;
+
 	// Use this for initialization
 	void Start () {
 		player = FindObjectOfType<Player> ();
 		MapPath = "Maps/";
 		Debug.Log (MapPath);
 		MapObjects = new Hashtable ();
-		readMapFromFile ();
 
+		cameraHeight = 2f * Camera.main.orthographicSize;
+		cameraWidth = cameraHeight * Camera.main.aspect;
+		blockSize = cameraHeight / 10;
+
+		readMapFromFile ();
 	}
 	
 	// Update is called once per frame
@@ -97,6 +106,11 @@ public class MapController : MonoBehaviour {
 			"map_16C",
 			"map_7C",
 			"map_A",
+			"map_A1",
+			"map_A2",
+			"map_A3",
+			"map_A4",
+			"map_A5",
 			"map_B",
 			"map_C",
 			"map_D"
@@ -111,7 +125,7 @@ public class MapController : MonoBehaviour {
 //				random_pattern = Random.Range (17, 33);
 //			else
 //				random_pattern = Random.Range (33, 49);
-			random_pattern = Random.Range (50,54);
+			random_pattern = Random.Range (50,59);
 			TextAsset map = Resources.Load (MapPath + TILE[random_pattern]) as TextAsset;
 			StreamReader fileReader = new StreamReader (new MemoryStream(map.bytes)); 
 			height = 0;
@@ -151,15 +165,18 @@ public class MapController : MonoBehaviour {
 		Quaternion rotate = new Quaternion ();
 		for (int j = 0; j < 11; j++) {
 			for (int i = (map_num-1) * 50; i < map_num*50 ; i++) {
-				Vector3 position = new Vector3 (i, -j + 4.5f, 0);
-
-				Debug.Log ("Start - i : " + i + " j : " + j + " Value : " + MapObjects [((map_num-1) * 50 + i) + "," + j]);
+				Vector3 position = new Vector3 (i * blockSize, -j * blockSize + cameraHeight / 2f - blockSize / 2, 0);
+				Object currentBlock = null;
 				switch ((int)(MapObjects [((map_num-1) * 50 + i) + "," + j])) {
 				case (int)RObjectType.BLANK:
 					break;
 
 				case (int)RObjectType.STANDARD:
-					Instantiate (Resources.Load (path + "Wall"), position, rotate);
+					int randBlock = Random.Range (1, 3);
+					if(randBlock == 2)
+						currentBlock = Instantiate (Resources.Load (path + "Wall"), position, rotate);
+					else
+						currentBlock = Instantiate (Resources.Load (path + "Wall2"), position, rotate);
 					break;
 
 				case (int)RObjectType.POINT:
@@ -167,65 +184,73 @@ public class MapController : MonoBehaviour {
 					break;
 
 				case (int)RObjectType.FALLING:
-					Instantiate (Resources.Load (path + "Drop_Wall"), position, rotate);
+					currentBlock = Instantiate (Resources.Load (path + "Drop_Wall"), position, rotate);
 					break;
 
 				case (int)RObjectType.SLIP:
-					Instantiate (Resources.Load (path + "Slip_Wall"), position, rotate);
+					currentBlock = Instantiate (Resources.Load (path + "Slip_Wall"), position, rotate);
 					break;
 
 				case (int)RObjectType.ITEM:
-					Instantiate (Resources.Load (path + "Scale_Change"), position, rotate);
+					currentBlock = Instantiate (Resources.Load (path + "Scale_Change"), position, rotate);
 					break;
 
 				case (int)RObjectType.ARROW:
 					position.y = 0;
-					Instantiate (Resources.Load(path + "ArrowCollider"), position, rotate);
+					currentBlock = Instantiate (Resources.Load(path + "ArrowCollider"), position, rotate);
 					break;
 
 				case (int)RObjectType.WIND_0:
 				case (int)RObjectType.WIND_UP:
 				case (int)RObjectType.WIND_DOWN:
+				case (int)RObjectType.WIND_NONE_GRAVITY:
 					{
 						position.y = 0;
-						WindControl a = Instantiate (Resources.Load (path + "WindCollider"), position, rotate) as WindControl;
-						if ((int)MapObjects [i + "," + j] == (int)RObjectType.WIND_UP) {
+						currentBlock = Instantiate (Resources.Load (path + "WindCollider"), position, rotate);
+						WindControl a = ((GameObject)currentBlock).GetComponent<WindControl> ();
+						if ((int)MapObjects [((map_num-1) * 50 + i) + "," + j] == (int)RObjectType.WIND_UP) {
 							a.x_Strength = 0;
-							a.y_Strength = 66;
+							a.y_Strength = 60;
 						}
-						else if ((int)MapObjects [i + "," + j] == (int)RObjectType.WIND_DOWN) {
+						else if ((int)MapObjects [((map_num-1) * 50 + i) + "," + j] == (int)RObjectType.WIND_DOWN) {
 							a.x_Strength = 0;
-							a.y_Strength = -33;
-						}	
+							a.y_Strength = -20;
+						}
+						else if ((int)MapObjects [((map_num-1) * 50 + i) + "," + j] == (int)RObjectType.WIND_NONE_GRAVITY) {
+							a.x_Strength = 0;
+							a.y_Strength = -Physics.gravity.y * player.GetComponent<Rigidbody2D> ().mass * 1.25f;
+						}
 					}
 					break;
 
 				case (int)RObjectType.STOP:
-					Instantiate (Resources.Load (path + "WallStopper"), position, rotate);
+					currentBlock = Instantiate (Resources.Load (path + "WallStopper"), position, rotate);
 					break;
 
 				case (int)RObjectType.MOVE_UP:
 				case (int)RObjectType.MOVE_RIGHT:
 				case (int)RObjectType.MOVE_DOWN:
 				case (int)RObjectType.MOVE_LEFT:
-					Wall move = ((GameObject)Instantiate (Resources.Load (path + "Wall"), position, rotate)).GetComponent<Wall> ();
+					currentBlock = Instantiate (Resources.Load (path + "Wall"), position, rotate);
+					Wall move = ((GameObject)currentBlock).GetComponent<Wall> ();
 					move.movable = true;
-					if ((int)MapObjects [i + "," + j] == (int)RObjectType.MOVE_UP) {
+					move.speed = 1.5f;
+					if ((int)MapObjects [((map_num-1) * 50 + i) + "," + j] == (int)RObjectType.MOVE_UP) {
 						move.direction = 1;
-						move.speed = 1.5f;
-					} else if ((int)MapObjects [i + "," + j] == (int)RObjectType.MOVE_RIGHT) {
+						move.transform.Rotate (0, 0, 270);
+					} else if ((int)MapObjects [((map_num-1) * 50 + i) + "," + j] == (int)RObjectType.MOVE_RIGHT) {
 						move.direction = 2;
-						move.speed = 1.5f;
-					} else if ((int)MapObjects [i + "," + j] == (int)RObjectType.MOVE_DOWN) {
+						move.transform.Rotate (0, 0, 180);
+					} else if ((int)MapObjects [((map_num-1) * 50 + i) + "," + j] == (int)RObjectType.MOVE_DOWN) {
 						move.direction = 3;
-						move.speed = 1.5f;
-					} else if ((int)MapObjects [i + "," + j] == (int)RObjectType.MOVE_LEFT) {
+						move.transform.Rotate (0, 0, 90);
+					} else if ((int)MapObjects [((map_num-1) * 50 + i) + "," + j] == (int)RObjectType.MOVE_LEFT) {
 						move.direction = 0;
-						move.speed = 1.5f;
 					}
 					break;
 				}
-				Debug.Log ("Finish - i : " + i + " j : " + j);
+				if(currentBlock != null)
+					((GameObject)currentBlock).transform.localScale = new Vector3(0.4f * blockSize, 0.4f * blockSize, 1);
 			}
 		}
 	}
