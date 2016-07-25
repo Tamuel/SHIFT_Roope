@@ -11,9 +11,6 @@ public class Player : MonoBehaviour, Wind
     public GameObject rope1Prefab;
     public GameObject rope2Prefab;
 
-    private float relativeVectorFromTouchPointToPlayerX;
-    private float relativeVectorFromTouchPointToPlayerY;
-
     private const float maxSpeed = 10;
 
     void Start()
@@ -81,6 +78,9 @@ public class Player : MonoBehaviour, Wind
             stopRope(rope1Prefab);
             stopRope(rope2Prefab);
         }
+		if (Input.touchCount == 4) {
+			Application.LoadLevel (0);
+		}
     }
 
     void stopRope(GameObject rope)

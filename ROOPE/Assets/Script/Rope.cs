@@ -16,6 +16,7 @@ public class Rope : MonoBehaviour
     private float speed = 30;
     private Vector3 touchPosition;
     private Vector2 moveVector;
+	private ContactPoint2D contactPoint2D;
 
     private GameObject colideObject;
 
@@ -76,9 +77,16 @@ public class Rope : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
+		if (other.gameObject.tag == "Player" || other.gameObject.tag == "Rope") {
+			Physics2D.IgnoreCollision (other.collider, this.gameObject.GetComponent<Collision2D>().collider);
+		}
         if (other.collider.GetComponent<RObject>() != null && isRopeLaunched)
 		{
-			moveVector = new Vector2 (0, 0);
+			contactPoint2D = other.contacts[0];
+			Vector2 contactPoint = contactPoint2D.point;
+			transform.position = new Vector3 (contactPoint.x, contactPoint.y, 0);
+			transform.parent = other.transform;
+
             RopeCollisionType col = other.collider.GetComponent<RObject>().collideWithRopeHead(this);
             Debug.Log(col.ToString());
             switch (col)
