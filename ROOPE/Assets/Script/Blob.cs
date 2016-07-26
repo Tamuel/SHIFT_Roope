@@ -25,7 +25,7 @@ public class Blob : MonoBehaviour {
     Vector3[,] offsets;
     float[,] weights;
 
-    void Start () {
+    void Awake () {
         CreateReferencePoints();
         CreateMesh();
         MapVerticesToReferencePoints();
@@ -72,6 +72,10 @@ public class Blob : MonoBehaviour {
         IgnoreCollisionsBetweenReferencePoints();
     }
 
+	public GameObject[] getReferencePoints() {
+		return referencePoints;
+	}
+
     void AttachWithSpringJoint(GameObject referencePoint,
             GameObject connected) {
         SpringJoint2D springJoint =
@@ -82,7 +86,6 @@ public class Blob : MonoBehaviour {
             LocalPosition(connected);
         //springJoint.distance = 0;
         springJoint.dampingRatio = springDampingRatio;
-		Debug.Log ("Damping! : " + springJoint.dampingRatio + " " + springDampingRatio);
         springJoint.frequency = springFrequency;
     }
 

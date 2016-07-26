@@ -32,9 +32,9 @@ public class CloudController : MonoBehaviour {
 	IEnumerator MakeCloud ()
 	{
 		while (true) {
-			float waitTime = Random.Range (1, 4);
+			float waitTime = Random.Range (0.5f, 1);
 			yield return new WaitForSeconds (waitTime);
-			int cloudNumber = Random.Range (1, 6);
+			int cloudNumber = Random.Range (1, 7);
 			clouds.Add(
 				Instantiate (
 					Resources.Load (path + "cloud" + cloudNumber),
@@ -42,11 +42,9 @@ public class CloudController : MonoBehaviour {
 					new Quaternion()
 				)
 			);
-			float randomSize = Random.Range (0.3f, 0.8f);
+			float randomSize = Random.Range (0.2f, 1);
 			((GameObject)clouds[clouds.Count - 1]).transform.localScale = new Vector3(randomSize, randomSize, 1);
 			cloudSpeeds.Add(Random.Range(0.005f, 0.02f));
 		}
 	}
-
-
 }

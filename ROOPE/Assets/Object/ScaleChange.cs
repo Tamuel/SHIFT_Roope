@@ -16,22 +16,16 @@ public class ScaleChange : Item
 		triggerOn = false;
 	}
 
-	void OnTriggerEnter2D (Collider2D other)
-	{
-	}
-
-	IEnumerator ScaleChanger (Collider2D other)
+	IEnumerator ScaleChanger (Player player)
 	{
 		float t = 0; // initialize time
 
-		GetComponent<SpriteRenderer> ().enabled = false;
-
-		initialScale = other.transform.localScale;
-		targetScale = other.transform.localScale + new Vector3 (scaleChangeSize, scaleChangeSize, scaleChangeSize);
+		initialScale = player.transform.localScale;
+		targetScale = player.transform.localScale + new Vector3 (scaleChangeSize, scaleChangeSize, 0);
 
 		// change player's scale larger
 		do {
-			other.transform.localScale = Vector3.Lerp (initialScale, targetScale, t / scaleChangeTime); 
+			player.transform.localScale = Vector3.Lerp (initialScale, targetScale, t / scaleChangeTime); 
 			yield return null;
 			t += Time.deltaTime;
 		} while (t < scaleChangeTime);
@@ -42,7 +36,7 @@ public class ScaleChange : Item
 
 		// change player's scale smaller
 		do {
-			other.transform.localScale = Vector3.Lerp (targetScale, initialScale, t / scaleChangeTime); 
+			player.transform.localScale = Vector3.Lerp (targetScale, initialScale, t / scaleChangeTime); 
 			yield return null;
 			t += Time.deltaTime;
 		} while (t < scaleChangeTime);
@@ -54,7 +48,7 @@ public class ScaleChange : Item
 	{
 		if (!triggerOn) {
 			triggerOn = true;
-			StartCoroutine (ScaleChanger (player.GetComponent<Collider2D>()));
+			StartCoroutine (ScaleChanger(player));
 		}
 	}
 

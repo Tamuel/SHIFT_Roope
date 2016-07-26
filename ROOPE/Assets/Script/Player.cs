@@ -20,27 +20,42 @@ public class Player : MonoBehaviour, Wind {
 
 	void Start() {
 		hingeJoint2D = GetComponents<HingeJoint2D> ();
-
 		shortestLength = new float[2];
 		curLength = new float[2];
 
 		rope1Prefab = Instantiate (rope);
 		rope1Prefab.transform.parent = transform;
-		rope1Prefab.transform.localScale = new Vector3 (4, 4, 4);
 		rope1Prefab.GetComponent<Rope> ().setPlayer(this);
-
-		Debug.Log (
-			rope1Prefab.transform.position.ToString () + "\n" +
-			rope1Prefab.transform.rotation.ToString () + "\n" +
-			rope1Prefab.transform.localScale.ToString ()
-		);
+		rope1Prefab.GetComponent<Rigidbody2D> ().isKinematic = true;
 
 		rope2Prefab = Instantiate (rope);
 		rope2Prefab.transform.parent = transform;
-		rope2Prefab.transform.localScale = new Vector3 (4, 4, 4);
 		rope2Prefab.GetComponent<Rope> ().setPlayer(this);
+		rope2Prefab.GetComponent<Rigidbody2D> ().isKinematic = true;
 
-		Debug.Log (rope2Prefab.transform.position.ToString ());
+
+		CircleCollider2D collider1 = rope1Prefab.GetComponent <CircleCollider2D> ();
+		CircleCollider2D collider2 = rope2Prefab.GetComponent <CircleCollider2D> ();
+
+		Physics2D.IgnoreCollision (
+			collider1,
+			collider2,
+			true
+		);
+			
+		GameObject[] objects = GetComponent<Blob> ().getReferencePoints ();
+		for(int i = 0; i < objects.Length; i++) {
+			Physics2D.IgnoreCollision (
+				collider1,
+				objects[i].GetComponent <CircleCollider2D> (),
+				true
+			);
+			Physics2D.IgnoreCollision (
+				collider2,
+				objects[i].GetComponent <CircleCollider2D> (),
+				true
+			);
+		}
 	}
 
 	void FixedUpdate() {
@@ -52,6 +67,16 @@ public class Player : MonoBehaviour, Wind {
 	}
 		
 	void Update () {
+
+		/* For mouse testing
+		if (Input.GetMouseButtonDown (0)) {
+			shootRope (ref curLength [0], ref shortestLength [0],rope1Prefab, hingeJoint2D [0], Input.mousePosition);
+		}
+
+		if (Input.GetMouseButtonUp (0)) {
+			stopRope (rope1Prefab, hingeJoint2D [0]);
+		}
+		*/
 
 		// Shoot Rope
 		if (Input.touchCount >= 1) {
@@ -80,6 +105,11 @@ public class Player : MonoBehaviour, Wind {
 			stopRope (rope1Prefab, hingeJoint2D [0]);
 			stopRope (rope2Prefab, hingeJoint2D [1]);
 		}
+
+	}
+
+	void OnCollisionEnter2D(Collision2D collision) {
+		Instantiate (Resources.Load ("Prefabs/RopeAttachedParticle"), collision.contacts[0].point, new Quaternion());
 	}
 
 	void stopRope(GameObject rope, HingeJoint2D hinge) {
@@ -104,8 +134,8 @@ public class Player : MonoBehaviour, Wind {
 	}
 
 	void OnTriggerEnter2D (Collider2D other) {
-		if (other.GetComponent<RObject> () != null)
-			other.GetComponent<RObject> ().collideWithCharacter (this);
+		if (other.GetComponent<Collision> () != null)
+			other.GetComponent<Collision> ().collideWithCharacter (this);
 	}
 
 	// Wind blow with force

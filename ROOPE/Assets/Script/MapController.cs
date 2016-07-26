@@ -7,7 +7,7 @@ public class MapController : MonoBehaviour {
 	private Hashtable MapObjects;
 	private int stage = 1;
 	private Player player;
-	int pattern_num=0;
+	int pattern_num = 0;
 
 	private float cameraWidth;
 	private float cameraHeight;
@@ -172,8 +172,8 @@ public class MapController : MonoBehaviour {
 					break;
 
 				case (int)RObjectType.STANDARD:
-					int randBlock = Random.Range (1, 3);
-					if(randBlock == 2)
+					int randBlock = Random.Range (1, 4);
+					if(randBlock != 2)
 						currentBlock = Instantiate (Resources.Load (path + "Wall"), position, rotate);
 					else
 						currentBlock = Instantiate (Resources.Load (path + "Wall2"), position, rotate);
