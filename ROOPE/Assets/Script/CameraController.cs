@@ -31,15 +31,14 @@ public class CameraController : MonoBehaviour {
 	// Update Camera position when character move forward then before
 	void FixedUpdate() {
 
-		if (maxDistance / 2000 < 0.08)
+		if (maxDistance / 10000 < 0.08)
 		{
 			prevPosition = new Vector3(
-			    transform.position.x + speed + maxDistance / 2000,
+			    transform.position.x + speed + maxDistance / 10000,
 			    transform.position.y,
 			    transform.position.z
 		    );
 		}
-		
 		else
 		{
 			prevPosition.x = transform.position.x + speed + 0.08f;

@@ -17,7 +17,7 @@ public class Rope : MonoBehaviour {
 
 	private GameObject colideObject;
 
-	private const float characterMaxSpeed = 50;
+	private const float characterMaxSpeed = 80;
 
     private RopeCollisionType collisionType;
 
@@ -25,7 +25,6 @@ public class Rope : MonoBehaviour {
     private float shortestLength;
 
 	private Rigidbody2D rigidBody2D;
-	private Vector3 lastPosition;
 
 	void Awake () {
 		enabled = false;
@@ -44,7 +43,6 @@ public class Rope : MonoBehaviour {
 
 
     void FixedUpdate() {
-		lastPosition = transform.position;
         if (isRopeAttached)
             giveCentripetalAccelToPlayer(ref curLength, ref shortestLength, this.gameObject, player.gameObject);
 
@@ -53,11 +51,16 @@ public class Rope : MonoBehaviour {
 
 	void Update () {
 		if (isRopeAttached) {
-			if(collisionType == RopeCollisionType.CAN_ATTACH)
-				getRopePullForce (curLength, player.GetComponent<HingeJoint2D> (), this.gameObject, player.gameObject, 300);
+			if (colideObject == null) {
+				collisionType = RopeCollisionType.NONE;
+				stopRope ();
+			}
+			if (collisionType == RopeCollisionType.CAN_ATTACH)
+				getRopePullForce (curLength, player.GetComponent<HingeJoint2D> (), this.gameObject, player.gameObject, 200);
 			if (collisionType == RopeCollisionType.CAN_ATTACH_AND_DROP) {
-				getRopePullForce (curLength, player.GetComponent<HingeJoint2D> (), colideObject, player.gameObject, 150);
-				getRopePullForce (curLength, null, player.gameObject, colideObject, 150);
+				float length = (transform.position - colideObject.transform.position).magnitude;
+				getRopePullForce (curLength, player.GetComponent<HingeJoint2D> (), colideObject, player.gameObject, length * 50);
+				getRopePullForce (curLength, null, player.gameObject, colideObject, length * 7);
 			}
 		}
 		if (isRopeLaunched) {
@@ -79,9 +82,10 @@ public class Rope : MonoBehaviour {
 			case RopeCollisionType.CAN_ATTACH:
 				colideObject = other.gameObject;
 				moveVector = new Vector2 (0, 0);
-				//transform.position = lastPosition;
 				transform.parent = other.transform;
 				rigidBody2D.isKinematic = true;
+				GetComponent<CircleCollider2D> ().isTrigger = true;
+
 				isRopeAttached = true;
 				Instantiate (Resources.Load ("Prefabs/RopeAttachedParticle"), transform.position, new Quaternion());
 				collisionType = RopeCollisionType.CAN_ATTACH;
@@ -90,21 +94,24 @@ public class Rope : MonoBehaviour {
 			case RopeCollisionType.CAN_ATTACH_AND_DROP:
 				colideObject = other.gameObject;
 				moveVector = new Vector2 (0, 0);
-				//transform.position = lastPosition;
 				transform.parent = other.transform;
 				rigidBody2D.isKinematic = true;
+				GetComponent<CircleCollider2D> ().isTrigger = true;
+
 				isRopeAttached = true;
 				Instantiate (Resources.Load ("Prefabs/RopeAttachedParticle"), transform.position, new Quaternion());
 				collisionType = RopeCollisionType.CAN_ATTACH_AND_DROP;
 				break;
 
 			case RopeCollisionType.CAN_NOT_ATTACH_AND_CUT:
+				FindObjectOfType<GameManager> ().setText (RopeCollisionType.CAN_NOT_ATTACH_AND_CUT.ToString ());
 				colideObject = other.gameObject;
 				stopRope ();
 				collisionType = RopeCollisionType.CAN_NOT_ATTACH_AND_CUT;
 				break;
 
 			case RopeCollisionType.CAN_NOT_ATTACH_AND_THROUGH:
+				FindObjectOfType<GameManager> ().setText (RopeCollisionType.CAN_NOT_ATTACH_AND_THROUGH.ToString ());
 				colideObject = other.gameObject;
 				collisionType = RopeCollisionType.CAN_NOT_ATTACH_AND_THROUGH;
 				break;
@@ -156,7 +163,12 @@ public class Rope : MonoBehaviour {
 		collisionType = RopeCollisionType.NONE;
 		transform.position = player.transform.position;
 		transform.parent = player.transform;
+		GetComponent<CircleCollider2D> ().isTrigger = false;
 		rigidBody2D.isKinematic = true;
+	}
+
+	public GameObject getColideObject() {
+		return colideObject;
 	}
 		
 	public void setPlayer(Player player) {

@@ -84,6 +84,7 @@ public class Blob : MonoBehaviour {
 		springJoint.anchor = connected.transform.position;
         springJoint.connectedAnchor = LocalPosition(referencePoint) -
             LocalPosition(connected);
+		springJoint.autoConfigureDistance = false;
         //springJoint.distance = 0;
         springJoint.dampingRatio = springDampingRatio;
         springJoint.frequency = springFrequency;

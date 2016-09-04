@@ -13,7 +13,7 @@ public class Player : MonoBehaviour, Wind {
 	private float relativeVectorFromTouchPointToPlayerX;
 	private float relativeVectorFromTouchPointToPlayerY;
 
-    private const float maxSpeed = 10;
+    private const float maxSpeed = 12;
 
     private float[] shortestLength;
 	private float[] curLength;
@@ -68,7 +68,7 @@ public class Player : MonoBehaviour, Wind {
 		
 	void Update () {
 
-		/* For mouse testing
+		/* For mouse testing 
 		if (Input.GetMouseButtonDown (0)) {
 			shootRope (ref curLength [0], ref shortestLength [0],rope1Prefab, hingeJoint2D [0], Input.mousePosition);
 		}
@@ -76,9 +76,9 @@ public class Player : MonoBehaviour, Wind {
 		if (Input.GetMouseButtonUp (0)) {
 			stopRope (rope1Prefab, hingeJoint2D [0]);
 		}
-		*/
+*/
 
-		// Shoot Rope
+		/* Shoot Rope */
 		if (Input.touchCount >= 1) {
 			if (Input.GetTouch (0).phase == TouchPhase.Began) {
 				if (!rope1Prefab.GetComponent<Rope> ().isRopeLaunched)

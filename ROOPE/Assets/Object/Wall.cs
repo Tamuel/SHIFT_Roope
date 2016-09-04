@@ -75,7 +75,7 @@ public class Wall : Obstacle {
 		this.rope = rope;
 		if (isRopeAttachable () && !canDrop)
 			return RopeCollisionType.CAN_ATTACH;
-		else if (isRopeAttachable() && canDrop) {
+		else if (isRopeAttachable () && canDrop) {
 			dropWall ();
 			return RopeCollisionType.CAN_ATTACH_AND_DROP;
 		} else

@@ -20,8 +20,11 @@ public class ScaleChange : Item
 	{
 		float t = 0; // initialize time
 
+		GetComponent<SpriteRenderer> ().enabled = false;
+
 		initialScale = player.transform.localScale;
 		targetScale = player.transform.localScale + new Vector3 (scaleChangeSize, scaleChangeSize, 0);
+
 
 		// change player's scale larger
 		do {
@@ -31,6 +34,7 @@ public class ScaleChange : Item
 		} while (t < scaleChangeTime);
 
 		yield return new WaitForSeconds (maintainTime);
+
 
 		t = 0; // initialize time
 
