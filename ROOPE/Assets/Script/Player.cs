@@ -76,7 +76,7 @@ public class Player : MonoBehaviour, Wind {
 		if (Input.GetMouseButtonUp (0)) {
 			stopRope (rope1Prefab, hingeJoint2D [0]);
 		}
-*/
+		*/
 
 		/* Shoot Rope */
 		if (Input.touchCount >= 1) {
@@ -92,7 +92,6 @@ public class Player : MonoBehaviour, Wind {
 					shootRope (ref curLength [1], ref shortestLength [1], rope2Prefab, hingeJoint2D [1], Input.GetTouch (1).position);
 			}
 		}
-
 
 		// Stop Rope
 		if (Input.touchCount != 0 && Input.GetTouch(0).phase == TouchPhase.Ended &&
