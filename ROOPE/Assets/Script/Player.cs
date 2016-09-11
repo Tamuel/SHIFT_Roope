@@ -18,7 +18,10 @@ public class Player : MonoBehaviour, Wind {
     private float[] shortestLength;
 	private float[] curLength;
 
+	private Object collisionParticle;
+
 	void Start() {
+		collisionParticle = null;
 		hingeJoint2D = GetComponents<HingeJoint2D> ();
 		shortestLength = new float[2];
 		curLength = new float[2];
@@ -108,7 +111,8 @@ public class Player : MonoBehaviour, Wind {
 	}
 
 	void OnCollisionEnter2D(Collision2D collision) {
-		Instantiate (Resources.Load ("Prefabs/RopeAttachedParticle"), collision.contacts[0].point, new Quaternion());
+		if(collisionParticle == null)
+			collisionParticle = Instantiate (Resources.Load ("Prefabs/RopeAttachedParticle"), collision.contacts[0].point, new Quaternion());
 	}
 
 	void stopRope(GameObject rope, HingeJoint2D hinge) {

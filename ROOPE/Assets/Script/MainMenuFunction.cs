@@ -19,11 +19,11 @@ public class MainMenuFunction : MonoBehaviour {
 		if(particle == null && pressed) {
 			switch(pressedButton) {
 			case button.START_BUTTON:
-				Application.LoadLevel ("Main");
+				StartCoroutine (ChangeLevel ());
 				break;
 
 			case button.SCORE_BUTTON:
-				//Application.LoadLevel ("Main");
+				//Application.LoadLevel ("Score");
 				break;
 
 			case button.EXIT_BUTTON:
@@ -33,7 +33,15 @@ public class MainMenuFunction : MonoBehaviour {
 		}
 	}
 
+	IEnumerator ChangeLevel () {
+		float fadeTime = GameObject.Find ("Canvas").GetComponent<Fading> ().BeginFade (1);
+		yield return new WaitForSeconds (fadeTime);
+		Application.LoadLevel ("Main");
+	}
+
 	public void buttonPressed() {
+		AudioSource audio = GetComponent<AudioSource> ();
+		audio.Play ();
 		particle = Instantiate (Resources.Load ("Prefabs/ButtonPressParticle"), transform.position, new Quaternion());
 		pressed = true;
 		buttonImage.enabled = false;
