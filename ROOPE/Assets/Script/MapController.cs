@@ -9,6 +9,9 @@ public class MapController : MonoBehaviour {
 	private Player player;
 	int pattern_num = 0;
 
+	private int numberOfWidthBlocks;
+	private int numberOfHeightBolcks;
+
 	private float cameraWidth;
 	private float cameraHeight;
 
@@ -21,6 +24,9 @@ public class MapController : MonoBehaviour {
 		Debug.Log (MapPath);
 		MapObjects = new Hashtable ();
 
+		numberOfWidthBlocks = 50;
+		numberOfHeightBolcks = 10;
+
 		cameraHeight = 2f * Camera.main.orthographicSize;
 		cameraWidth = cameraHeight * Camera.main.aspect;
 		blockSize = cameraHeight / 10;
@@ -32,7 +38,7 @@ public class MapController : MonoBehaviour {
 	void Update () {
 		float map_position = player.transform.position.x;
 
-		if (map_position >= 50*(pattern_num+1)) {
+		if (map_position >= numberOfWidthBlocks * (pattern_num + 1)) {
 			pattern_num++;
 			Map_Create (pattern_num + 2);
 		}
@@ -55,7 +61,7 @@ public class MapController : MonoBehaviour {
 		int height = 0, pattern = 0;
 		int random_pattern = 0;
 		string[] TILE = new string[] {
-			"map_1A",
+/*			"map_1A",
 			"map_2A",
 			"map_3A",
 			"map_4A",
@@ -114,27 +120,37 @@ public class MapController : MonoBehaviour {
 			"map_B",
 			"map_C",
 			"map_D"
+			*/
+			"Training_1",
+			"Training_2",
+			"Training_3",
+			"Training_4",
+			"Training_5",
+			"Training_6",
+			"map2A",
+			"map5A",
+			"map5B",
+			"map6A",
+			"map6B",
+			"map8A",
+			"map8B",
+			"map9A",
+			"map9B",
+			"map10A",
+			"map10B"
 		};
 
 		for (pattern = 0; pattern < TILE.Length; pattern++) {
-//			if (pattern % 25 == 0 && pattern != 0)
-//				stage++;
-//			if (stage == 1)
-//				random_pattern = Random.Range (0, 16);
-//			else if (stage == 2)
-//				random_pattern = Random.Range (17, 33);
-//			else
-//				random_pattern = Random.Range (33, 49);
-			random_pattern = Random.Range (50,59);
-			TextAsset map = Resources.Load (MapPath + TILE[random_pattern]) as TextAsset;
+			random_pattern = Random.Range (0, 10);
+			TextAsset map = Resources.Load (MapPath + TILE[pattern]) as TextAsset;
 			StreamReader fileReader = new StreamReader (new MemoryStream(map.bytes)); 
 			height = 0;
 			// read file
 			while (!fileReader.EndOfStream) {
 				string line = fileReader.ReadLine ();
 				string[] temp = line.Split(' ');
-				for (int i = 0; i < 50; i++) {
-					MapObjects.Add ((pattern * 50 + i) + "," + height, int.Parse (temp[i] + ""));
+				for (int i = 0; i < numberOfWidthBlocks; i++) {
+					MapObjects.Add ((pattern * numberOfWidthBlocks + i) + "," + height, int.Parse (temp[i]));
 				}
 				height++;
 			}
@@ -145,29 +161,15 @@ public class MapController : MonoBehaviour {
 		Map_Create (2);
 	}
 
-//	void MapTerm(int pattern) // making safe zone
-//	{
-//		int height = 0;
-//		TextAsset map = Resources.Load<TextAsset> (MapPath + "map_TERM");
-//		StreamReader mapTerm = new StreamReader (new MemoryStream(map.bytes));
-//		while (!mapTerm.EndOfStream) {
-//			string line = mapTerm.ReadLine ();
-//			for (int i = 0; i < 5; i++) {
-//				MapObjects.Add (((pattern + 1) * 30 - 5 + i) + "," + height, int.Parse (line.ToCharArray () [i] + ""));
-//			}
-//			height++;
-//		}
-//	}
-
 	void Map_Create(int map_num)
 	{
 		string path = "Prefabs/";
 		Quaternion rotate = new Quaternion ();
-		for (int j = 0; j < 11; j++) {
-			for (int i = (map_num-1) * 50; i < map_num*50 ; i++) {
+		for (int j = 0; j <= numberOfHeightBolcks; j++) {
+			for (int i = (map_num - 1) * numberOfWidthBlocks; i < map_num * numberOfWidthBlocks; i++) {
 				Vector3 position = new Vector3 (i * blockSize, -j * blockSize + cameraHeight / 2f - blockSize / 2, 0);
 				Object currentBlock = null;
-				switch ((int)(MapObjects [((map_num-1) * 50 + i) + "," + j])) {
+				switch ((int)(MapObjects [((map_num - 1) * numberOfWidthBlocks + i) + "," + j])) {
 				case (int)RObjectType.BLANK:
 					break;
 
@@ -235,16 +237,16 @@ public class MapController : MonoBehaviour {
 					Wall move = ((GameObject)currentBlock).GetComponent<Wall> ();
 					move.movable = true;
 					move.speed = 2f;
-					if ((int)MapObjects [((map_num-1) * 50 + i) + "," + j] == (int)RObjectType.MOVE_UP) {
+					if ((int)MapObjects [((map_num - 1) * numberOfWidthBlocks + i) + "," + j] == (int)RObjectType.MOVE_UP) {
 						move.direction = 1;
 						move.transform.Rotate (0, 0, 270);
-					} else if ((int)MapObjects [((map_num-1) * 50 + i) + "," + j] == (int)RObjectType.MOVE_RIGHT) {
+					} else if ((int)MapObjects [((map_num - 1) * numberOfWidthBlocks + i) + "," + j] == (int)RObjectType.MOVE_RIGHT) {
 						move.direction = 2;
 						move.transform.Rotate (0, 0, 180);
-					} else if ((int)MapObjects [((map_num-1) * 50 + i) + "," + j] == (int)RObjectType.MOVE_DOWN) {
+					} else if ((int)MapObjects [((map_num - 1) * numberOfWidthBlocks + i) + "," + j] == (int)RObjectType.MOVE_DOWN) {
 						move.direction = 3;
 						move.transform.Rotate (0, 0, 90);
-					} else if ((int)MapObjects [((map_num-1) * 50 + i) + "," + j] == (int)RObjectType.MOVE_LEFT) {
+					} else if ((int)MapObjects [((map_num - 1) * numberOfWidthBlocks + i) + "," + j] == (int)RObjectType.MOVE_LEFT) {
 						move.direction = 0;
 					}
 					break;
@@ -254,4 +256,19 @@ public class MapController : MonoBehaviour {
 			}
 		}
 	}
+
+
+	//	void MapTerm(int pattern) // making safe zone
+	//	{
+	//		int height = 0;
+	//		TextAsset map = Resources.Load<TextAsset> (MapPath + "map_TERM");
+	//		StreamReader mapTerm = new StreamReader (new MemoryStream(map.bytes));
+	//		while (!mapTerm.EndOfStream) {
+	//			string line = mapTerm.ReadLine ();
+	//			for (int i = 0; i < 5; i++) {
+	//				MapObjects.Add (((pattern + 1) * 30 - 5 + i) + "," + height, int.Parse (line.ToCharArray () [i] + ""));
+	//			}
+	//			height++;
+	//		}
+	//	}
 }
