@@ -202,7 +202,12 @@ public class MapController : MonoBehaviour {
 					currentBlock = Instantiate (Resources.Load(path + "ArrowCollider"), position, rotate);
 					break;
 
-				case (int)RObjectType.WIND_0:
+                case (int)RObjectType.TEXT:
+                    currentBlock = Instantiate(Resources.Load(path + "TextImagePrefab"), position, rotate);
+                   
+                    break;
+
+                case (int)RObjectType.WIND_0:
 				case (int)RObjectType.WIND_UP:
 				case (int)RObjectType.WIND_DOWN:
 				case (int)RObjectType.WIND_NONE_GRAVITY:
