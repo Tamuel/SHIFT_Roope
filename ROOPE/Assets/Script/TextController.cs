@@ -6,14 +6,15 @@ using UnityEngine.UI;
 public class TextController : MonoBehaviour {
 
     public TextAsset textFile;
-    public string[] textLines;
+	public string[] textLines;
     public Text text;
     private int i = 0;
 
 	void Start ()
     {
         readTextFromFile();
-        assignText();
+		Debug.Log ("Num of Lines : " + textLines.Length);
+		assignText();
     }
 
 
@@ -23,7 +24,7 @@ public class TextController : MonoBehaviour {
 	}
 
 
-    void readTextFromFile()
+    private void readTextFromFile()
     {
         if (textFile != null)
         {
@@ -32,9 +33,9 @@ public class TextController : MonoBehaviour {
         
     }
 
-    void assignText()
+    public void assignText()
     {
-        if (textLines[i] != null)
+		if (i < textLines.Length)
         {
             text.text = textLines[i];
             i++;

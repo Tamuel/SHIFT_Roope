@@ -38,9 +38,9 @@ public class MapController : MonoBehaviour {
 	void Update () {
 		float map_position = player.transform.position.x;
 
-		if (map_position >= numberOfWidthBlocks * (pattern_num + 1)) {
+		if (map_position >= numberOfWidthBlocks * pattern_num) {
 			pattern_num++;
-			Map_Create (pattern_num + 2);
+			Map_Create (pattern_num + 1);
 		}
 
 	}
@@ -158,7 +158,6 @@ public class MapController : MonoBehaviour {
 			fileReader.Close ();
 		}
 		Map_Create (1);
-		Map_Create (2);
 	}
 
 	void Map_Create(int map_num)
@@ -169,7 +168,7 @@ public class MapController : MonoBehaviour {
 			for (int i = (map_num - 1) * numberOfWidthBlocks; i < map_num * numberOfWidthBlocks; i++) {
 				Vector3 position = new Vector3 (i * blockSize, -j * blockSize + cameraHeight / 2f - blockSize / 2, 0);
 				Object currentBlock = null;
-				switch ((int)(MapObjects [((map_num - 1) * numberOfWidthBlocks + i) + "," + j])) {
+				switch ((int)(MapObjects [i + "," + j])) {
 				case (int)RObjectType.BLANK:
 					break;
 
@@ -215,15 +214,15 @@ public class MapController : MonoBehaviour {
 						position.y = 0;
 						currentBlock = Instantiate (Resources.Load (path + "WindCollider"), position, rotate);
 						WindControl a = ((GameObject)currentBlock).GetComponent<WindControl> ();
-						if ((int)MapObjects [((map_num-1) * 50 + i) + "," + j] == (int)RObjectType.WIND_UP) {
+						if ((int)MapObjects [i + "," + j] == (int)RObjectType.WIND_UP) {
 							a.x_Strength = 0;
 							a.y_Strength = 60;
 						}
-						else if ((int)MapObjects [((map_num-1) * 50 + i) + "," + j] == (int)RObjectType.WIND_DOWN) {
+						else if ((int)MapObjects [i + "," + j] == (int)RObjectType.WIND_DOWN) {
 							a.x_Strength = 0;
 							a.y_Strength = -20;
 						}
-						else if ((int)MapObjects [((map_num-1) * 50 + i) + "," + j] == (int)RObjectType.WIND_NONE_GRAVITY) {
+						else if ((int)MapObjects [i + "," + j] == (int)RObjectType.WIND_NONE_GRAVITY) {
 							a.x_Strength = 0;
 							a.y_Strength = -Physics.gravity.y * player.GetComponent<Rigidbody2D> ().mass * 1.25f;
 						}
@@ -242,16 +241,16 @@ public class MapController : MonoBehaviour {
 					Wall move = ((GameObject)currentBlock).GetComponent<Wall> ();
 					move.movable = true;
 					move.speed = 2f;
-					if ((int)MapObjects [((map_num - 1) * numberOfWidthBlocks + i) + "," + j] == (int)RObjectType.MOVE_UP) {
+					if ((int)MapObjects [i + "," + j] == (int)RObjectType.MOVE_UP) {
 						move.direction = 1;
 						move.transform.Rotate (0, 0, 270);
-					} else if ((int)MapObjects [((map_num - 1) * numberOfWidthBlocks + i) + "," + j] == (int)RObjectType.MOVE_RIGHT) {
+					} else if ((int)MapObjects [i + "," + j] == (int)RObjectType.MOVE_RIGHT) {
 						move.direction = 2;
 						move.transform.Rotate (0, 0, 180);
-					} else if ((int)MapObjects [((map_num - 1) * numberOfWidthBlocks + i) + "," + j] == (int)RObjectType.MOVE_DOWN) {
+					} else if ((int)MapObjects [i + "," + j] == (int)RObjectType.MOVE_DOWN) {
 						move.direction = 3;
 						move.transform.Rotate (0, 0, 90);
-					} else if ((int)MapObjects [((map_num - 1) * numberOfWidthBlocks + i) + "," + j] == (int)RObjectType.MOVE_LEFT) {
+					} else if ((int)MapObjects [i + "," + j] == (int)RObjectType.MOVE_LEFT) {
 						move.direction = 0;
 					}
 					break;
