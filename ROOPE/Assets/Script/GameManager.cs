@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
     public Text windStrengthText;
     public Button restartButton;
     public Button mainButton;
+    public GameObject gameOverPanel;
 
     private float hitPoint;
 	private int score;
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour {
         windStrengthText.text = "";
         restartButton.gameObject.SetActive(false);
         mainButton.gameObject.SetActive(false);
+        gameOverPanel.SetActive(false);
     }
 
 	// Update is called once per frame
@@ -129,7 +131,8 @@ public class GameManager : MonoBehaviour {
         gameOverText.text = "Game Over";
         restartButton.gameObject.SetActive(true);
         mainButton.gameObject.SetActive(true);
-		Debug.Log ("Game Over!");
+        gameOverPanel.SetActive(true);
+        Debug.Log ("Game Over!");
     }
 
     public void showWindStrength ()

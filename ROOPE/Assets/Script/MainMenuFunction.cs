@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class MainMenuFunction : MonoBehaviour {
 	private bool pressed;
@@ -36,7 +37,7 @@ public class MainMenuFunction : MonoBehaviour {
 	IEnumerator ChangeLevel () {
 		float fadeTime = GameObject.Find ("Canvas").GetComponent<Fading> ().BeginFade (1);
 		yield return new WaitForSeconds (fadeTime);
-		Application.LoadLevel ("Main");
+		SceneManager.LoadScene ("Main");
 	}
 
 	public void buttonPressed() {
@@ -45,7 +46,6 @@ public class MainMenuFunction : MonoBehaviour {
 		particle = Instantiate (Resources.Load ("Prefabs/ButtonPressParticle"), transform.position, new Quaternion());
 		pressed = true;
 		buttonImage.enabled = false;
-
 	}
 
 	public void onStartButtonClick() {
