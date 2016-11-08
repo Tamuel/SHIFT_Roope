@@ -35,11 +35,11 @@ public class TextController : MonoBehaviour {
 
     public void assignText()
     {
-		if (i < textLines.Length)
-        {
-            text.text = textLines[i];
-            i++;
-        }
+		//if (i < textLines.Length)
+  //      {
+  //          text.text = textLines[i];
+  //          i++;
+  //      }
     }
 
 }

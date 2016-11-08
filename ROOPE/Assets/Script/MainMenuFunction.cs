@@ -37,7 +37,20 @@ public class MainMenuFunction : MonoBehaviour {
 	IEnumerator ChangeLevel () {
 		float fadeTime = GameObject.Find ("Canvas").GetComponent<Fading> ().BeginFade (1);
 		yield return new WaitForSeconds (fadeTime);
-		SceneManager.LoadScene ("Main");
+        // initialize
+        if (PlayerPrefs.GetString("Tutorial", "Default") == "Default")
+        {
+            PlayerPrefs.SetString("Tutorial", "Yes");
+        }
+
+        if (PlayerPrefs.GetString("Tutorial") == "Yes")
+        {
+            SceneManager.LoadScene("TutorialMenu");
+        }
+        else if (PlayerPrefs.GetString("Tutorial", "No") == "No")
+        {
+            SceneManager.LoadScene("Main");
+        }
 	}
 
 	public void buttonPressed() {

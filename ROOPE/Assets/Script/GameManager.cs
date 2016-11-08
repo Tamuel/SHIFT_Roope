@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour {
 	public Text infoText;
     public GameObject gameOverImage;
+    public GameObject tutorialImage;
     public Text windStrengthText;
     public Button restartButton;
     public Button mainButton;
@@ -45,11 +46,11 @@ public class GameManager : MonoBehaviour {
         gameOverPanel.SetActive(false);
     }
 
-	// Update is called once per frame
-	void Update () {
-		if (!isGameOver) {
-			// Show game information
-			setText (ToString ());
+    // Update is called once per frame
+    void Update() {
+        if (!isGameOver) { 
+            // Show game information
+            setText (ToString ());
 
 			// Potentiate player with wind
 			player.wind (windStrength.x, windStrength.y);
@@ -126,7 +127,7 @@ public class GameManager : MonoBehaviour {
 
     public void gameOverFunction ()
     {
-		isGameOver = true;
+        Destroy(player);
         gameOverImage.SetActive(true);
         restartButton.gameObject.SetActive(true);
         mainButton.gameObject.SetActive(true);
@@ -136,7 +137,7 @@ public class GameManager : MonoBehaviour {
 #endif
     }
 
-    public void showWindStrength ()
+    public void showWindStrength()
     {
         if (windStrength == new Vector2(0, 0))
             windStrengthText.text = "0";

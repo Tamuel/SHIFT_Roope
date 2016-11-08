@@ -29,6 +29,7 @@ public class MainButtons : MonoBehaviour {
 
                 case button.RESTART_BUTTON:
                     SceneManager.LoadScene("Main");
+
                     break;
             }
         }
