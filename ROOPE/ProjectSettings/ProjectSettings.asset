@@ -94,7 +94,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleIdentifier: Shift.game.com
+  bundleIdentifier: com.revolution.roope
   bundleVersion: 1.0
   preloadedAssets: []
   metroEnableIndependentInputSource: 0
@@ -167,8 +167,8 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/Users/Gaon Kim/Documents/SHIFT_Roope/ROOPE/debug.keystore
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: C:/Users/rev/Documents/Roope/ROOPE/user.keystore
+  AndroidKeyaliasName: shift
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
   androidEnableBanner: 1

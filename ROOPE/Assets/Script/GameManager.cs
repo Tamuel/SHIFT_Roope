@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 	public Text infoText;
-    public Text gameOverText;
+    public GameObject gameOverImage;
     public Text windStrengthText;
     public Button restartButton;
     public Button mainButton;
@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviour {
 
 	private bool isGameOver;
 
-
 	// Make map objects
 	void Awake() {
 		player = FindObjectOfType<Player> ();
@@ -39,7 +38,7 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        gameOverText.text = "";
+        gameOverImage.SetActive(false);
         windStrengthText.text = "";
         restartButton.gameObject.SetActive(false);
         mainButton.gameObject.SetActive(false);
@@ -128,11 +127,13 @@ public class GameManager : MonoBehaviour {
     public void gameOverFunction ()
     {
 		isGameOver = true;
-        gameOverText.text = "Game Over";
+        gameOverImage.SetActive(true);
         restartButton.gameObject.SetActive(true);
         mainButton.gameObject.SetActive(true);
         gameOverPanel.SetActive(true);
+#if UNITY_EDITOR
         Debug.Log ("Game Over!");
+#endif
     }
 
     public void showWindStrength ()

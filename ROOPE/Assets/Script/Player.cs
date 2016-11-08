@@ -88,7 +88,9 @@ public class Player : MonoBehaviour, Wind {
 					shootRope (ref curLength [0], ref shortestLength [0],rope1Prefab, hingeJoint2D [0], Input.GetTouch (0).position);
 				else if (!rope2Prefab.GetComponent<Rope> ().isRopeLaunched)
 					shootRope (ref curLength [1], ref shortestLength [1], rope2Prefab, hingeJoint2D [1], Input.GetTouch (0).position);
-			} else if (Input.GetTouch (1).phase == TouchPhase.Began) {
+			}
+
+            if (Input.GetTouch (1).phase == TouchPhase.Began) {
 				if (!rope1Prefab.GetComponent<Rope> ().isRopeLaunched)
 					shootRope (ref curLength [0], ref shortestLength [0], rope1Prefab, hingeJoint2D [0], Input.GetTouch (1).position);
 				else if (!rope2Prefab.GetComponent<Rope> ().isRopeLaunched)
