@@ -11,12 +11,13 @@ public class GameManager : MonoBehaviour {
     public Button restartButton;
     public Button mainButton;
     public GameObject gameOverPanel;
+    public AudioClip[] bgm;
 
     private float hitPoint;
 	private int score;
 	private int numberOfRope;
 	private int stage;
-
+    private AudioSource audio;
 	private Vector2 windStrength;
 
 	private MapController mapController;
@@ -44,6 +45,8 @@ public class GameManager : MonoBehaviour {
         restartButton.gameObject.SetActive(false);
         mainButton.gameObject.SetActive(false);
         gameOverPanel.SetActive(false);
+
+        audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -62,6 +65,12 @@ public class GameManager : MonoBehaviour {
 
 			showWindStrength ();
 		}
+
+        if (!audio.isPlaying)
+        {
+            audio.clip = bgm[Random.Range(0, bgm.Length)];
+            audio.Play();
+        }
 	}
 
 	public void setWindStrength(Vector2 windStrength) {
