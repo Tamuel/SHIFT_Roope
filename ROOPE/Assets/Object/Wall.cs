@@ -28,7 +28,7 @@ public class Wall : Obstacle {
 
     void Update()
     {
-        if (!isPlayerPass && isMovable())
+        if (!isPlayerPass && isMovable() && player)
             if (player.transform.position.x + offset > transform.position.x)
             {
                 isPlayerPass = true;

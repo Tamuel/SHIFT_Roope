@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Arrow : Obstacle {
 
+    public AudioClip damagedClip;
+
 	void Start ()
 	{
 		move (-1, 0);
@@ -14,6 +16,7 @@ public class Arrow : Obstacle {
 
 	// HP -1
 	public override void collideWithCharacter(Player player) {
+        SoundManager.instance.PlaySingle(damagedClip);
 		FindObjectOfType<GameManager> ().addHP (-1);
 		player.rope1Prefab.GetComponent<Rope> ().stopRope ();
 		player.rope2Prefab.GetComponent<Rope> ().stopRope ();

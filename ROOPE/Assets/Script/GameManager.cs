@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour {
     public Button mainButton;
     public GameObject gameOverPanel;
     public AudioClip[] bgm;
+    public Text scoreText;
 
     private float hitPoint;
 	private int score;
@@ -45,7 +46,7 @@ public class GameManager : MonoBehaviour {
         restartButton.gameObject.SetActive(false);
         mainButton.gameObject.SetActive(false);
         gameOverPanel.SetActive(false);
-
+        scoreText.gameObject.SetActive(false);
         audio = GetComponent<AudioSource>();
     }
 
@@ -141,6 +142,10 @@ public class GameManager : MonoBehaviour {
         restartButton.gameObject.SetActive(true);
         mainButton.gameObject.SetActive(true);
         gameOverPanel.SetActive(true);
+        isGameOver = true;
+        scoreText.gameObject.SetActive(true);
+        scoreText.text = string.Format("{0}", score);
+
 #if UNITY_EDITOR
         Debug.Log ("Game Over!");
 #endif

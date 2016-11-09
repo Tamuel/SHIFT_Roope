@@ -5,6 +5,7 @@ using System.Collections;
 public class ArrowController : MonoBehaviour, Collision {
 
 	public GameObject arrow;
+    public AudioClip arrowShootClip;
 
 	public int arrowCount; // number of Arrow
 	public int startWait; // wait seconds when start 1 term of ArrowShoot
@@ -43,7 +44,8 @@ public class ArrowController : MonoBehaviour, Collision {
 				y_axis_position,
 				0);
 			isShoot = true;
-			StartCoroutine (ArrowShoot ());
+            SoundManager.instance.PlaySingle(arrowShootClip);
+            StartCoroutine (ArrowShoot ());
 		}
 	}
 
@@ -74,7 +76,8 @@ public class ArrowController : MonoBehaviour, Collision {
 
 			// Arrow Shoot
 			Instantiate (arrow, shootPosition, shootRotation);
-			yield return new WaitForSeconds (shootWait);
+
+            yield return new WaitForSeconds (shootWait);
 		}
 		yield return new WaitForSeconds (endWait);
 	}

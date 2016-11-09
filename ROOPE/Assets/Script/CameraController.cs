@@ -48,14 +48,17 @@ public class CameraController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		distance = player.transform.position.x - startPosition.x;
+        if (player)
+        {
+            distance = player.transform.position.x - startPosition.x;
 
-		if (prevPosition.x < player.transform.position.x + centerOffset)
-			prevPosition = new Vector3(
-				player.transform.position.x + centerOffset,
-				this.transform.position.y,
-				this.transform.position.z
-			);
+            if (prevPosition.x < player.transform.position.x + centerOffset)
+                prevPosition = new Vector3(
+                    player.transform.position.x + centerOffset,
+                    this.transform.position.y,
+                    this.transform.position.z
+                );
+        }
 
 		if (maxDistance < distance)
 		{

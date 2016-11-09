@@ -71,48 +71,53 @@ public class Player : MonoBehaviour, Wind {
 		
 	void Update () {
 
-		/* For mouse testing 
-		if (Input.GetMouseButtonDown (0)) {
-			shootRope (ref curLength [0], ref shortestLength [0],rope1Prefab, hingeJoint2D [0], Input.mousePosition);
-		}
+        // For mouse testing
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    shootRope(ref curLength[0], ref shortestLength[0], rope1Prefab, hingeJoint2D[0], Input.mousePosition);
+        //}
 
-		if (Input.GetMouseButtonUp (0)) {
-			stopRope (rope1Prefab, hingeJoint2D [0]);
-		}
-		*/
+        //if (Input.GetMouseButtonUp(0))
+        //{
+        //    stopRope(rope1Prefab, hingeJoint2D[0]);
+        //}
 
-		/* Shoot Rope */
-		if (Input.touchCount >= 1) {
-			if (Input.GetTouch (0).phase == TouchPhase.Began) {
-				if (!rope1Prefab.GetComponent<Rope> ().isRopeLaunched)
-					shootRope (ref curLength [0], ref shortestLength [0],rope1Prefab, hingeJoint2D [0], Input.GetTouch (0).position);
-				else if (!rope2Prefab.GetComponent<Rope> ().isRopeLaunched)
-					shootRope (ref curLength [1], ref shortestLength [1], rope2Prefab, hingeJoint2D [1], Input.GetTouch (0).position);
-			}
+        /* Shoot Rope */
+        if (Input.touchCount >= 1)
+        {
+            if (Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                if (!rope1Prefab.GetComponent<Rope>().isRopeLaunched)
+                    shootRope(ref curLength[0], ref shortestLength[0], rope1Prefab, hingeJoint2D[0], Input.GetTouch(0).position);
+                else if (!rope2Prefab.GetComponent<Rope>().isRopeLaunched)
+                    shootRope(ref curLength[1], ref shortestLength[1], rope2Prefab, hingeJoint2D[1], Input.GetTouch(0).position);
+            }
 
-            if (Input.GetTouch (1).phase == TouchPhase.Began) {
-				if (!rope1Prefab.GetComponent<Rope> ().isRopeLaunched)
-					shootRope (ref curLength [0], ref shortestLength [0], rope1Prefab, hingeJoint2D [0], Input.GetTouch (1).position);
-				else if (!rope2Prefab.GetComponent<Rope> ().isRopeLaunched)
-					shootRope (ref curLength [1], ref shortestLength [1], rope2Prefab, hingeJoint2D [1], Input.GetTouch (1).position);
-			}
-		}
+            if (Input.GetTouch(1).phase == TouchPhase.Began)
+            {
+                if (!rope1Prefab.GetComponent<Rope>().isRopeLaunched)
+                    shootRope(ref curLength[0], ref shortestLength[0], rope1Prefab, hingeJoint2D[0], Input.GetTouch(1).position);
+                else if (!rope2Prefab.GetComponent<Rope>().isRopeLaunched)
+                    shootRope(ref curLength[1], ref shortestLength[1], rope2Prefab, hingeJoint2D[1], Input.GetTouch(1).position);
+            }
+        }
 
-		// Stop Rope
-		if (Input.touchCount != 0 && Input.GetTouch(0).phase == TouchPhase.Ended &&
-			rope1Prefab.GetComponent<Rope> ().isRopeLaunched)
-			stopRope (rope1Prefab, hingeJoint2D [0]);
-		if (Input.touchCount != 0 && Input.GetTouch(1).phase == TouchPhase.Ended &&
-			rope2Prefab.GetComponent<Rope> ().isRopeLaunched)
-			stopRope (rope2Prefab, hingeJoint2D [1]);
-		if (Input.touchCount == 0) {
-			stopRope (rope1Prefab, hingeJoint2D [0]);
-			stopRope (rope2Prefab, hingeJoint2D [1]);
-		}
+        // Stop Rope
+        if (Input.touchCount != 0 && Input.GetTouch(0).phase == TouchPhase.Ended &&
+            rope1Prefab.GetComponent<Rope>().isRopeLaunched)
+            stopRope(rope1Prefab, hingeJoint2D[0]);
+        if (Input.touchCount != 0 && Input.GetTouch(1).phase == TouchPhase.Ended &&
+            rope2Prefab.GetComponent<Rope>().isRopeLaunched)
+            stopRope(rope2Prefab, hingeJoint2D[1]);
+        if (Input.touchCount == 0)
+        {
+            stopRope(rope1Prefab, hingeJoint2D[0]);
+            stopRope(rope2Prefab, hingeJoint2D[1]);
+        }
 
-	}
+    }
 
-	void OnCollisionEnter2D(Collision2D collision) {
+    void OnCollisionEnter2D(Collision2D collision) {
 		if(collisionParticle == null)
 			collisionParticle = Instantiate (Resources.Load ("Prefabs/RopeAttachedParticle"), collision.contacts[0].point, new Quaternion());
 	}

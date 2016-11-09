@@ -130,9 +130,11 @@ public class Rope : MonoBehaviour {
 
 	public bool launchRope(Vector3 touchPosition) {
 		if (!isRopeLaunched) {
-			Debug.Log ("Launch Rope!");
-			isRopeLaunched = true;
-			isRopeAttached = false;
+#if UNITY_EDITOR
+            Debug.Log ("Launch Rope!");
+#endif
+            isRopeLaunched = true;
+            isRopeAttached = false;
 			rigidBody2D.isKinematic = false;
 
 			touchPosition = Camera.main.ScreenToWorldPoint (touchPosition);
