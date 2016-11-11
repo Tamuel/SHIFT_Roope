@@ -1,0 +1,38 @@
+Initialize engine version: 5.4.2f2 (b7e030c65c9b)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 760 (ID=0x1187)
+    Vendor:   NVIDIA
+    VRAM:     2017 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: D:\문서\SHIFT_Roope\ROOPE\roope_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading D:\문서\SHIFT_Roope\ROOPE\roope_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: D:\문서\SHIFT_Roope\ROOPE\roope_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading D:\문서\SHIFT_Roope\ROOPE\roope_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: D:\문서\SHIFT_Roope\ROOPE\roope_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading D:\문서\SHIFT_Roope\ROOPE\roope_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: D:\문서\SHIFT_Roope\ROOPE\roope_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading D:\문서\SHIFT_Roope\ROOPE\roope_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+- Completed reload, in  0.122 seconds
+Platform assembly: D:\문서\SHIFT_Roope\ROOPE\roope_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: D:\문서\SHIFT_Roope\ROOPE\roope_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 0.744085 ms
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 3.717712 ms
+
+Unloading 21 unused Assets to reduce memory usage. Loaded Objects now: 303.
+Total: 0.231225 ms (FindLiveObjects: 0.022035 ms CreateObjectMapping: 0.025959 ms MarkObjects: 0.157872 ms  DeleteObjects: 0.012678 ms)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.404492 ms
+
+Unloading 31 unused Assets to reduce memory usage. Loaded Objects now: 327.
+Total: 0.271372 ms (FindLiveObjects: 0.015998 ms CreateObjectMapping: 0.012074 ms MarkObjects: 0.198925 ms  DeleteObjects: 0.043769 ms)
+
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: 3278 -> priority: 1 

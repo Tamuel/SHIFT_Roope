@@ -1,49 +1,70 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CloudController : MonoBehaviour {
-	private ArrayList clouds;
+    public GameObject[] cloudType;
+
+	private List<GameObject> clouds;
 	private ArrayList cloudSpeeds;
 	private Camera mainCamera;
-	string path;
 
 	// Use this for initialization
 	void Start () {
-		path = "Prefabs/";
 		mainCamera = FindObjectOfType<Camera> ();
-		clouds = new ArrayList ();
+		clouds = new List<GameObject>();
 		cloudSpeeds = new ArrayList ();
 		StartCoroutine (MakeCloud());
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		foreach (GameObject temp in clouds) {
-			int index = clouds.IndexOf (temp);
-			temp.transform.position = new Vector3(temp.transform.position.x - (float)cloudSpeeds[index], temp.transform.position.y, 0);
-			if (temp.transform.position.x <= mainCamera.transform.position.x - 12) {
-				clouds.RemoveAt(index);
-				cloudSpeeds.RemoveAt (index);
-				Destroy (temp);
-			}
-		}
+        listErrorCheck();
+
+        for (int i = 0; i < clouds.Count; i++)
+        {
+            Vector3 temp = clouds[i].transform.position;
+            temp = new Vector3(temp.x - (float)cloudSpeeds[i], temp.y, 0);
+            clouds[i].transform.position = temp;
+
+            if (temp.x <= mainCamera.transform.position.x - 40)
+            {
+                clouds.RemoveAt(i);
+                cloudSpeeds.RemoveAt(i);
+                Destroy(clouds[i]);
+                i--;
+            }
+        }
 	}
+
+    private void listErrorCheck()
+    {
+        for (int i = 0; i < clouds.Count; i++)
+        {
+            if (!clouds[i])
+            {
+                clouds.RemoveAt(i);
+                cloudSpeeds.RemoveAt(i);
+                i--;
+            }
+        }
+    }
 
 	IEnumerator MakeCloud ()
 	{
 		while (true) {
 			float waitTime = Random.Range (0.5f, 1);
 			yield return new WaitForSeconds (waitTime);
-			int cloudNumber = Random.Range (1, 7);
+			int cloudNumber = Random.Range (0, cloudType.Length);
 			clouds.Add(
-				Instantiate (
-					Resources.Load (path + "cloud" + cloudNumber),
+				(GameObject)Instantiate (
+					cloudType[cloudNumber],
 					new Vector3(mainCamera.transform.position.x + 12f, Random.Range(-4.5f, 4.5f), 0),
-					new Quaternion()
+					Quaternion.identity
 				)
 			);
 			float randomSize = Random.Range (0.2f, 1);
-			((GameObject)clouds[clouds.Count - 1]).transform.localScale = new Vector3(randomSize, randomSize, 1);
+			(clouds[clouds.Count - 1]).transform.localScale = new Vector3(randomSize, randomSize, 1);
 			cloudSpeeds.Add(Random.Range(0.005f, 0.02f));
 		}
 	}

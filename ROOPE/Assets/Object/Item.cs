@@ -3,7 +3,9 @@ using System.Collections;
 
 public abstract class Item : RObject {
 
-	public float speed; // item move speed
+    // item move speed
+    public float speed;
+
     private Rigidbody2D rb;
 
     public override void move(float delta_x, float delta_y)

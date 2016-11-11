@@ -4,6 +4,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class MainButtons : MonoBehaviour {
+    public AudioClip touchSound;
+
     private Object particle;
     private Image buttonImage;
     private bool pressed;
@@ -29,7 +31,6 @@ public class MainButtons : MonoBehaviour {
 
                 case button.RESTART_BUTTON:
                     SceneManager.LoadScene("Main");
-
                     break;
             }
         }
@@ -49,8 +50,7 @@ public class MainButtons : MonoBehaviour {
 
     public void buttonPressed()
     {
-        AudioSource audio = GetComponent<AudioSource>();
-        audio.Play();
+        EffectMusicManager.instance.PlaySingle(touchSound);
         particle = Instantiate(Resources.Load("Prefabs/ButtonPressParticle"), transform.position, new Quaternion());
         pressed = true;
         buttonImage.enabled = false;

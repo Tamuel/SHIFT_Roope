@@ -72,7 +72,7 @@ public class Player : MonoBehaviour, Wind {
 	void Update () {
 
         // For mouse testing
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_STANDALONE
         if (Input.GetMouseButtonDown(0))
         {
             shootRope(ref curLength[0], ref shortestLength[0], rope1Prefab, hingeJoint2D[0], Input.mousePosition);

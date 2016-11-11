@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 
 public class YesButtons : MonoBehaviour {
+    public AudioClip touchSound;
+
     private Object particle;
     private Image buttonImage;
     private bool pressed;
@@ -32,9 +34,7 @@ public class YesButtons : MonoBehaviour {
                     break;
 
                 case button.NO_BUTTON:
-                    PlayerPrefs.SetString("Tutorial", "No");
-                    SceneManager.LoadScene("Main");
-
+                    SceneManager.LoadScene("MainMenu");
                     break;
             }
         }
@@ -54,8 +54,7 @@ public class YesButtons : MonoBehaviour {
 
     public void buttonPressed()
     {
-        AudioSource audio = GetComponent<AudioSource>();
-        audio.Play();
+        EffectMusicManager.instance.PlaySingle(touchSound);
         particle = Instantiate(Resources.Load("Prefabs/ButtonPressParticle"), transform.position, new Quaternion());
         pressed = true;
         buttonImage.enabled = false;

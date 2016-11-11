@@ -44,7 +44,7 @@ public class ArrowController : MonoBehaviour, Collision {
 				y_axis_position,
 				0);
 			isShoot = true;
-            SoundManager.instance.PlaySingle(arrowShootClip);
+            EffectMusicManager.instance.PlaySingle(arrowShootClip);
             StartCoroutine (ArrowShoot ());
 		}
 	}

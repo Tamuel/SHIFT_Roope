@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Rope : MonoBehaviour {
 
-	Transform target;
+	//Transform target;
 	public RopeLine ropeLine;
 	public bool isRopeLaunched;
 	public bool isRopeAttached;
@@ -12,7 +12,7 @@ public class Rope : MonoBehaviour {
 	private LineRenderer lineRenderer;
 
 	private float ropeSpeed = 40;
-	private Vector3 touchPosition;
+	//private Vector3 touchPosition;
 	private Vector2 moveVector;
 
 	private GameObject colideObject;
@@ -38,7 +38,7 @@ public class Rope : MonoBehaviour {
 	}
 
     void Start() {
-        Physics.IgnoreCollision(player.GetComponent<Collider>(), GetComponent<Collider>());
+        //Physics.IgnoreCollision(player.GetComponent<Collider>(), GetComponent<Collider>());
     }
 
 

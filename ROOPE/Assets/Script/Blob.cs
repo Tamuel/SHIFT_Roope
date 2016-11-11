@@ -49,7 +49,7 @@ public class Blob : MonoBehaviour {
 
             Rigidbody2D body = referencePoints[i].AddComponent<Rigidbody2D>();
 			body.drag = 0.1f;
-            body.fixedAngle = true;
+            body.freezeRotation = true;
             body.interpolation = rigidbody.interpolation;
             body.collisionDetectionMode = rigidbody.collisionDetectionMode;
 

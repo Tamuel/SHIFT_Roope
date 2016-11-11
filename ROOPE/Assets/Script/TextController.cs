@@ -8,7 +8,7 @@ public class TextController : MonoBehaviour {
     public TextAsset textFile;
 	public string[] textLines;
     public Text text;
-    private int i = 0;
+    //private int i = 0;
 
 	void Start ()
     {

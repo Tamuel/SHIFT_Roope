@@ -43,7 +43,9 @@ public class GameManager : MonoBehaviour {
         {
             PlayerPrefs.SetInt("BestScore", 0);
         }
-	}
+
+        BackgroundMusicManager.instance.PlaySingle(bgm[Random.Range(0, bgm.Length)]);
+    }
 
 	// Use this for initialization
 	void Start () {
@@ -81,10 +83,9 @@ public class GameManager : MonoBehaviour {
 			showWindStrength ();
 		}
 
-        if (!audio.isPlaying)
+        if (!BackgroundMusicManager.instance.player.isPlaying)
         {
-            audio.clip = bgm[Random.Range(0, bgm.Length)];
-            audio.Play();
+            BackgroundMusicManager.instance.PlaySingle(bgm[Random.Range(0, bgm.Length)]);
         }
 	}
 
@@ -145,8 +146,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public override string ToString() {
-		return "STAGE : " + getStage () + "  HP : " + getHP () +
-		"  SCORE : " + getScore () + "  ROPE : " + getNumberOfRope ();
+        return string.Format("Score : {0}", score);
 	}
 
     public void gameOverFunction ()
@@ -159,6 +159,8 @@ public class GameManager : MonoBehaviour {
         isGameOver = true;
         scoreText.gameObject.SetActive(true);
         scoreText.text = string.Format("{0}", score);
+
+        PlayerPrefs.SetInt("BestScore", bestScore);
 
 #if UNITY_EDITOR
         Debug.Log ("Game Over!");

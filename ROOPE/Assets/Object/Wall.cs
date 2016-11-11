@@ -9,7 +9,7 @@ public class Wall : Obstacle {
 	public Sprite moveSprite;
 
 	private Rope rope;
-    private Rigidbody2D rb;
+    //private Rigidbody2D rb;
 
     private bool isPlayerPass;
     private Player player;

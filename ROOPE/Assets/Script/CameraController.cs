@@ -7,7 +7,7 @@ public class CameraController : MonoBehaviour {
 
 	private Vector3 prevPosition;
 	private Vector3 startPosition;
-	private Vector3 playerPosition;
+	//private Vector3 playerPosition;
 	private float distance;
 	private float maxDistance;
 	private float centerOffset = 3;

@@ -10,4 +10,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TutorialMenu.unity
   - enabled: 1
+    path: Assets/Scenes/LoadingScene.unity
+  - enabled: 1
     path: Assets/Scenes/Main.unity

@@ -6,7 +6,7 @@ public class MapController : MonoBehaviour
 {
     private string MapPath;
     private Hashtable MapObjects;
-    private int stage = 1;
+    //private int stage = 1;
     private Player player;
     int pattern_num = 1;
 

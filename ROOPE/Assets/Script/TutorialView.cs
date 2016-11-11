@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class TutorialView : MonoBehaviour {
 
-    public GameObject seeAgainButton;
     public GameObject okButton;
     public GameObject nextButton;
     public GameObject panel;
@@ -17,7 +16,6 @@ public class TutorialView : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         index = 0;
-        seeAgainButton.SetActive(false);
         okButton.SetActive(false);
         panel.SetActive(false);
 	}
@@ -26,8 +24,8 @@ public class TutorialView : MonoBehaviour {
     {
         if (index == images.Length - 1)
         {
-            seeAgainButton.SetActive(true);
             okButton.SetActive(true);
+            nextButton.SetActive(false);
         }
 
         panelImage.sprite = images[index].sprite;
@@ -35,14 +33,8 @@ public class TutorialView : MonoBehaviour {
         index++;
     }
 
-    public void onSeeAgainButtonClicked()
-    {
-        PlayerPrefs.SetString("Tutorial", "No");
-        SceneManager.LoadScene("Main");
-    }
-
     public void onOkButtonClicked()
     {
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("MainMenu");
     }
 }

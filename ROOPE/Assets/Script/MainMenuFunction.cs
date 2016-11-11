@@ -4,7 +4,9 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class MainMenuFunction : MonoBehaviour {
-	private bool pressed;
+    public AudioClip touchSound;
+
+    private bool pressed;
 	private enum button {START_BUTTON, SCORE_BUTTON, EXIT_BUTTON};
 	private button pressedButton;
 	private Object particle;
@@ -20,8 +22,8 @@ public class MainMenuFunction : MonoBehaviour {
 		if(particle == null && pressed) {
 			switch(pressedButton) {
 			case button.START_BUTTON:
-				StartCoroutine (ChangeLevel ());
-				break;
+                    LoadingScreenManager.LoadScene(3);
+                    break;
 
 			case button.SCORE_BUTTON:
 				//Application.LoadLevel ("Score");
@@ -34,28 +36,27 @@ public class MainMenuFunction : MonoBehaviour {
 		}
 	}
 
-	IEnumerator ChangeLevel () {
-		float fadeTime = GameObject.Find ("Canvas").GetComponent<Fading> ().BeginFade (1);
-		yield return new WaitForSeconds (fadeTime);
-        // initialize
-        if (PlayerPrefs.GetString("Tutorial", "Default") == "Default")
-        {
-            PlayerPrefs.SetString("Tutorial", "Yes");
-        }
+	//IEnumerator ChangeLevel () {
+	//	float fadeTime = GameObject.Find ("Canvas").GetComponent<Fading> ().BeginFade (1);
+	//	yield return new WaitForSeconds (fadeTime);
+ //       // initialize
+ //       if (PlayerPrefs.GetString("Tutorial", "Default") == "Default")
+ //       {
+ //           PlayerPrefs.SetString("Tutorial", "Yes");
+ //       }
 
-        if (PlayerPrefs.GetString("Tutorial") == "Yes")
-        {
-            SceneManager.LoadScene("TutorialMenu");
-        }
-        else if (PlayerPrefs.GetString("Tutorial", "No") == "No")
-        {
-            SceneManager.LoadScene("Main");
-        }
-	}
+ //       if (PlayerPrefs.GetString("Tutorial") == "Yes")
+ //       {
+ //           SceneManager.LoadScene("TutorialMenu");
+ //       }
+ //       else if (PlayerPrefs.GetString("Tutorial", "No") == "No")
+ //       {
+ //           SceneManager.LoadScene("Main");
+ //       }
+	//}
 
 	public void buttonPressed() {
-		AudioSource audio = GetComponent<AudioSource> ();
-		audio.Play ();
+        EffectMusicManager.instance.PlaySingle(touchSound);
 		particle = Instantiate (Resources.Load ("Prefabs/ButtonPressParticle"), transform.position, new Quaternion());
 		pressed = true;
 		buttonImage.enabled = false;

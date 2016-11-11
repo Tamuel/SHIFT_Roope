@@ -7,7 +7,7 @@ public class ScoreItem : Item {
 
 	private bool up;
 	private float range = 0.3f;
-	private float speed;
+
 	private Vector3 startPosition;
 
 	void Start() {
