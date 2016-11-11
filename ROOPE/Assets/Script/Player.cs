@@ -72,16 +72,17 @@ public class Player : MonoBehaviour, Wind {
 	void Update () {
 
         // For mouse testing
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    shootRope(ref curLength[0], ref shortestLength[0], rope1Prefab, hingeJoint2D[0], Input.mousePosition);
-        //}
+#if UNITY_EDITOR
+        if (Input.GetMouseButtonDown(0))
+        {
+            shootRope(ref curLength[0], ref shortestLength[0], rope1Prefab, hingeJoint2D[0], Input.mousePosition);
+        }
 
-        //if (Input.GetMouseButtonUp(0))
-        //{
-        //    stopRope(rope1Prefab, hingeJoint2D[0]);
-        //}
-
+        if (Input.GetMouseButtonUp(0))
+        {
+            stopRope(rope1Prefab, hingeJoint2D[0]);
+        }
+#else
         /* Shoot Rope */
         if (Input.touchCount >= 1)
         {
@@ -114,7 +115,7 @@ public class Player : MonoBehaviour, Wind {
             stopRope(rope1Prefab, hingeJoint2D[0]);
             stopRope(rope2Prefab, hingeJoint2D[1]);
         }
-
+#endif
     }
 
     void OnCollisionEnter2D(Collision2D collision) {

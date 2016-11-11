@@ -13,9 +13,11 @@ public class GameManager : MonoBehaviour {
     public GameObject gameOverPanel;
     public AudioClip[] bgm;
     public Text scoreText;
+    public Text bestScoreText;
 
     private float hitPoint;
 	private int score;
+    private int bestScore;
 	private int numberOfRope;
 	private int stage;
     private AudioSource audio;
@@ -37,10 +39,15 @@ public class GameManager : MonoBehaviour {
 		isGameOver = false;
 		windStrength = new Vector2 (0, 0);
 		mapController = GetComponent<MapController>();
+        if (PlayerPrefs.GetInt("BestScore", -1) == -1)
+        {
+            PlayerPrefs.SetInt("BestScore", 0);
+        }
 	}
 
 	// Use this for initialization
 	void Start () {
+        bestScore = PlayerPrefs.GetInt("BestScore");
         gameOverImage.SetActive(false);
         windStrengthText.text = "";
         restartButton.gameObject.SetActive(false);
@@ -56,8 +63,15 @@ public class GameManager : MonoBehaviour {
             // Show game information
             setText (ToString ());
 
-			// Potentiate player with wind
-			player.wind (windStrength.x, windStrength.y);
+            if (score >= bestScore)
+            {
+                bestScore = score;
+            }
+
+            bestScoreText.text = string.Format("BestScore\n{0}", bestScore);
+
+            // Potentiate player with wind
+            player.wind (windStrength.x, windStrength.y);
 
 			// If you want to potentiate RObjects with wind, remove this comment(//)
 			//		foreach(RObject tempObject in FindObjectsOfType<RObject>()) {
