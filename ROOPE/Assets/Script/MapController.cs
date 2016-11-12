@@ -23,6 +23,19 @@ public class MapController : MonoBehaviour
     private int difcheck = 0;
     private int mapnum;
     private float timer;
+    private static readonly string[,] TILE = new string[,]
+        {
+            {"Training_1", "Training_2", "Training_3", "Training_4", "Training_5", "Training_6" },
+            {"Map2A", "Map2B", "Map2A","Map2A","Map2A","Map2A" },
+            {"Map3A", "Map3B", "Map3A","Map3B","Map3A","Map3B" },
+            {"Map4A", "Map4B", "Map4A","Map4B","Map4A","Map4B" },
+            {"Map5A", "Map5B", "Map5A", "Map5B", "Map5A", "Map5B" },
+            {"Map6A", "Map6B", "Map6A", "Map6B", "Map6A", "Map6B" },
+            {"Map7A", "Map7B", "Map7A", "Map7B", "Map7A", "Map7B" },
+            {"Map8A", "Map8B", "Map8A", "Map8B", "Map8A", "Map8B"},
+            {"Map9A", "Map9B", "Map9A", "Map9B", "Map9A", "Map9B"},
+            {"Map10A", "Map10B", "Map10A", "Map10B", "Map10A", "Map10B"}
+        };
 
     // Use this for initialization
     void Start()
@@ -84,21 +97,9 @@ public class MapController : MonoBehaviour
     void readMapFromFile(int difficulty, int pattern_num)
     {
         int height = 0;
-        string[,] TILE = new string[,]
-        {
-            {"Training_1", "Training_2", "Training_3", "Training_4", "Training_5", "Training_6" },
-            {"Map2A", "Map2A", "Map2A","Map2A","Map2A","Map2A" },
-            {"Map3A", "Map3B", "Map3A","Map3B","Map3A","Map3B" },
-            {"Map4A", "Map4B", "Map4A","Map4B","Map4A","Map4B" },
-            {"Map5A", "Map5B", "Map5A", "Map5B", "Map5A", "Map5B" },
-            {"Map6A", "Map6B", "Map6A", "Map6B", "Map6A", "Map6B" },
-            {"Map7A", "Map7B", "Map7A", "Map7B", "Map7A", "Map7B" },
-            {"Map8A", "Map8B", "Map8A", "Map8B", "Map8A", "Map8B"},
-            {"Map9A", "Map9B", "Map9A", "Map9B", "Map9A", "Map9B"},
-            {"Map10A", "Map10B", "Map10A", "Map10B", "Map10A", "Map10B"}
-        };
-
+        
         TextAsset map = Resources.Load(MapPath + TILE[difficulty, Random.Range(0, 6)]) as TextAsset;
+        //TextAsset map = Resources.Load(MapPath + TILE[8, 1]) as TextAsset;
         StreamReader fileReader = new StreamReader(new MemoryStream(map.bytes));
         height = 0;
         // read file

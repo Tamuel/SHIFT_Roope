@@ -20,7 +20,7 @@ public class Arrow : Obstacle {
 		FindObjectOfType<GameManager> ().addHP (-1);
 		player.rope1Prefab.GetComponent<Rope> ().stopRope ();
 		player.rope2Prefab.GetComponent<Rope> ().stopRope ();
-		player.GetComponent<Rigidbody2D> ().AddForce (new Vector2(-12000, 4200));
+		player.GetComponent<Rigidbody2D> ().AddForce (new Vector2(-16000, 4200));
 		Debug.Log ("HP : " + FindObjectOfType<GameManager> ().getHP ());
 		Destroy (gameObject);
 	}
