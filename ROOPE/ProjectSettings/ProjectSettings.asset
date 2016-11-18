@@ -95,13 +95,13 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleIdentifier: com.revolution.roope
-  bundleVersion: 1.1.1
+  bundleVersion: 1.1.2
   preloadedAssets: []
   metroEnableIndependentInputSource: 0
   xboxOneDisableKinectGpuReservation: 0
   singlePassStereoRendering: 0
   protectGraphicsMemory: 0
-  AndroidBundleVersionCode: 4
+  AndroidBundleVersionCode: 5
   AndroidMinSdkVersion: 9
   AndroidPreferredInstallLocation: 1
   aotOptions: 
@@ -167,7 +167,7 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: "D:/\uBB38\uC11C/SHIFT_Roope/ROOPE/user.keystore"
+  AndroidKeystoreName: C:/Users/rev/Documents/Roope/ROOPE/user.keystore
   AndroidKeyaliasName: shift
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
