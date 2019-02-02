@@ -4,7 +4,7 @@ Unity Engine을 사용해 만든 로프를 이용한 모바일 러닝 게임입�
 안드로이드 스마트폰에서 ROOPE.apk를 다운받아 설치하시면 바로 플레이 가능합니다.
 
 # Screenshot
-![main_screenshot](https://github.com/Tamuel/SHIFT_Roope/blob/master/Screenshot/01_Main.png)
+![main_screenshot](https://github.com/Tamuel/SHIFT_Roope/blob/master/Screenshot/ROOPE.gif)
 ![main_screenshot](https://github.com/Tamuel/SHIFT_Roope/blob/master/Screenshot/02_Screenshot.png)
 ![main_screenshot](https://github.com/Tamuel/SHIFT_Roope/blob/master/Screenshot/03_Screenshot.png)
 
