@@ -16,4 +16,4 @@ Unity Engine을 사용해 만든 로프를 이용한 모바일 러닝 게임입�
 * 김가온 (jekjekjek0628@gmail.com)
 * 김민규 (snow_chris@naver.com)
 * 박지하 (bqpjh97@gmail.com)
-* 임건형 (ppemail@icloud.com)
+* 임건형 (geonhyeong.lim@icloud.com)
